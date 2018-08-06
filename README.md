@@ -12,12 +12,12 @@
 
 ## Environment
 
-`Node >= 6`
+`NodeJS版本 >= 6`
 
 ## Start
 
- - Clone or download this repository
- - Enter your local directory, and install dependencies:
+ - 克隆或下载当前工程。
+ - 创建目录，安装依赖。
 
 ``` bash
 yarn
