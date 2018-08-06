@@ -10,18 +10,12 @@
 
 # 关于启动项目
 
-## Environment
-
 `NodeJS版本 >= 6`
 
 ## Start
 
  - 克隆或下载当前工程。
  - 创建目录，安装依赖。
-
-``` bash
-yarn
-```
 
 ## Develop
 
