@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-import App from './demo/App.vue'
+import Demo from './App.vue'
 
 //国际化相关
 import VueI18n from 'vue-i18n'
@@ -17,9 +17,9 @@ Vue.config.lang = 'zh-cn'
 Vue.use(ElementUI)
 
 new Vue({
-  el: '#app',
+  el: '#Demo',
   //render 动态创建组件，而不用通过template模版创建。
-  render: h => h(App)
+  render: h => h(Demo)
   // render: function (createElement) {
   //   return createElement(App);
   // }
