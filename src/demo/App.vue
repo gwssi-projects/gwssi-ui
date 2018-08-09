@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <img src="./assets/img/logo.png">
+    <img src="../assets/img/logo.png">
     <div>
       <el-button @click="startHacking">Start</el-button>
     </div>
