@@ -11,12 +11,16 @@ import zhLocale from 'element-ui/lib/locale/lang/zh-CN.js'
 Vue.use(VueI18n)
 
 Vue.config.lang = 'zh-cn'
-Vue.locale('zh-cn', zhLocale)
-Vue.locale('en', enLocale)
+// Vue.locale('zh-cn', zhLocale)
+// Vue.locale('en', enLocale)
 
 Vue.use(ElementUI)
 
 new Vue({
   el: '#app',
+  //render 动态创建组件，而不用通过template模版创建。
   render: h => h(App)
+  // render: function (createElement) {
+  //   return createElement(App);
+  // }
 })
