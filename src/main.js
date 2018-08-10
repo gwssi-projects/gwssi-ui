@@ -6,6 +6,8 @@ import VueI18n from 'vue-i18n'
 import enLocale from 'element-ui/lib/locale/lang/en.js'
 import zhLocale from 'element-ui/lib/locale/lang/zh-CN.js'
 
+import Main from './Main.vue'
+
 Vue.use(VueI18n)
 
 Vue.config.lang = 'zh-cn'
@@ -14,3 +16,14 @@ Vue.config.lang = 'zh-cn'
 
 Vue.use(ElementUI)
 
+
+
+new Vue({
+    el: '#main',
+    //render 动态创建组件，而不用通过template模版创建。
+    render: h => h(Main)
+    // render: function (createElement) {
+    //   return createElement(App);
+    // }
+  })
+  
