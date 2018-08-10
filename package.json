@@ -1,11 +1,12 @@
 {
-  "name": "element-starter",
-  "description": "A Vue.js project",
-  "author": "yi.shyang@ele.me",
+  "name": "gwssi-ui-project",
+  "description": "长城软件基础UI组件及应用项目",
+  "author": "liukai@gwssi.com.cn",
   "private": true,
   "scripts": {
-    "dev": "webpack-dev-server --inline --hot --env.dev",
-    "build": "rimraf dist && webpack -p --progress --hide-modules"
+    "server": "echo \"启动编译后的dist目录，安装hhttp-server，cd到dist目录，运行hs。\n npm install -g http-server \n cd dist \n hs\" ",
+    "dev": "echo \"启动开发模式\" && webpack-dev-server --inline --hot --env.dev",
+    "build": "echo \"编译打包\" && rimraf dist && webpack -p --progress --hide-modules"
   },
   "dependencies": {
     "element-ui": "^2.3.4",
@@ -21,6 +22,7 @@
     "babel-loader": "^6.4.0",
     "babel-preset-vue-app": "^1.2.0",
     "css-loader": "^0.27.0",
+    "copy-webpack-plugin": "^4.0.1",
     "file-loader": "^0.10.1",
     "html-webpack-plugin": "^2.24.1",
     "postcss-loader": "^1.3.3",

@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="Demo">
     <img src="../assets/img/logo.png">
     <div>
       <el-button @click="startHacking">Start</el-button>
@@ -23,7 +23,7 @@ export default {
 </script>
 
 <style>
-#app {
+#Demo {
   font-family: Helvetica, sans-serif;
   text-align: center;
 }
