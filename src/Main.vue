@@ -1,19 +1,66 @@
 <template>
   <div id="Main">
     <el-container>
-      <el-header>长城软件基础UI组件及应用项目</el-header>
-      <el-main>Main</el-main>
+      <el-header>{{ $t('gwssi.title.gwssi') }}</el-header>
+      <el-main>中英文切换按钮  标题的国际化</el-main>
+
+      <el-select v-model="value" placeholder="请选择语言">
+        <el-option
+          v-for="item in options"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value">
+        </el-option>
+      </el-select>
+
     </el-container>
   </div>
 </template>
 
 <script>
 export default {
-  methods: {}
+  methods: {},
+
+  data() {
+    return {
+      options: [
+        {
+          value: "选项1",
+          label: "黄金糕"
+        },
+        {
+          value: "选项2",
+          label: "双皮奶"
+        },
+        {
+          value: "选项3",
+          label: "蚵仔煎"
+        },
+        {
+          value: "选项4",
+          label: "龙须面"
+        },
+        {
+          value: "选项5",
+          label: "北京烤鸭"
+        }
+      ],
+      value: ""
+    };
+  }
 };
 </script>
 
 <style>
+body {
+  margin: 0;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  color: #333333;
+  background-color: #ffffff;
+}
+
 .el-header,
 .el-footer {
   background-color: #b3c0d1;
