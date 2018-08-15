@@ -1,5 +1,14 @@
 <template>
   <div id="Main">
+
+    <header class="header" :class="{ 'header-fixed' : headerFixed }">
+
+    </header>
+
+
+
+<!--
+
     <el-container>
       <el-header>{{ $t('gwssi.title.gwssi') }}</el-header>
       <el-main>中英文切换按钮  标题的国际化</el-main>
@@ -16,6 +25,7 @@
           </el-option>
       </el-select>
     </el-container>
+    -->
   </div>
 </template>
 
@@ -23,16 +33,15 @@
 export default {
   methods: {},
 
-    // 在组件的template中，调用$t()方法
-    // 在组件的script中，调用this.$i18n.t()方法，或者 this.$t
+  // 在组件的template中，调用$t()方法
+  // 在组件的script中，调用this.$i18n.t()方法，或者 this.$t
 
   // let locale = this.$i18n.locale
   // locale === 'zh' ? this.$i18n.locale = 'en' : this.$i18n.locale = 'zh'
 
   data() {
     return {
-
-      lang :"",
+      lang: "",
       options: [
         {
           value: "zh",
@@ -50,26 +59,23 @@ export default {
 </script>
 
 <style  lang="less" scoped>
-
 @baseBC: rgb(248, 248, 248);
 @baseTextColor: rgb(51, 51, 51);
 
-.el-header {
+header {
+  z-index: 1000;
+  min-width: 1200px;
+  transition: all 0.5s ease;
+  border-top: solid 4px #3091f2;
   background-color: @baseBC;
   color: @baseTextColor;
-  text-align: center;
-  line-height: 60px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.12), 0 0 6px 0 rgba(0, 0, 0, 0.04);
 }
 
-.el-main {
-  background-color: #e9eef3;
-  color: #333;
-  text-align: center;
-  line-height: 160px;
+header.header-fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
 }
-
-body > .el-container {
-  margin-bottom: 40px;
-}
-
 </style>
