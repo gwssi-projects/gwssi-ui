@@ -5,6 +5,8 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 var config = require('../config')
 
+console.log("当前模式：" + process.env.NODE_ENV);
+
 module.exports = {
   entry: {
     //公共组件（不会经常变更）
@@ -25,7 +27,7 @@ module.exports = {
 
   output: {
     //输出的目录,所有JS和通过HtmlWebpackPlugin生成的HTML以及静态资源文件
-    path: config.dev.assetsRoot,
+    path: config.build.assetsRoot,
     //编译生成的js文件,如果不是dev模式则生成带hash码的js，可以设置路径比如 js/[name].js
     filename: process.env.NODE_ENV === 'production' ? '[name].js?[chunkhash]' : '[name].js',
     /* * chunkFilename用来打包require.ensure方法中引入的模块,如果该方法中没有引入任何模块则不会生成任何chunk块文件 * 
@@ -82,21 +84,21 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       title: '长城软件基础UI组件及应用项目',
-      filename: './dist/index.html',
-      template: './src/index.html',
+      filename: resolve(__dirname, '../dist/index.html'),
+      template: resolve(__dirname, '../src/index.html'),
       //设置引入的JS，如果不设置默认会加载全部的JS
       chunks: ['manifest', 'vendor', 'index']
     }),
     new HtmlWebpackPlugin({
-      filename: './dist/demo/elementUIDemo.html',
-      template: './src/demo/elementUIDemo.html',
+      filename: resolve(__dirname, '../dist/demo/elementUIDemo.html'),
+      template: resolve(__dirname, '../src/demo/elementUIDemo.html'),
       chunks: ['manifest', 'vendor', 'demo/elementUIDemo']
     }),
     // 直接复制静态文件
     new CopyWebpackPlugin([
       {
-        from: './static/',
-        to: './dist/static',
+        from: resolve(__dirname, '../static/'),
+        to: resolve(__dirname, '../dist/static/'),
         ignore: ['.*']
       }
     ])

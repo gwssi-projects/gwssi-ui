@@ -17,6 +17,7 @@
     "node": ">=6"
   },
   "devDependencies": {
+    "shelljs": "^0.7.4",
     "autoprefixer": "^6.6.0",
     "babel-core": "^6.24.1",
     "babel-loader": "^6.4.0",
