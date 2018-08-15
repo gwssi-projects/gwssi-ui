@@ -1,13 +1,17 @@
+
 <template>
   <div id="Main">
 
     <header class="header" :class="{ 'header-fixed' : headerFixed }">
+      <div class="container">
+        <h1>{{ $t('gwssi.title.gwssi') }}</h1>
 
+        <select-lang></select-lang>
+
+      </div>
     </header>
 
-
-
-<!--
+    <!--
 
     <el-container>
       <el-header>{{ $t('gwssi.title.gwssi') }}</el-header>
@@ -32,27 +36,9 @@
 <script>
 export default {
   methods: {},
-
-  // 在组件的template中，调用$t()方法
-  // 在组件的script中，调用this.$i18n.t()方法，或者 this.$t
-
-  // let locale = this.$i18n.locale
-  // locale === 'zh' ? this.$i18n.locale = 'en' : this.$i18n.locale = 'zh'
-
   data() {
     return {
-      lang: "",
-      options: [
-        {
-          value: "zh",
-          label: "中文"
-        },
-        {
-          value: "en",
-          label: "英文"
-        }
-      ],
-      value: ""
+      headerFixed: true
     };
   }
 };
@@ -72,10 +58,25 @@ header {
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.12), 0 0 6px 0 rgba(0, 0, 0, 0.04);
 }
 
+header h1 {
+  font-size: 20px;
+  padding: 15px;
+}
+
 header.header-fixed {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
+}
+
+div.container {
+  width: 1024px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#select-lang {
+ float: right; width: 200px
 }
 </style>
