@@ -107,7 +107,7 @@ module.exports = {
     alias: {
       '~': resolve(__dirname, 'src')
     },
-    //即Hello.vue这个组件我们不需要添加.vue后缀就可以引用到了，如果不用extensions， 我们就必须要用@components/Hello.vue来引入这个文件。 
+    //路径优化，即Hello.vue这个组件我们不需要添加.vue后缀就可以引用到了，如果不用extensions， 我们就必须要用@components/Hello.vue来引入这个文件。 
     extensions: ['.js', '.vue', '.json', '.css']
   },
 }

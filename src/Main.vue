@@ -6,30 +6,35 @@
       <div class="container">
         <h1>{{ $t('gwssi.title.gwssi') }}</h1>
 
-        <select-lang></select-lang>
+        <select-lang>
+
+        </select-lang>
 
       </div>
     </header>
 
-    <!--
+    <main>
 
-    <el-container>
-      <el-header>{{ $t('gwssi.title.gwssi') }}</el-header>
-      <el-main>中英文切换按钮  标题的国际化</el-main>
-      <el-button>{{ $t('el.colorpicker.confirm') }}</el-button>
+      <!-- Begin page content -->
+      <div class="container">
+        <div class="page-header">
+          <h1>简介</h1>
+        </div>
+        <p class="lead">基于 vue + elementUI 2.3.4（开发环境NodeJS版本 >= 6）构建，本实例项目包含以下部分，供开发人员参考并构建自己的项目：</p>
+        <p>
+          <a href="#">基础应用及组件库</a>
+        </p>
+        <p>
+          <a href="#">西安军民融合大数据中心二期自建库项目</a>
+        </p>
+        <p>
+          <a href="#">基于VUE的新版PORTAL架构</a>
+        </p>
+        <p>......</p>
+      </div>
 
-      <el-select v-model="lang" placeholder="请选择语言">
-          <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value">
-            <span style="float: left">{{ item.label }}</span>
-            <span style="float: right; color: #8492a6; font-size: 13px">{{ item.value }}</span>
-          </el-option>
-      </el-select>
-    </el-container>
-    -->
+    </main>
+
   </div>
 </template>
 
@@ -59,8 +64,10 @@ header {
 }
 
 header h1 {
+  width: 380px;
   font-size: 20px;
   padding: 15px;
+  float: left;
 }
 
 header.header-fixed {
@@ -77,6 +84,25 @@ div.container {
 }
 
 #select-lang {
- float: right; width: 200px
+  margin-top: 20px;
+  float: right;
+  width: 200px;
+}
+
+/* 主内容区 */
+main {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  min-height: 800px;
+  border: solid 40px #e9ecf1;
+  background-color: #fcfcfc;
+  margin-top: 80px;
+}
+
+main .page-header {
+  padding-bottom: 9px;
+  margin: 40px 0 20px;
+  border-bottom: 1px solid #eee;
 }
 </style>

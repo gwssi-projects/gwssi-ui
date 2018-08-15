@@ -1,13 +1,28 @@
-@bodyBC: #fff;
+@bodyBC: #e9ecf1;
 @bodyTextColor: #333;
 
 
 body {
-  min-height: 2000px;
+  min-height: 1000px;
   margin:0;
   font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
   font-size:14px;
   line-height:1.42857143;
   color: @bodyTextColor;
   background-color: @bodyBC;
+}
+
+a:focus, a:hover {
+  color: #23527c;
+  text-decoration: underline;
+}
+a:active, a:hover {
+  outline: 0;
+}
+a {
+  color: #337ab7;
+  text-decoration: none;
+}
+a {
+  background-color: transparent;
 }
