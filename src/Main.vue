@@ -18,17 +18,17 @@
       <!-- Begin page content -->
       <div class="container">
         <div class="page-header">
-          <h1>简介</h1>
+          <h1>{{ $t('gwssi.introduction.introduction') }}</h1>
         </div>
-        <p class="lead">基于 vue + elementUI 2.3.4（开发环境NodeJS版本 >= 6）构建，本实例项目包含以下部分，供开发人员参考并构建自己的项目：</p>
+        <p class="lead">{{ $t('gwssi.introduction.info') }}</p>
         <p>
-          <a href="#">基础应用及组件库</a>
+          <a href="#">{{ $t('gwssi.introduction.base') }}</a>
         </p>
         <p>
-          <a href="#">西安军民融合大数据中心二期自建库项目</a>
+          <a href="#">{{ $t('gwssi.introduction.iptrm') }}</a>
         </p>
         <p>
-          <a href="#">基于VUE的新版PORTAL架构</a>
+          <a href="#">{{ $t('gwssi.introduction.protal') }}</a>
         </p>
         <p>......</p>
       </div>

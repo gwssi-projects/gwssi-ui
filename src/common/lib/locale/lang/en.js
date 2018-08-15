@@ -9,6 +9,13 @@ exports.default = {
       baseui: 'base ui',
       iptrm2: "iptrm lib",
       portal: "protal"
+    },
+    introduction: {
+      introduction: "introduction",
+      info: "by vue + elementUI 2.3.4",
+      base: "base UI+components",
+      iptrm: "iptrm2 LIB",
+      protal: "VUE protal"
     }
   }
 };
