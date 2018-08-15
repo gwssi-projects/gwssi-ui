@@ -5,8 +5,8 @@
   "private": true,
   "scripts": {
     "server": "echo \"启动编译后的dist目录，安装hhttp-server，cd到dist目录，运行hs。\n npm install -g http-server \n cd dist \n hs\" ",
-    "dev": "echo \"启动开发模式\" && webpack-dev-server --inline --hot --env.dev",
-    "build": "echo \"编译打包\" && rimraf dist && webpack -p --progress --hide-modules"
+    "dev": "echo \"启动开发模式\" && webpack-dev-server --inline --hot --env.dev --config build/webpack.dev.conf.js",
+    "build": "echo \"编译打包\" && rimraf dist && webpack -p --progress --hide-modules --config build/build.js"
   },
   "dependencies": {
     "element-ui": "^2.3.4",
@@ -22,6 +22,8 @@
     "babel-loader": "^6.4.0",
     "babel-preset-vue-app": "^1.2.0",
     "css-loader": "^0.27.0",
+    "less": "^2.7.3",
+    "less-loader": "^4.0.5",
     "copy-webpack-plugin": "^4.0.1",
     "file-loader": "^0.10.1",
     "html-webpack-plugin": "^2.24.1",
@@ -34,6 +36,5 @@
     "webpack": "^2.4.1",
     "webpack-dev-server": "^2.4.2",
     "webpack-merge": "^4.1.0"
-
   }
 }

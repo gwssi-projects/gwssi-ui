@@ -3,16 +3,18 @@
     <el-container>
       <el-header>{{ $t('gwssi.title.gwssi') }}</el-header>
       <el-main>中英文切换按钮  标题的国际化</el-main>
+      <el-button>{{ $t('el.colorpicker.confirm') }}</el-button>
 
-      <el-select v-model="value" placeholder="请选择语言">
-        <el-option
-          v-for="item in options"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value">
-        </el-option>
+      <el-select v-model="lang" placeholder="请选择语言">
+          <el-option
+            v-for="item in options"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
+            <span style="float: left">{{ item.label }}</span>
+            <span style="float: right; color: #8492a6; font-size: 13px">{{ item.value }}</span>
+          </el-option>
       </el-select>
-
     </el-container>
   </div>
 </template>
@@ -21,28 +23,24 @@
 export default {
   methods: {},
 
+    // 在组件的template中，调用$t()方法
+    // 在组件的script中，调用this.$i18n.t()方法，或者 this.$t
+
+  // let locale = this.$i18n.locale
+  // locale === 'zh' ? this.$i18n.locale = 'en' : this.$i18n.locale = 'zh'
+
   data() {
     return {
+
+      lang :"",
       options: [
         {
-          value: "选项1",
-          label: "黄金糕"
+          value: "zh",
+          label: "中文"
         },
         {
-          value: "选项2",
-          label: "双皮奶"
-        },
-        {
-          value: "选项3",
-          label: "蚵仔煎"
-        },
-        {
-          value: "选项4",
-          label: "龙须面"
-        },
-        {
-          value: "选项5",
-          label: "北京烤鸭"
+          value: "en",
+          label: "英文"
         }
       ],
       value: ""
@@ -51,29 +49,16 @@ export default {
 };
 </script>
 
-<style>
-body {
-  margin: 0;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 14px;
-  line-height: 20px;
-  color: #333333;
-  background-color: #ffffff;
-}
+<style  lang="less" scoped>
 
-.el-header,
-.el-footer {
-  background-color: #b3c0d1;
-  color: #333;
+@baseBC: rgb(248, 248, 248);
+@baseTextColor: rgb(51, 51, 51);
+
+.el-header {
+  background-color: @baseBC;
+  color: @baseTextColor;
   text-align: center;
   line-height: 60px;
-}
-
-.el-aside {
-  background-color: #d3dce6;
-  color: #333;
-  text-align: center;
-  line-height: 200px;
 }
 
 .el-main {
@@ -87,12 +72,4 @@ body > .el-container {
   margin-bottom: 40px;
 }
 
-.el-container:nth-child(5) .el-aside,
-.el-container:nth-child(6) .el-aside {
-  line-height: 260px;
-}
-
-.el-container:nth-child(7) .el-aside {
-  line-height: 320px;
-}
 </style>
