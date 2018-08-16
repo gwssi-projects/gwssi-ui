@@ -16,6 +16,9 @@ exports.default = {
       base: "base UI+components",
       iptrm: "iptrm2 LIB",
       protal: "VUE protal"
+    },
+    tips: {
+      lang: "Please choose language"
     }
   }
 };

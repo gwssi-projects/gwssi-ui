@@ -16,6 +16,9 @@ exports.default = {
       base: "基础应用及组件库",
       iptrm: "西安军民融合大数据中心二期自建库项目",
       protal: "基于VUE的新版PORTAL架构"
+    },
+    tips: {
+      lang: "请选择语言"
     }
   }
 };

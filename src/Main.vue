@@ -5,16 +5,11 @@
     <header class="header" :class="{ 'header-fixed' : headerFixed }">
       <div class="container">
         <h1>{{ $t('gwssi.title.gwssi') }}</h1>
-
-        <select-lang>
-
-        </select-lang>
-
+        <gw-select-lang></gw-select-lang>
       </div>
     </header>
 
     <main>
-
       <!-- Begin page content -->
       <div class="container">
         <div class="page-header">
@@ -32,7 +27,6 @@
         </p>
         <p>......</p>
       </div>
-
     </main>
 
   </div>
