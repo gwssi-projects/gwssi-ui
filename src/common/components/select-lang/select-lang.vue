@@ -13,7 +13,7 @@
 </template>
 
 <script>
-
+//需要首先注册全局对象 window.i18n = i18n;
 export default {
   name: "gw-select-lang",
   methods: {
@@ -21,10 +21,14 @@ export default {
       i18n.locale = this.lang;
     }
   },
-  props: { test: "", placeholder: i18n.t("gwssi.tips.lang") },
+  mounted: function() {
+    console.log("i18n.locale = " + i18n.locale);
+  },
+  props: { test: "" },
   data() {
     return {
       lang: "",
+      placeholder: i18n.t("gwssi.tips.lang"),
       options: [
         {
           value: "zh-cn",
