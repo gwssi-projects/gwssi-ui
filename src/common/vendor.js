@@ -1,10 +1,12 @@
+//vendor.js会将引入的所有公共模块统一打包 其它ja中import相同模块则不再单独打入，减少JS体积
 //核心包
 import Vue from 'vue'
-import ElementUI from 'element-ui'
-
-//国际化相关 使用vue-i18n 5.x版本
+import VueMeta from 'vue-meta'
 import VueI18n from 'vue-i18n'
 
+import ElementUI from 'element-ui'
+
+//语言包
 import enLocale from 'element-ui/lib/locale/lang/en.js'
 import zhLocale from 'element-ui/lib/locale/lang/zh-CN.js'
 
@@ -16,14 +18,24 @@ import gwssiZhLocale from '../common/lib/locale/lang/zh-CN.js'
 //webpack-merge类似jquery的extends 合并对象
 import merge from 'webpack-merge'
 
-//语言合并
 Vue.use(VueI18n)
-Vue.config.lang = 'zh-cn'
+//语言合并
 const en = merge(enLocale, gwssiEnLocale)
 const cn = merge(zhLocale, gwssiZhLocale)
 
-//console.log(en);
-//console.log(cn);
+const messages = {
+    en: en,
+    "zh-cn": cn
+}
 
-Vue.locale('zh-cn', cn)
-Vue.locale('en', en)
+const i18n = new VueI18n({
+    locale: 'zh-cn',
+    messages,
+})
+
+//注册全局对象
+window.i18n = i18n;
+
+//语言组件 
+//如果直接在公共js引入会因为执行顺序找不到 window.i18n对象
+//import Lang from '../common/components/select-lang'

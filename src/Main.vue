@@ -1,6 +1,6 @@
 
 <template>
-  <div id="Main">
+  <div id="main">
 
     <header class="header" :class="{ 'header-fixed' : headerFixed }">
       <div class="container">
@@ -34,11 +34,27 @@
 
 <script>
 export default {
+  mounted : function () {
+    console.log(i18n.t('gwssi.title.gwssi'));
+  },
   methods: {},
   data() {
     return {
       headerFixed: true
     };
+  },
+  metaInfo: {
+    //标题国际化
+    title: i18n.t('gwssi.title.gwssi')
+    //标题模版
+    //titleTemplate: "%s - by vue-meta",
+    //html标签中 增加 <html data-vue-meta="lang" lang="zh">
+    // htmlAttrs: {   lang: "zh"    },
+    //增加script标签
+    // script: [
+    //   { innerHTML: 'console.log("hello hello!")', type: "text/javascript" }
+    // ],
+    // __dangerouslyDisableSanitizers: ["script"]
   }
 };
 </script>

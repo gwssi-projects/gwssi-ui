@@ -76,12 +76,14 @@ module.exports = {
     }
     ]
   },
+
   plugins: [
     //重复引用的公共组件 会打包成 /manifest.js /vendor.js 将第三方包分离
     //减少其他JS引入相同公共组件后会重复打包的问题（如果没有配置CommonsChunkPlugin，会在自己的JS中打入第三方库的JS包）
     new webpack.optimize.CommonsChunkPlugin({
       names: ['vendor', 'manifest']
     }),
+
     new HtmlWebpackPlugin({
       title: '长城软件基础UI组件及应用项目',
       filename: resolve(__dirname, '../dist/index.html'),

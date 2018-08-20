@@ -18,7 +18,9 @@ exports.default = {
       protal: "基于VUE的新版PORTAL架构"
     },
     tips: {
-      lang: "请选择语言"
+      lang: "请选择语言",
+      zh: "中文",
+      en: "英文"
     }
   }
 };

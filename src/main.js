@@ -1,14 +1,18 @@
 import Vue from 'vue'
+import VueMeta from 'vue-meta'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import Css from './main.less';
 import Main from './main.vue'
-import SelectLang from './common/components/select-lang'
+import Lang from './common/components/select-lang'
 
 Vue.use(ElementUI)
-Vue.use(SelectLang)
+//Vue.js 的插件应当有一个公开方法 install, Vue.use会执行对应的install方法。
+Vue.use(Lang)
+Vue.use(VueMeta)
 
 new Vue({
+  i18n,
   el: '#main',
   //render 动态创建组件，而不用通过template模版创建。
   render: h => h(Main)
