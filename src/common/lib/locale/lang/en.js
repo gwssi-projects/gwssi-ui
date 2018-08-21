@@ -28,7 +28,8 @@ exports.default = {
       portalBtn: "portal",
       formBtn:"form",
       gridBtn:"grid",
-      buttonBtn:"button"
+      buttonBtn:"button",
+      routerBtn:"router"
 
     },
     portal: {

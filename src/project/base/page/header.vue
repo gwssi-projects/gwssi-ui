@@ -20,6 +20,7 @@
               <el-menu-item index="form">{{ $t('gwssi.tips.formBtn') }}</el-menu-item>
               <el-menu-item index="grid">{{ $t('gwssi.tips.gridBtn') }}</el-menu-item>
               <el-menu-item index="button">{{ $t('gwssi.tips.buttonBtn') }}</el-menu-item>
+              <el-menu-item index="router2">{{ $t('gwssi.tips.routerBtn') }}</el-menu-item>
               <el-menu-item index="portal">{{ $t('gwssi.tips.portalBtn') }}</el-menu-item>
             </el-menu>
           </el-col>
@@ -101,7 +102,7 @@ div.container {
 #select-lang {
   margin-top: 10px;
   float: right;
-  width: 200px;
+  width: 150px;
 }
 
 /* 主内容区 */

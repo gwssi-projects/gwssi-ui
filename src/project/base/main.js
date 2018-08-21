@@ -13,6 +13,9 @@ Vue.use(Lang)
 Vue.use(VueMeta)
 Vue.use(Router)
 
+
+//路由规则单独一个文件设置 路由的404和500配置 嵌套路由
+
 const login = { template: '<div>login</div>' }
 const logged = { template: '<div>logged</div>' }
 const register = { template: '<div>register</div>' }
@@ -20,6 +23,7 @@ const portal = { template: '<div>portal</div>' }
 const form = { template: '<div>form</div>' }
 const button = { template: '<div>button</div>' }
 const grid = { template: '<div>grid</div>' }
+const router2 = { template: '<div>router2</div>' }
 
 
 const routes = [
@@ -30,7 +34,8 @@ const routes = [
   { path: '/portal', name: "portal", component: portal },
   { path: '/form', name: "form", component: form },
   { path: '/button', name: "button", component: button },
-  { path: '/grid', name: "grid", component: grid }
+  { path: '/grid', name: "grid", component: grid },
+  { path: '/router2', name: "grid", component: router2 }
 ]
 
 const router = new Router({

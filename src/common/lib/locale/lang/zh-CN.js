@@ -24,11 +24,12 @@ exports.default = {
       login: "请登录系统",
       loginBtn: "用户登录",
       registerBtn: "用户注册",
-      loggedBtn: "登录后页面",
+      loggedBtn: "登录后权限",
       portalBtn: "门户",
       formBtn: "表单",
       gridBtn: "列表",
-      buttonBtn: "权限按钮"
+      buttonBtn: "权限按钮",
+      routerBtn:"嵌套路由"
 
     },
 
