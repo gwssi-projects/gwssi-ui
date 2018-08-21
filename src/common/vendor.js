@@ -20,7 +20,6 @@ import gwssiZhLocale from '../common/lib/locale/lang/zh-CN.js'
 import merge from 'webpack-merge'
 
 Vue.use(VueI18n)
-Vue.use(VueRouter)
 //语言合并
 const en = merge(enLocale, gwssiEnLocale)
 const cn = merge(zhLocale, gwssiZhLocale)
@@ -30,10 +29,7 @@ const messages = {
     "zh-cn": cn
 }
 
-var router = new VueRouter({});
-var lang = router.query.language;
-console.log('language = ' + lang);
-//这部分可以通过浏览器来选择默认语言，这里首先通过参数和cookie判断语言
+//初始语言
 const i18n = new VueI18n({
     locale: 'zh-cn',
     messages,
