@@ -20,7 +20,8 @@ exports.default = {
     tips: {
       lang: "请选择语言",
       zh: "中文",
-      en: "英文"
+      en: "英文",
+      login: "请登录系统"
     }
   }
 };

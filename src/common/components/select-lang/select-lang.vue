@@ -21,7 +21,8 @@ export default {
   methods: {
     langChange() {
       i18n.locale = this.lang;
-      tools.setCookie("content-Language", this.lang, 10);
+      //如果是多级域名，是需要设置domain的
+      tools.setCookie("content-Language", this.lang, 10 , "/");
     }
   },
   //mounted不能国际化下述data中的内容，生命周期顺序加载的问题

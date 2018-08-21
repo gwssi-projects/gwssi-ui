@@ -16,11 +16,12 @@ module.exports = {
     index: './src/main.js',
     //多个引入的例子
     //'user':['./src/login.js','./src/reg.js'],
-    "demo/elementUIDemo": './src/demo/elementUIDemo.js'
-
-    //common
+    "demo/elementUIDemo": './src/demo/elementUIDemo.js',
 
     //project
+    //base ui
+    baseUIIndex: './src/project/base/main.js'
+
     //iptrm
 
   },
@@ -95,6 +96,13 @@ module.exports = {
       filename: resolve(__dirname, '../dist/demo/elementUIDemo.html'),
       template: resolve(__dirname, '../src/demo/elementUIDemo.html'),
       chunks: ['manifest', 'vendor', 'demo/elementUIDemo']
+    }),
+    //基础组件首页
+    new HtmlWebpackPlugin({
+      title: '长城软件基础UI组件及应用项目',
+      filename: resolve(__dirname, '../dist/project/base/index.html'),
+      template: resolve(__dirname, '../src/project/base/index.html'),
+      chunks: ['manifest', 'vendor', 'baseUIIndex']
     }),
     // 直接复制静态文件
     new CopyWebpackPlugin([

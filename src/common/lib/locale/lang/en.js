@@ -20,7 +20,8 @@ exports.default = {
     tips: {
       lang: "Please choose language",
       zh: "Chinese",
-      en: "English"
+      en: "English",
+      login: "Login"
     }
   }
 };

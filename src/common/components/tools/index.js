@@ -1,16 +1,19 @@
 export default {
   //设置cookie
-  setCookie: function (cname, cvalue, exdays) {
+  setCookie: function (cname, cvalue, exdays, path) {
     var d = new Date();
     d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
     var expires = "expires=" + d.toUTCString();
-    console.info(cname + "=" + cvalue + "; " + expires);
-    document.cookie = cname + "=" + cvalue + "; " + expires;
+    var path = "path=" + path;
+    var cookieStr = cname + "=" + cvalue + "; " + expires + "; " + path;
+    console.info(cookieStr);
+    document.cookie = cookieStr;
     console.info(document.cookie);
   },
   //获取cookie
   getCookie: function (cname) {
     var name = cname + "=";
+    // debugger
     var ca = document.cookie.split(';');
     //console.log("获取cookie,现在循环")
     for (var i = 0; i < ca.length; i++) {

@@ -20,7 +20,8 @@ module.exports = {
     env: require('./dev.env'),
     port: 8010,
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/assets/',
+    assetsPublicPath: '/',
+    // assetsPublicPath: '/assets/',
     // 地址映射表，可以通过设置将复杂的url简化，还可以解决跨域问题
     proxyTable: {},
     // CSS Sourcemaps off by default because relative paths are "buggy"

@@ -26,6 +26,9 @@ var webpackConfig = merge(baseWebpackConfig, {
         }
     },
     //用于调试 控制是否生成，以及如何生成 Source Map。用于对应到源码的行号。
+    //eval-source-map 适合开发，source-map 适合线上环境
+    //devtool: '#source-map'
+    //代码需要调试的地方增加  debugger 即可
     devtool: '#eval-source-map',
 
     plugins: [
