@@ -35,12 +35,6 @@ export default {
 
     console.log("language = " + lang);
     console.log("i18n.locale = " + i18n.locale);
-
-    if (lang != null && lang != "") {
-      i18n.locale = lang;
-      //设置cookie
-      tools.setCookie("content-Language", lang, 10);
-    }
   },
   props: { test: "" },
   data() {
