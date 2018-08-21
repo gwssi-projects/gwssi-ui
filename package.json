@@ -14,7 +14,7 @@
     "vue-head": "^2.0.12",
     "vue-i18n": "^8.0.0",
     "vue-meta": "^1.5.2",
-    "vue-router": "^2.1.1"
+    "vue-router": "^3.0.1"
   },
   "engines": {
     "node": ">=6"

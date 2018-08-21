@@ -17,7 +17,7 @@
         </div>
         <p class="lead">{{ $t('gwssi.introduction.info') }}</p>
         <p>
-          <a href="project/base" target="_blank">{{ $t('gwssi.introduction.base') }}</a>
+          <a href="project/base/#login" target="_blank">{{ $t('gwssi.introduction.base') }}</a>
         </p>
         <p>
           <a href="#">{{ $t('gwssi.introduction.iptrm') }}</a>

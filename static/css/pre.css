@@ -1,0 +1,9 @@
+    /**v-cloak避免vue加载完毕前的闪烁**/ 
+    [v-cloak] { display: none; } body { background-color: #e9ecf1; }
+    /***加载的loading****/ 
+    #appLoading
+    { width: 100%; height: 100%; } 
+    #appLoading img { 
+        position: absolute; top: 50%; left: 50%; -webkit-transform: translateY(-50%)
+        translateX(-50%); transform: translateY(-50%) translateX(-50%); 
+    }

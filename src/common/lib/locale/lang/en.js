@@ -22,6 +22,10 @@ exports.default = {
       zh: "Chinese",
       en: "English",
       login: "Login"
+    },
+    portal: {
+
+
     }
   }
 };
