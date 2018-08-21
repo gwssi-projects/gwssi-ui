@@ -21,8 +21,17 @@ exports.default = {
       lang: "请选择语言",
       zh: "中文",
       en: "英文",
-      login: "请登录系统"
+      login: "请登录系统",
+      loginBtn: "用户登录",
+      registerBtn: "用户注册",
+      loggedBtn: "登录后页面",
+      portalBtn: "门户",
+      formBtn: "表单",
+      gridBtn: "列表",
+      buttonBtn: "权限按钮"
+
     },
+
     portal: {
 
 

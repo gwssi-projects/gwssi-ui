@@ -21,7 +21,15 @@ exports.default = {
       lang: "Please choose language",
       zh: "Chinese",
       en: "English",
-      login: "Login"
+      login: "Login",
+      loginBtn: "login",
+      registerBtn: "register",
+      loggedBtn: "logged",
+      portalBtn: "portal",
+      formBtn:"form",
+      gridBtn:"grid",
+      buttonBtn:"button"
+
     },
     portal: {
 
