@@ -6,7 +6,8 @@
       <div class="container">
 
         <el-row>
-          <el-col :span="18">
+          <!--各留出两格的距离-->
+          <el-col :span="16" :offset="2">
             <!--
                mode 	模式  	horizontal,vertical, 水平和垂直
                default-active 	当前激活菜单的 index，这里绑定路由的名称 this.$route.name
@@ -21,11 +22,13 @@
               <el-menu-item index="grid">{{ $t('gwssi.tips.gridBtn') }}</el-menu-item>
               <el-menu-item index="button">{{ $t('gwssi.tips.buttonBtn') }}</el-menu-item>
               <el-menu-item index="router2">{{ $t('gwssi.tips.routerBtn') }}</el-menu-item>
+              <el-menu-item index="page404">{{ $t('gwssi.tips.btn404') }}</el-menu-item>
+              <el-menu-item index="page500">{{ $t('gwssi.tips.btn500') }}</el-menu-item>
               <el-menu-item index="portal">{{ $t('gwssi.tips.portalBtn') }}</el-menu-item>
             </el-menu>
           </el-col>
 
-          <el-col :span="6">
+          <el-col :span="4">
             <gw-select-lang></gw-select-lang>
           </el-col>
 
@@ -71,7 +74,6 @@ export default {
 
 header {
   z-index: 1000;
-  min-width: 1200px;
   transition: all 0.5s ease;
   border-top: solid 4px #3091f2;
   background-color: @baseBC;
@@ -94,9 +96,7 @@ header .el-menu {
 }
 
 div.container {
-  width: 1024px;
-  margin-left: auto;
-  margin-right: auto;
+  width: 100%;
 }
 
 #select-lang {

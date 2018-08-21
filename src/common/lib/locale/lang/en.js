@@ -26,10 +26,12 @@ exports.default = {
       registerBtn: "register",
       loggedBtn: "logged",
       portalBtn: "portal",
-      formBtn:"form",
-      gridBtn:"grid",
-      buttonBtn:"button",
-      routerBtn:"router"
+      formBtn: "form",
+      gridBtn: "grid",
+      buttonBtn: "button",
+      routerBtn: "router",
+      btn404: "404",
+      btn500: "500"
 
     },
     portal: {

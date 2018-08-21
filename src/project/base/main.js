@@ -24,7 +24,8 @@ const form = { template: '<div>form</div>' }
 const button = { template: '<div>button</div>' }
 const grid = { template: '<div>grid</div>' }
 const router2 = { template: '<div>router2</div>' }
-
+const page404 = { template: '<div>404</div>' }
+const page500 = { template: '<div>page500</div>' }
 
 const routes = [
   { path: '/', name: "index", component: login },
@@ -35,7 +36,9 @@ const routes = [
   { path: '/form', name: "form", component: form },
   { path: '/button', name: "button", component: button },
   { path: '/grid', name: "grid", component: grid },
-  { path: '/router2', name: "grid", component: router2 }
+  { path: '/router2', name: "router2", component: router2 },
+  { path: '/page404', name: "page404", component: page404 },
+  { path: '/page500', name: "page500", component: page500 }
 ]
 
 const router = new Router({
