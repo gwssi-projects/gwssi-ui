@@ -15,6 +15,7 @@ import i18n from "../common/components/i18n";
 
 //注册全局对象
 window.i18n = i18n;
+window.gwTools = tools;
 
 //语言组件 
 //如果直接在公共js引入会因为执行顺序找不到 window.i18n对象

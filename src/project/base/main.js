@@ -21,6 +21,7 @@ new Vue({
   },
   metaInfo: {
     //标题国际化
+    //meatInfo 为vuemeta标签返回对象，无法使用this.$t("gwssi.title.gwssi")？只能使用全局注册的 i18n
     title: i18n.t("gwssi.title.gwssi")
   },
   el: '#app',

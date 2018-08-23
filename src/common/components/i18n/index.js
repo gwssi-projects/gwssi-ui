@@ -30,8 +30,8 @@ const messages = {
 var lang = tools.getQueryString("language");
 if (lang == null) {
   //debugger
-  lang = tools.getCookie("content-Language");
-  //console.log("content-Language = " + lang);
+  lang = tools.getCookie("content-language");
+  //console.log("content-language = " + lang);
 }
 
 if (lang != null && lang != "") {
@@ -39,7 +39,7 @@ if (lang != null && lang != "") {
   lang = 'zh-cn';
 }
 //如果是多级域名，是需要设置domain的
-tools.setCookie("content-Language", lang, 10, "/");
+tools.setCookie("content-language", lang, null, "/");
 
 //初始语言
 const i18n = new VueI18n({

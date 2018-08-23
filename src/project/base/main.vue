@@ -33,7 +33,7 @@ import AppHeader from "./page/header";
 
 export default {
   mounted: function() {
-    console.log(i18n.t("gwssi.title.gwssi"));
+    console.log("title = " + this.$t("gwssi.title.gwssi"));
   },
   components: {
     AppHeader
@@ -53,5 +53,6 @@ export default {
 .el-col {
   text-align: center;
   color: #909db7;
+  padding-top: 20px;
 }
 </style>

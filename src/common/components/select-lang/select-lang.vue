@@ -22,20 +22,20 @@ export default {
     langChange() {
       i18n.locale = this.lang;
       //如果是多级域名，是需要设置domain的
-      tools.setCookie("content-Language", this.lang, 10 , "/");
+      tools.setCookie("content-language", this.lang, null, "/");
     }
   },
   //mounted不能国际化下述data中的内容，生命周期顺序加载的问题
   //mounted: function() {
   beforeCreate: function() {
+    //这部分代码在i18n组件完成
     //这部分可以通过浏览器来选择默认语言(第一次语言设置在初始化window.i18n的代码中进行)，这里首先通过参数和cookie判断语言
-    var lang = tools.getQueryString("language");
-    if (lang == null) {
-      lang = tools.getCookie("content-Language");
-    }
-
-    console.log("language = " + lang);
-    console.log("i18n.locale = " + i18n.locale);
+    // var lang = tools.getQueryString("language");
+    // if (lang == null) {
+    //   lang = tools.getCookie("content-language");
+    // }
+    // console.log("language = " + lang);
+    // console.log("i18n.locale = " + i18n.locale);
   },
   props: { test: "" },
   data() {

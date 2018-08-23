@@ -1,11 +1,17 @@
 export default {
   //设置cookie
   setCookie: function (cname, cvalue, exdays, path) {
-    var d = new Date();
-    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-    var expires = "expires=" + d.toUTCString();
+
+    var expires = "";
+
+    if (exdays != null) {
+      var d = new Date();
+      d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+      expires = "expires=" + d.toUTCString() + "; ";
+    }
+
     var path = "path=" + path;
-    var cookieStr = cname + "=" + cvalue + "; " + expires + "; " + path;
+    var cookieStr = cname + "=" + cvalue + "; " + expires + path;
     console.info(cookieStr);
     document.cookie = cookieStr;
     console.info(document.cookie);
@@ -26,22 +32,6 @@ export default {
     }
     return "";
   },
-  //清除cookie
-  clearCookie: function () {
-    this.setCookie("username", "", -1);
-  },
-  checkCookie: function () {
-    var user = this.getCookie("username");
-    if (user != "") {
-      alert("Welcome again " + user);
-    } else {
-      user = prompt("Please enter your name:", "");
-      if (user != "" && user != null) {
-        this.setCookie("username", user, 365);
-      }
-    }
-  },
-
   //获取URL对象
   getRequest: function () {
 

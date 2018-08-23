@@ -29,7 +29,7 @@ exports.default = {
       formBtn: "表单",
       gridBtn: "列表",
       buttonBtn: "权限按钮",
-      routerBtn: "嵌套路由",
+      routerBtn: "嵌套/动态-路由",
       btn404: "404",
       btn500: "500"
     },

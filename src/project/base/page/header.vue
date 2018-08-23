@@ -1,6 +1,6 @@
 <template>
 
-  <div class="container">
+  <div class="container" :style="{ 'border-top-color': themeColor }">
 
     <el-row>
       <!--左右各留出两格的距离 一共24列-->
@@ -25,8 +25,12 @@
         </el-menu>
       </el-col>
 
-      <el-col :span="4">
+      <el-col :span="2">
         <gw-select-lang></gw-select-lang>
+      </el-col>
+
+      <el-col :span="1" :offset="1">
+        <gw-color-picker @colorChange="colorChange" @activeChange="activeChange" :defaultColor='themeColor'></gw-color-picker>
       </el-col>
 
     </el-row>
@@ -36,16 +40,46 @@
 </template>
 
 <script>
+import GwTheme from "../../../common/components/theme/";
+import Vue from "vue";
+
+Vue.use(GwTheme);
+
 export default {
   name: "app-header",
+  beforeMount: function() {
+    var color = gwTools.getCookie("theme-color");
+    if (color != null && color != "") {
+      this.themeColor = color;
+    }
+  },
+
   mounted: function() {},
+
+  //GwTheme如果注册成局部组件，不使用Vue.use(GwTheme);直接在el-col使用gw-color-picker会提示没有注册，el-col是vue.user(element)注册的全局组件，gw-color-picker和el-col在这里其实应该是同级的？（这里都属于app-header的子组件了）
+  //所以会提示找不到（因为应该注册在el-col 才能找到而不是当前组件中）?
+  // components: {
+  //   GwTheme
+  // },
+
   methods: {
     selectItems(index) {
       console.log(index);
+    },
+    colorChange(color) {
+      console.log("colorChange" + color);
+      this.themeColor = color;
+      //记录颜色更改至cookie中
+      gwTools.setCookie("theme-color", this.themeColor, null, "/");
+    },
+    activeChange(color) {
+      //这里只是选择颜色 没有确定
     }
   },
   data() {
     return {
+      //默认颜色
+      themeColor: "#409EFF",
       //根据路由获取激活菜单选中对象
       activeName:
         this.$route.name == "" || this.$route.name == "index"
@@ -60,6 +94,7 @@ export default {
 <style  lang="less" scoped>
 @baseBC: rgb(248, 248, 248);
 @baseTextColor: rgb(51, 51, 51);
+@margintop : 10px;
 /***
 此处定义的CSS只在此组件中生效，比如下面的.container，只会在当前组件的.container生效，
 最终的结果是生成的css为 
@@ -69,7 +104,7 @@ export default {
 **/
 .container {
   transition: all 0.5s ease;
-  border-top: solid 4px #3091f2;
+  border-top: solid 4px;
   background-color: @baseBC;
   color: @baseTextColor;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.12), 0 0 6px 0 rgba(0, 0, 0, 0.04);
@@ -84,9 +119,12 @@ export default {
 }
 
 #select-lang {
-  margin-top: 10px;
+  margin-top: @margintop;
   float: right;
-  width: 150px;
+  width: auto;
+}
+.el-color-picker {
+  margin-top: @margintop;
 }
 </style>
 
