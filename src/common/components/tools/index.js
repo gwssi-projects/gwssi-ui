@@ -3,7 +3,7 @@ export default {
   setCookie: function (cname, cvalue, exdays, path) {
 
     var expires = "";
-
+    //不设置时间的话为回话cookie 关闭浏览器清除
     if (exdays != null) {
       var d = new Date();
       d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));

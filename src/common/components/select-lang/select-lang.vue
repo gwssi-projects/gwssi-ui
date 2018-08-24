@@ -13,7 +13,9 @@
 </template>
 
 <script>
-//需要首先注册全局对象 window.i18n = i18n;
+//需要首先注册全局对象 
+// window.gwI18n = i18n;
+// window.i18n = i18n.vueLocale;
 import tools from "../tools";
 
 export default {
@@ -21,8 +23,9 @@ export default {
   methods: {
     langChange() {
       i18n.locale = this.lang;
+      gwI18n.eleLocale(this.lang);
       //如果是多级域名，是需要设置domain的
-      tools.setCookie("content-language", this.lang, null, "/");
+      tools.setCookie("content-language", this.lang, 100, "/");
     }
   },
   //mounted不能国际化下述data中的内容，生命周期顺序加载的问题
@@ -34,8 +37,6 @@ export default {
     // if (lang == null) {
     //   lang = tools.getCookie("content-language");
     // }
-    // console.log("language = " + lang);
-    // console.log("i18n.locale = " + i18n.locale);
   },
   props: { test: "" },
   data() {

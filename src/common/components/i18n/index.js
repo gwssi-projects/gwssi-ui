@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import VueI18n from 'vue-i18n'
 
-//语言包
+//elementUI语言包
+import { use } from 'element-ui/lib/locale'
 import enLocale from 'element-ui/lib/locale/lang/en.js'
 import zhLocale from 'element-ui/lib/locale/lang/zh-CN.js'
 
@@ -39,12 +40,23 @@ if (lang != null && lang != "") {
   lang = 'zh-cn';
 }
 //如果是多级域名，是需要设置domain的
-tools.setCookie("content-language", lang, null, "/");
+tools.setCookie("content-language", lang, 100, "/");
 
 //初始语言
-const i18n = new VueI18n({
-  locale: lang,
-  messages,
-})
+const i18n = {
 
+  //用于更新elementui中的语言包
+  eleLocale: function (lang) {
+    console.log("eleLocale=" + lang);
+    use(lang == 'zh-cn' ? zhLocale : enLocale)
+  },
+
+  vueLocale: new VueI18n({
+    locale: lang,
+    messages,
+  })
+
+}
+
+i18n.eleLocale(lang);
 export default i18n

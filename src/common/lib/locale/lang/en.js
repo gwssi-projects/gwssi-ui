@@ -18,7 +18,7 @@ exports.default = {
       protal: "VUE protal"
     },
     tips: {
-      lang: "Please choose language",
+      lang: "Choose language",
       zh: "Chinese",
       en: "English",
       login: "Login",

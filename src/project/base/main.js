@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueMeta from 'vue-meta'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+import 'element-ui/lib/theme-chalk/reset.css'
 import Css from './main.less';
 import Lang from '../../common/components/select-lang'
 

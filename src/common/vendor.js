@@ -14,7 +14,8 @@ import tools from "../common/components/tools";
 import i18n from "../common/components/i18n";
 
 //注册全局对象
-window.i18n = i18n;
+window.gwI18n = i18n;
+window.i18n = i18n.vueLocale;
 window.gwTools = tools;
 
 //语言组件 

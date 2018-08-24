@@ -47,12 +47,7 @@ Vue.use(GwTheme);
 
 export default {
   name: "app-header",
-  beforeMount: function() {
-    var color = gwTools.getCookie("theme-color");
-    if (color != null && color != "") {
-      this.themeColor = color;
-    }
-  },
+  beforeMount: function() {},
 
   mounted: function() {},
 
@@ -67,10 +62,8 @@ export default {
       console.log(index);
     },
     colorChange(color) {
-      console.log("colorChange" + color);
+      console.log("更新项目UI颜色" + color);
       this.themeColor = color;
-      //记录颜色更改至cookie中
-      gwTools.setCookie("theme-color", this.themeColor, null, "/");
     },
     activeChange(color) {
       //这里只是选择颜色 没有确定
@@ -79,7 +72,7 @@ export default {
   data() {
     return {
       //默认颜色
-      themeColor: "#409EFF",
+      themeColor: "#409eff",
       //根据路由获取激活菜单选中对象
       activeName:
         this.$route.name == "" || this.$route.name == "index"
