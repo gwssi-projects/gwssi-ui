@@ -5,6 +5,8 @@ import 'element-ui/lib/theme-chalk/index.css'
 import 'element-ui/lib/theme-chalk/reset.css'
 import Css from './main.less';
 import Lang from '../../common/components/select-lang'
+//字体图标 http://www.iconfont.cn/
+import '../../../static/font_810232/iconfont.css'
 
 import router from './router/index'
 import app from './main.vue'

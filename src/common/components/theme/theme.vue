@@ -3,6 +3,7 @@
 </template>
 
 <script>
+//主要参考 https://elementui.github.io/theme-chalk-preview/#/en-US
 import objectAssign from "object-assign";
 import generateColors from "./color";
 
@@ -88,6 +89,7 @@ export default {
     },
 
     getFile(url, isBlob = false) {
+      //异步加载模块Promise
       return new Promise((resolve, reject) => {
         const client = new XMLHttpRequest();
         client.responseType = isBlob ? "blob" : "";
@@ -105,7 +107,9 @@ export default {
             reject(new Error(client.statusText));
           }
         };
-        client.open("GET", url);
+        //同步方式请求 防止整个主题style没加载完显示页面
+        client.open("GET", url, false);
+        //client.open("GET", url);
         client.send();
       });
     },
@@ -118,6 +122,8 @@ export default {
             .map(str => str.split('"')[1]);
         })
         .then(styleFiles => {
+          //Promise.all可以将多个Promise实例包装成一个新的Promise实例。
+          //同时，成功和失败的返回值是不同的，成功的时候返回的是一个结果数组，而失败的时候则返回最先被reject失败状态的值。
           return Promise.all(
             styleFiles.map(file => {
               return this.getFile(

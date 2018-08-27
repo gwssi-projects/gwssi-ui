@@ -49,6 +49,12 @@ export default {
   name: "app-header",
   beforeMount: function() {},
 
+  props: {
+    //项目中的默认颜色
+    defaultColor: String,
+    obj: Object
+  },
+
   mounted: function() {},
 
   //GwTheme如果注册成局部组件，不使用Vue.use(GwTheme);直接在el-col使用gw-color-picker会提示没有注册，el-col是vue.user(element)注册的全局组件，gw-color-picker和el-col在这里其实应该是同级的？（这里都属于app-header的子组件了）
@@ -64,6 +70,7 @@ export default {
     colorChange(color) {
       console.log("更新项目UI颜色" + color);
       this.themeColor = color;
+      this.$emit("colorChange", color);
     },
     activeChange(color) {
       //这里只是选择颜色 没有确定
@@ -72,7 +79,7 @@ export default {
   data() {
     return {
       //默认颜色
-      themeColor: "#409eff",
+      themeColor: this.defaultColor,
       //根据路由获取激活菜单选中对象
       activeName:
         this.$route.name == "" || this.$route.name == "index"

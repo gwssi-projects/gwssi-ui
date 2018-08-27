@@ -1,8 +1,8 @@
 
 <template>
   <div class="login-box">
-    <div style="text-align: center">
-      <img src="../../../assets/img/logo.png" alt="" class="logo">
+    <div class="logo" :style="{ 'color': defaultColor }">
+      <i class="iconfont icon-shenfenzheng"></i>
     </div>
     <p class="text-tips">你好｛用户｝，欢迎登录</p>
     <form action="" class="login-form">
@@ -35,6 +35,15 @@ export default {
       isLoging: false
     };
   },
+
+  props: {
+    //项目中的默认颜色
+    defaultColor: String,
+    obj: Object
+  },
+
+  created() {},
+
   methods: {
     handleLogin() {
       if (!this.username || !this.password) {
@@ -82,16 +91,17 @@ export default {
   margin: 0 auto;
   padding: 0px 15px;
 }
+/**使用字体图标或svg图标来控制整个主题颜色**/
 .login-box .logo {
-  max-width: 40%;
+  margin: 0 auto;
+  text-align: center;
   margin-bottom: 20px;
-  -webkit-filter: grayscale(30%);
-  -moz-filter: grayscale(30%);
-  -ms-filter: grayscale(30%);
-  -o-filter: grayscale(30%);
-  filter: grayscale(30%);
-  filter: #409eff;
 }
+
+.icon-shenfenzheng {
+  font-size: 60px;
+}
+
 .login-box .text-tips {
   text-align: center;
   color: #909db7;

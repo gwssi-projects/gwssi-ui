@@ -5,22 +5,17 @@
   <el-container>
 
     <el-header>
-      <app-header></app-header>
+      <app-header @colorChange="colorChange" :defaultColor='themeColor'></app-header>
     </el-header>
 
     <el-main>
       <!-- 路由出口 -->
       <!-- 路由匹配到的组件将渲染在这里 -->
-      <router-view></router-view>
+      <router-view :defaultColor='themeColor'></router-view>
     </el-main>
 
     <el-footer>
-      <el-col :span="16" :offset="4" class="el-col">
-        <i class="el-icon-share"></i>&nbsp;
-        <span class="footer-text">更多基础组件：弹窗、按钮、导航...请参考官方网站：
-          <a href="http://element-cn.eleme.io/#/zh-CN" target="_blank">http://element-cn.eleme.io/#/zh-CN</a>
-        </span>
-      </el-col>
+      <app-footer :defaultColor='themeColor'></app-footer>
     </el-footer>
 
   </el-container>
@@ -30,29 +25,31 @@
 
 <script>
 import AppHeader from "./page/header";
+import AppFooter from "./page/footer";
 
 export default {
   mounted: function() {
     console.log("title = " + this.$t("gwssi.title.gwssi"));
   },
+
   components: {
-    AppHeader
+    AppHeader,
+    AppFooter
   },
   methods: {
     selectItems(index) {
       console.log(index);
+    },
+    colorChange(color) {
+      this.themeColor = color;
     }
   },
   data() {
-    return {};
+    return {
+      //默认颜色
+      // themeColor: "#e9ecf1"
+      themeColor: "#409eff"
+    };
   }
 };
 </script>
-
-<style  lang="less" scoped>
-.el-col {
-  text-align: center;
-  color: #909db7;
-  padding-top: 20px;
-}
-</style>
