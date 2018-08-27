@@ -108,8 +108,8 @@ export default {
           }
         };
         //同步方式请求 防止整个主题style没加载完显示页面
-        client.open("GET", url, false);
-        //client.open("GET", url);
+        //client.open("GET", url, false);
+        client.open("GET", url);
         client.send();
       });
     },
@@ -180,6 +180,8 @@ export default {
       if ((this.colors.primary + "").toLowerCase() != this.primaryColor) {
         this.$emit("colorChange", this.colors.primary);
         this.writeNewStyle();
+        //更新颜色cookie时间
+        gwTools.setCookie("theme-color", this.colors.primary, 100, "/");
       }
     },
     fonts: function(val, oldVal) {

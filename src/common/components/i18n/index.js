@@ -39,7 +39,7 @@ if (lang != null && lang != "") {
 } else {
   lang = 'zh-cn';
 }
-//如果是多级域名，是需要设置domain的
+//更新cookie 如果是多级域名，是需要设置domain的
 tools.setCookie("content-language", lang, 100, "/");
 
 //初始语言

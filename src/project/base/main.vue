@@ -47,8 +47,8 @@ export default {
   data() {
     return {
       //默认颜色
-      // themeColor: "#e9ecf1"
-      themeColor: "#409eff"
+      themeColor: "#e9ecf1"
+      //themeColor: "#409eff"
     };
   }
 };
