@@ -4,6 +4,7 @@
 
 <script>
 //主要参考 https://elementui.github.io/theme-chalk-preview/#/en-US
+//此控件只修改elementui相关主题颜色，整体应用主题颜色通过调用父组件colorChange自行处理。
 import objectAssign from "object-assign";
 import generateColors from "./color";
 
@@ -38,10 +39,10 @@ export default {
         return;
       }
 
-      var style = document.getElementById("self_theme_style");
+      var style = document.getElementById("ele_theme_style");
       if (style == null) {
         style = document.createElement("style");
-        style.id = "self_theme_style";
+        style.id = "ele_theme_style";
         style.innerText = cssText;
         document.head.appendChild(style);
       } else {

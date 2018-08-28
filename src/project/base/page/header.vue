@@ -19,8 +19,13 @@
           <el-menu-item index="grid">{{ $t('gwssi.tips.gridBtn') }}</el-menu-item>
           <el-menu-item index="button">{{ $t('gwssi.tips.buttonBtn') }}</el-menu-item>
           <el-menu-item index="router2">{{ $t('gwssi.tips.routerBtn') }}</el-menu-item>
-          <el-menu-item index="page404">{{ $t('gwssi.tips.btn404') }}</el-menu-item>
-          <el-menu-item index="page500">{{ $t('gwssi.tips.btn500') }}</el-menu-item>
+
+          <el-submenu index="page">
+            <template slot="title">{{ $t('gwssi.tips.page') }}</template>
+            <el-menu-item index="page404">{{ $t('gwssi.tips.btn404') }}</el-menu-item>
+            <el-menu-item index="page500">{{ $t('gwssi.tips.btn500') }}</el-menu-item>
+          </el-submenu>
+
           <el-menu-item index="portal">{{ $t('gwssi.tips.portalBtn') }}</el-menu-item>
         </el-menu>
       </el-col>
@@ -30,7 +35,9 @@
       </el-col>
 
       <el-col :span="1" :offset="1">
-        <gw-color-picker @colorChange="colorChange" @activeChange="activeChange" :defaultColor='themeColor'></gw-color-picker>
+        <el-badge :hidden="badgeHidden" :value="$t('gwssi.tips.colorPickerItem')" class="colorPickerItem">
+          <gw-color-picker @colorChange="colorChange" @activeChange="activeChange" :defaultColor='themeColor'></gw-color-picker>
+        </el-badge>
       </el-col>
 
     </el-row>
@@ -68,9 +75,9 @@ export default {
       console.log(index);
     },
     colorChange(color) {
-      console.log("更新项目UI颜色" + color);
       this.themeColor = color;
       this.$emit("colorChange", color);
+      this.badgeHidden = true;
     },
     activeChange(color) {
       //这里只是选择颜色 没有确定
@@ -85,7 +92,8 @@ export default {
         this.$route.name == "" || this.$route.name == "index"
           ? "login"
           : this.$route.name,
-      menuRouter: true
+      menuRouter: true,
+      badgeHidden: false
     };
   }
 };
@@ -124,7 +132,13 @@ export default {
   width: auto;
 }
 .el-color-picker {
+}
+
+.colorPickerItem {
   margin-top: @margintop;
+}
+
+.el-badge__content {
 }
 </style>
 

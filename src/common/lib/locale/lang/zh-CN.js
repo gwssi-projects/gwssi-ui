@@ -25,6 +25,8 @@ exports.default = {
       loginBtn: "用户登录",
       registerBtn: "用户注册",
       loggedBtn: "登录后权限",
+      colorPickerItem: "主题配色",
+      page:"公共页面",
       build: "正在构建个性化配置......",
       portalBtn: "门户",
       formBtn: "表单",

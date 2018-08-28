@@ -11,3 +11,15 @@ body {
   background-color: @bodyBC;
 }
 
+
+
+a { 
+  text-decoration: none;
+}
+
+a:focus, a:hover {
+  filter:alpha(opacity=80);       /* IE */
+  -moz-opacity:0.8;              /* Moz + FF */
+  opacity: 0.8;           /* 支持CSS3的浏览器（FF 1.5也支持）*/
+  text-decoration: none;
+}

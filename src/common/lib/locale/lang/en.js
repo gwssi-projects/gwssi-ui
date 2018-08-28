@@ -24,6 +24,8 @@ exports.default = {
       login: "Login",
       loginBtn: "login",
       registerBtn: "register",
+      colorPickerItem: "Theme color",
+      page:"Public page",
       build: "build components......",
       loggedBtn: "logged",
       portalBtn: "portal",

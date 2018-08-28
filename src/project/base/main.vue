@@ -42,6 +42,37 @@ export default {
     },
     colorChange(color) {
       this.themeColor = color;
+      console.log("更新项目UI颜色" + color);
+      //更新a标签主题颜色
+      var cssText =
+        "a {color:" +
+        this.themeColor +
+        ";}  a:focus, a:hover {color:" +
+        this.themeColor +
+        ";}";
+
+      this.writeNewStyle(cssText);
+    },
+
+    writeNewStyle(cssText) { 
+      //更新app字体颜色
+      console.log("更新项目字体颜色" + this.themeColor);
+
+      if (cssText == null || cssText == "") {
+        console.log("cssText is null!!");
+        return;
+      }
+
+      var style = document.getElementById("app_theme_style");
+      if (style == null) {
+        style = document.createElement("style");
+        style.id = "app_theme_style";
+        style.innerText = cssText;
+        document.head.appendChild(style);
+      } else {
+        // console.log("再次设置");
+        style.innerText = cssText;
+      }
     }
   },
   data() {
