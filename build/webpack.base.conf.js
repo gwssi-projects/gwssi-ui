@@ -12,11 +12,10 @@ module.exports = {
     //公共组件（不会经常变更）
     vendor: './src/common/vendor.js',
 
-    //首页和DEMO
+    //首页
     index: './src/main.js',
     //多个引入的例子
     //'user':['./src/login.js','./src/reg.js'],
-    "demo/elementUIDemo": './src/demo/elementUIDemo.js',
 
     //project
     //base ui
@@ -40,7 +39,6 @@ module.exports = {
     chunkFilename: '[id].js?[chunkhash]',
     //JS和HTML编译后的主目录
     //HTML和CSS中的资源文件路径的补全 包括css中的图片 和html中引入的JS等 比如 <script type="text/javascript" src="/assets/vendor.js"> 
-    //比如 elementUIDemo ， dev模式访问路径是 assets/demo/elementUIDemo.html ，生产环境就是 /demo/elementUIDemo.html
     publicPath: process.env.NODE_ENV === 'production' ? config.build.assetsPublicPath : config.dev.assetsPublicPath,
   },
 
@@ -91,11 +89,6 @@ module.exports = {
       template: resolve(__dirname, '../src/index.html'),
       //设置引入的JS，如果不设置默认会加载全部的JS
       chunks: ['manifest', 'vendor', 'index']
-    }),
-    new HtmlWebpackPlugin({
-      filename: resolve(__dirname, '../dist/demo/elementUIDemo.html'),
-      template: resolve(__dirname, '../src/demo/elementUIDemo.html'),
-      chunks: ['manifest', 'vendor', 'demo/elementUIDemo']
     }),
     //基础组件首页
     new HtmlWebpackPlugin({
