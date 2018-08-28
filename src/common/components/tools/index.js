@@ -14,7 +14,7 @@ export default {
     var cookieStr = cname + "=" + cvalue + "; " + expires + path;
     console.info(cookieStr);
     document.cookie = cookieStr;
-    console.info(document.cookie);
+    //console.info(document.cookie);
   },
   //获取cookie
   getCookie: function (cname) {

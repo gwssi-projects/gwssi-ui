@@ -34,16 +34,32 @@ export default {
       //console.log("cssText=" + cssText);
       //异步加载主题css，第一次打开页面替换主题的话会导致基础模版构建不出来，cssText为空
       if (cssText == null || cssText == "") {
+        console.log("cssText is null!!");
         return;
       }
 
-      if (this.originalStylesheetCount === document.styleSheets.length) {
-        const style = document.createElement("style");
+      var style = document.getElementById("self_theme_style");
+      if (style == null) {
+        style = document.createElement("style");
+        style.id = "self_theme_style";
         style.innerText = cssText;
         document.head.appendChild(style);
       } else {
-        document.head.lastChild.innerText = cssText;
+        // console.log("再次设置");
+        style.innerText = cssText;
       }
+
+      // console.log(this.originalStylesheetCount);
+      // console.log(document.styleSheets.length);
+      // if (this.originalStylesheetCount === document.styleSheets.length) {
+      //   const style = document.createElement("style");
+      //   style.innerText = cssText;
+      //   document.head.appendChild(style);
+      // } else {
+      //   //lastChild有时候会变成<script type="text/javascript" charset="utf-8" src="moz-extension://74478412-ab19-4a5d-88fc-526311cbb59b/js/gwdang-notifier-ff.js">
+      //   // document.head.lastChild.innerText = cssText;
+      //   document.head.getElementsByTagName("style")[document.styleSheets.length - 1].innerText = cssText;
+      // }
     },
 
     colorChange: function() {
@@ -164,23 +180,30 @@ export default {
     //对应版本 2.4.6，实现思路是通过/static/element-ui/2.4.6/lib/theme-chalk/页面的index.html中的css列表加载所有CSS，之后加载字体后构建整个CSS样式，添加到页面中
     //这里最主要的问题是异步加载，问题是页面会先显示默认样式后才改变成自定义样式，影响体验
     //现在改成直接写上最后生成的styleFiles后替换颜色即可，如果其他版本的话需要按照这个方法对应版本（当前版本是2.4.6）生成一次相关样式，之后下列配置中替换element-icons.ttf和element-icons.woff的路径
-    this.getIndexStyle();
+    //this.getIndexStyle();
     //this.getSeparatedStyles();
     //this.getFontFiles();
 
-    var color = gwTools.getCookie("theme-color");
-    if (color != null && color != "") {
-      this.colors.primary = color;
-    }
+    //在Vue生命周期的created()钩子函数进行的DOM操作一定要放在Vue.nextTick()的回调函数中
+    //防止某些异步操作出错
+    this.$nextTick(() => {
+      this.originalStylesheetCount = document.styleSheets.length;
+      // console.info("theme color = " + this.colors.primary);
 
-    //如果默认颜色不相同的话 执行更新主题操作
-    if ((this.colors.primary + "").toLowerCase() != this.primaryColor) {
-      //debugger
-      this.$emit("colorChange", this.colors.primary);
-      this.writeNewStyle();
-      //更新颜色cookie时间
-      gwTools.setCookie("theme-color", this.colors.primary, 100, "/");
-    }
+      var color = gwTools.getCookie("theme-color");
+      if (color != null && color != "") {
+        this.colors.primary = color;
+      }
+
+      //如果默认颜色不相同的话 执行更新主题操作
+      if ((this.colors.primary + "").toLowerCase() != this.primaryColor) {
+        //debugger
+        this.$emit("colorChange", this.colors.primary);
+        this.writeNewStyle();
+        //更新颜色cookie时间
+        gwTools.setCookie("theme-color", this.colors.primary, 100, "/");
+      }
+    });
   },
 
   //通过监听的方式解决 异步加载主题css，第一次打开页面替换主题的话会导致基础模版构建不出来的问题
@@ -201,14 +224,7 @@ export default {
     }
   },
 
-  mounted: function() {
-    //在Vue生命周期的created()钩子函数进行的DOM操作一定要放在Vue.nextTick()的回调函数中
-    //防止某些异步操作出错
-    this.$nextTick(() => {
-      this.originalStylesheetCount = document.styleSheets.length;
-      console.info("theme color = " + this.colors.primary);
-    });
-  },
+  mounted: function() {},
 
   beforeCreate: function() {},
 

@@ -17,23 +17,28 @@ Vue.use(ElementUI)
 Vue.use(Lang)
 Vue.use(VueMeta)
 
+//elementUI的loading
+//构建组件
+// let loadingInstance = Loading.service({
+//   body: true,
+//   background: "#ffffff",
+//   text: i18n.t("gwssi.tips.build"),
+//   lock: true
+// });
+
 new Vue({
   i18n,
   router,
   beforeCreate() {
 
-    //elementUI的loading
-    // //构建组件
-    // let loadingInstance = Loading.service({
-    //   body: true,
-    //   background: "#ffffff",
-    //   text: i18n.t("gwssi.tips.build"),
-    //   lock: true
-    // }); 
   },
   created() {
     //删除loading层，此时加载完毕所有JS
     try { document.body.removeChild(document.getElementById('appLoading')); } catch (e) { console.error(e); }
+
+    this.$nextTick(() => { // 以服务的方式调用的 Loading 需要异步关闭
+      // loadingInstance.close();
+    });
   },
   mounted() {
     //loadingInstance.close();
