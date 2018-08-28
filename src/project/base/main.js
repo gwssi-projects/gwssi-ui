@@ -11,6 +11,8 @@ import '../../../static/font_810232/iconfont.css'
 import router from './router/index'
 import app from './main.vue'
 
+import { Loading } from "element-ui";
+
 Vue.use(ElementUI)
 Vue.use(Lang)
 Vue.use(VueMeta)
@@ -18,9 +20,23 @@ Vue.use(VueMeta)
 new Vue({
   i18n,
   router,
+  beforeCreate() {
+
+    //elementUI的loading
+    // //构建组件
+    // let loadingInstance = Loading.service({
+    //   body: true,
+    //   background: "#ffffff",
+    //   text: i18n.t("gwssi.tips.build"),
+    //   lock: true
+    // }); 
+  },
   created() {
-    //删除loading层
-    try { document.body.removeChild(document.getElementById('appLoading')); } catch (e) { }
+    //删除loading层，此时加载完毕所有JS
+    try { document.body.removeChild(document.getElementById('appLoading')); } catch (e) { console.error(e); }
+  },
+  mounted() {
+    //loadingInstance.close();
   },
   metaInfo: {
     //标题国际化

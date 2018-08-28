@@ -24,6 +24,7 @@ exports.default = {
       login: "Login",
       loginBtn: "login",
       registerBtn: "register",
+      build: "build components......",
       loggedBtn: "logged",
       portalBtn: "portal",
       formBtn: "form",
