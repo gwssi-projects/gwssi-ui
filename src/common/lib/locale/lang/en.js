@@ -32,7 +32,9 @@ exports.default = {
       formBtn: "form",
       gridBtn: "grid",
       buttonBtn: "button",
-      routerBtn: "router",
+      routerBtn: "routers",
+      routerTitle: "router",
+      syncRouterBtn: "sync router",
       btn404: "404",
       btn500: "500"
 

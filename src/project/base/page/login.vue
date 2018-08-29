@@ -16,7 +16,7 @@
       </div>
       <p class="text-tips">使用用户admin/admin，user/user来测试不同用户权限，使用其它用户密码测试登录不正确返回结果。</p>
       <!--点击后加载状态 :loading="true"-->
-      <el-button type="primary" class="loginBtn">登&nbsp;&nbsp;&nbsp;录</el-button>
+      <el-button type="primary" :loading="loginBtnLoading" class="loginBtn" @click="handleLogin">登&nbsp;&nbsp;&nbsp;录</el-button>
     </form>
     <p class="text-tips">
       <i class="el-icon-edit"></i> ©make by VUE + ELEMENT UI
@@ -32,7 +32,8 @@ export default {
     return {
       username: "",
       password: "",
-      isLoging: false
+      isLoging: false,
+      loginBtnLoading: false
     };
   },
 
@@ -46,6 +47,7 @@ export default {
 
   methods: {
     handleLogin() {
+      this.loginBtnLoading = true;
       if (!this.username || !this.password) {
         return this.$message.warning("用户名和密码不能为空");
       }

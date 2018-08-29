@@ -11,7 +11,10 @@ import '../../../static/font_810232/iconfont.css'
 import router from './router/index'
 import app from './main.vue'
 
-import { Loading } from "element-ui";
+import '../../common/mock'
+
+
+// import { Loading } from "element-ui";
 
 Vue.use(ElementUI)
 Vue.use(Lang)

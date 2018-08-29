@@ -13,12 +13,17 @@
              -->
         <el-menu :default-active="activeName" :router="menuRouter" class="gw-el-menu" mode="horizontal" @select="selectItems">
           <el-menu-item index="login">{{ $t('gwssi.tips.loginBtn') }}</el-menu-item>
-          <el-menu-item index="register">{{ $t('gwssi.tips.registerBtn') }}</el-menu-item>
           <el-menu-item index="logged">{{ $t('gwssi.tips.loggedBtn') }}</el-menu-item>
+
+          <el-submenu index="routerTmp">
+            <template slot="title">{{ $t('gwssi.tips.routerTitle') }}</template>
+            <el-menu-item index="router2">{{ $t('gwssi.tips.routerBtn') }}</el-menu-item>
+            <el-menu-item index="syncRouter">{{ $t('gwssi.tips.syncRouterBtn') }}</el-menu-item>
+          </el-submenu>
+
           <el-menu-item index="form">{{ $t('gwssi.tips.formBtn') }}</el-menu-item>
           <el-menu-item index="grid">{{ $t('gwssi.tips.gridBtn') }}</el-menu-item>
           <el-menu-item index="button">{{ $t('gwssi.tips.buttonBtn') }}</el-menu-item>
-          <el-menu-item index="router2">{{ $t('gwssi.tips.routerBtn') }}</el-menu-item>
 
           <el-submenu index="page">
             <template slot="title">{{ $t('gwssi.tips.page') }}</template>

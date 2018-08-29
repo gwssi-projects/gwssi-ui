@@ -13,6 +13,12 @@ import tools from "../common/components/tools";
 //语言包
 import i18n from "../common/components/i18n";
 
+//mock
+import mock from '../common/mock'
+
+//store对象
+import user from '../common/store'
+
 //注册全局对象
 window.gwI18n = i18n;
 window.i18n = i18n.vueLocale;

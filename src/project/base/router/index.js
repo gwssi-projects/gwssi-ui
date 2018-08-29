@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 //路由对应的页面
 import login from '../page/login'
 
+
 Vue.use(VueRouter);
 
 

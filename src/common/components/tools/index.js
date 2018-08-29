@@ -1,4 +1,11 @@
+import Cookies from 'js-cookie'
+
+
 export default {
+
+  //可以直接使用cookies操作cookies
+  cookies: Cookies,
+
   //设置cookie
   setCookie: function (cname, cvalue, exdays, path) {
 

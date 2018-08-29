@@ -1,12 +1,15 @@
-import { loginByUsername, logout, getUserInfo } from '@/api/login'
-import { getToken, setToken, removeToken } from '@/utils/auth'
+import api from '../../api'
+
+//Token-d77b15d5-fae3-4f91-95ec-6ba79d246972
+const TokenKey = 'user-token'
 
 const user = {
+  // 类似组件中的data
   state: {
     user: '',
     status: '',
     code: '',
-    token: getToken(),
+    token: gwTools.cookies.get(TokenKey),
     name: '',
     avatar: '',
     introduction: '',
@@ -16,6 +19,8 @@ const user = {
     }
   },
 
+  //必须通过这一步来修改数据
+  //不能直接改变 store 中的状态。改变 store 中的状态的唯一途径就是显式地提交 (commit) mutation。这样可以方便地跟踪每一个状态的变化。
   mutations: {
     SET_CODE: (state, code) => {
       state.code = code
@@ -43,15 +48,17 @@ const user = {
     }
   },
 
+  // 用户派发的行为，类似methods
   actions: {
-    // 用户名登录
+    // 用户名登录（需要同步进行）
     LoginByUsername({ commit }, userInfo) {
       const username = userInfo.username.trim()
       return new Promise((resolve, reject) => {
         loginByUsername(username, userInfo.password).then(response => {
           const data = response.data
           commit('SET_TOKEN', data.token)
-          setToken(response.data.token)
+          //设置cookies的操作由服务器完成
+          // gwTools.cookies.set(TokenKey, response.data.token)
           resolve()
         }).catch(error => {
           reject(error)
@@ -59,7 +66,7 @@ const user = {
       })
     },
 
-    // 获取用户信息
+    // 获取用户信息（需要同步进行）
     GetUserInfo({ commit, state }) {
       return new Promise((resolve, reject) => {
         getUserInfo(state.token).then(response => {
@@ -84,27 +91,13 @@ const user = {
       })
     },
 
-    // 第三方验证登录
-    // LoginByThirdparty({ commit, state }, code) {
-    //   return new Promise((resolve, reject) => {
-    //     commit('SET_CODE', code)
-    //     loginByThirdparty(state.status, state.email, state.code).then(response => {
-    //       commit('SET_TOKEN', response.data.token)
-    //       setToken(response.data.token)
-    //       resolve()
-    //     }).catch(error => {
-    //       reject(error)
-    //     })
-    //   })
-    // },
-
     // 登出
     LogOut({ commit, state }) {
       return new Promise((resolve, reject) => {
         logout(state.token).then(() => {
           commit('SET_TOKEN', '')
           commit('SET_ROLES', [])
-          removeToken()
+          gwTools.cookies.remove(TokenKey)
           resolve()
         }).catch(error => {
           reject(error)
@@ -112,17 +105,8 @@ const user = {
       })
     },
 
-    // 前端 登出
-    FedLogOut({ commit }) {
-      return new Promise(resolve => {
-        commit('SET_TOKEN', '')
-        removeToken()
-        resolve()
-      })
-    },
-
-    // 动态修改权限
-    ChangeRoles({ commit }, role) {
+    // 验证权限
+    CheckRoles({ commit }, role) {
       return new Promise(resolve => {
         commit('SET_TOKEN', role)
         setToken(role)
