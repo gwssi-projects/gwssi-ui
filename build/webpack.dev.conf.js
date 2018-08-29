@@ -33,6 +33,7 @@ var webpackConfig = merge(baseWebpackConfig, {
 
     plugins: [
         new webpack.DefinePlugin({
+            //设置环境变量 process.env
             'process.env': env
         })
     ]
@@ -40,3 +41,4 @@ var webpackConfig = merge(baseWebpackConfig, {
 })
 
 module.exports = webpackConfig
+

@@ -5,9 +5,8 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 var config = require('../config')
 
-console.log("当前模式：" + process.env.NODE_ENV);
-
 module.exports = {
+
   entry: {
     //公共组件（不会经常变更）
     vendor: './src/common/vendor.js',
@@ -115,3 +114,5 @@ module.exports = {
     extensions: ['.js', '.vue', '.json', '.css']
   },
 }
+
+

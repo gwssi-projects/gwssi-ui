@@ -21,3 +21,5 @@ new Vue({
   // }
 })
 
+console.log("当前模式：" + process.env.NODE_ENV);
+console.log("当前domain：" + process.env.DOMAIN);

@@ -6,7 +6,7 @@
       <a href="http://element-cn.eleme.io/#/zh-CN" target="_blank">http://element-cn.eleme.io/#/zh-CN</a>
     </span>
     &nbsp;
-    <i class="iconfont icon-wechat"></i>&nbsp;微信：gwssi@com.cn
+    <i class="iconfont icon-wechat"></i>&nbsp;微信：gl19@com.cn
   </div>
 
 </template>
