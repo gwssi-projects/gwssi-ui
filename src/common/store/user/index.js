@@ -9,7 +9,7 @@ const user = {
     user: '',
     status: '',
     code: '',
-    token: gwTools.cookies.get(TokenKey),
+    token: '',
     name: '',
     avatar: '',
     introduction: '',
