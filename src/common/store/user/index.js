@@ -6,16 +6,20 @@ const TokenKey = 'user-token'
 const user = {
   // 类似组件中的data
   state: {
+    //用户名 比如admin/user
     user: '',
+    //用户状态 正常停用之类，这里0表示正常，1停用
     status: '',
-    code: '',
-    token: '',
+    //用户的序列id
+    id: '',
+    //当前对应的token
+    token: gwTools.cookies.get(TokenKey),
+    //用户名称
     name: '',
-    avatar: '',
-    introduction: '',
+    //权限
     roles: [],
-    setting: {
-      articlePlatform: []
+    //扩展信息
+    info: {
     }
   },
 

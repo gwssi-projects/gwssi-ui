@@ -33,7 +33,7 @@ export default {
       username: "",
       password: "",
       isLoging: false,
-      loginBtnLoading: false
+      loginBtnLoading: true
     };
   },
 
