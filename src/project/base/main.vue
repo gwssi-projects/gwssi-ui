@@ -28,6 +28,31 @@ import AppHeader from "./page/header";
 import AppFooter from "./page/footer";
 
 export default {
+  beforeCreate() {},
+
+  created() {
+    //删除loading层，此时加载完毕所有JS
+    try {
+      document.body.removeChild(document.getElementById("appLoading"));
+    } catch (e) {
+      console.error(e);
+    }
+
+    this.$nextTick(() => {
+      // 以服务的方式调用的 Loading 需要异步关闭
+      // loadingInstance.close();
+    });
+
+    //用户登录
+    this.$store.dispatch("getUserInfo");
+  },
+
+  metaInfo: {
+    //标题国际化
+    //meatInfo 为vuemeta标签返回对象，无法使用this.$t("gwssi.title.gwssi")？只能使用全局注册的 i18n
+    title: i18n.t("gwssi.title.gwssi")
+  },
+
   mounted: function() {
     console.log("title = " + this.$t("gwssi.title.gwssi"));
   },

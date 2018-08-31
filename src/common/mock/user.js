@@ -1,20 +1,45 @@
 
 import tools from "../components/tools";
+import { TokenKey } from '../../common/store/user'
+
+const admin_token = 'admin_token'
+const user_token = 'user_token'
+
+const admin_pw = 'admin'
+const user_pw = 'user'
+
 
 const userMap = {
   admin: {
-    roles: ['admin'],
-    token: 'admin',
-    introduction: '我是超级管理员',
-    avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
-    name: 'Super Admin'
+    user: 'admin',
+    status: '0',
+    id: '0',
+    name: '管理员',
+    roles: ['admin', 'user'],
+    info: {
+      introduction: '我是超级管理员',
+      avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif'
+    }
   },
-  editor: {
+  user: {
+    user: 'user',
+    status: '0',
+    id: '1',
+    name: '用户',
     roles: ['user'],
-    token: 'user',
-    introduction: '我是普通用户',
-    avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
-    name: 'Normal Editor'
+    info: {
+      introduction: '我是普通用户',
+      avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
+    }
+  },
+  none: {
+    user: 'none',
+    status: '0',
+    id: '-1',
+    name: '访客',
+    roles: [],
+    info: {
+    }
   }
 }
 
@@ -24,12 +49,24 @@ export default {
     return userMap[username]
   },
   getUserInfo: config => {
-    const { token } = tools.param2Obj(config.url)
-    if (userMap[token]) {
-      return userMap[token]
-    } else {
-      return false
+
+    console.info("mock getUserInfo");
+
+    var token = tools.cookies.get(TokenKey);
+
+    if (token == null || token == "") {
+      return userMap.none
     }
+
+    if (token == admin_token) {
+      return userMap.admin
+    }
+
+    if (token == user_token) {
+      return userMap.user
+    }
+
+    return userMap.none
   },
   logout: () => 'success'
 }

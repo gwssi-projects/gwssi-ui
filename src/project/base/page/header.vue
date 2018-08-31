@@ -21,9 +21,9 @@
             <el-menu-item index="syncRouter">{{ $t('gwssi.tips.syncRouterBtn') }}</el-menu-item>
           </el-submenu>
 
+          <el-menu-item index="button">{{ $t('gwssi.tips.buttonBtn') }}</el-menu-item>
           <el-menu-item index="form">{{ $t('gwssi.tips.formBtn') }}</el-menu-item>
           <el-menu-item index="grid">{{ $t('gwssi.tips.gridBtn') }}</el-menu-item>
-          <el-menu-item index="button">{{ $t('gwssi.tips.buttonBtn') }}</el-menu-item>
 
           <el-submenu index="page">
             <template slot="title">{{ $t('gwssi.tips.page') }}</template>

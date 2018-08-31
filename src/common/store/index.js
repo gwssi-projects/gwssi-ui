@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 //基础
-// import user from './user'
+import user from './user'
 import errorLog from './errorLog'
 import app from './app'
 
@@ -18,7 +18,7 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   modules: {
-    // user,
+    user,
     errorLog: errorLog,
     app: app
 

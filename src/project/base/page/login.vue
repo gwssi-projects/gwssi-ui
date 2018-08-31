@@ -4,20 +4,20 @@
     <div class="logo" :style="{ 'color': storeColor }">
       <i class="iconfont icon-shenfenzheng"></i>
     </div>
-    <p class="text-tips">你好｛用户｝，欢迎登录</p>
-    <form action="" class="login-form">
-      <div class="m-list-group">
-        <div class="m-list-group-item">
-          <el-input v-model="username" placeholder="用户名"></el-input>
-        </div>
-        <div class="m-list-group-item">
-          <el-input v-model="password" placeholder="密码"></el-input>
-        </div>
-      </div>
+    <p class="text-tips">你好｛{{uName}}｝，欢迎登录</p>
+    <!--status-icon 为反馈图标-->
+
+    <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" class="login-form">
+      <el-form-item prop="username">
+        <el-input v-model="ruleForm.username" placeholder="用户名"></el-input>
+      </el-form-item>
+      <el-form-item prop="password">
+        <el-input v-model="ruleForm.password" placeholder="密码"></el-input>
+      </el-form-item>
       <p class="text-tips">使用用户admin/admin，user/user来测试不同用户权限，使用其它用户密码测试登录不正确返回结果。</p>
       <!--点击后加载状态 :loading="true"-->
-      <el-button type="primary" :loading="loginBtnLoading" class="loginBtn" @click="handleLogin">登&nbsp;&nbsp;&nbsp;录</el-button>
-    </form>
+      <el-button type="primary" :loading="loginBtnLoading" class="loginBtn" @click="submitForm('ruleForm')">登&nbsp;&nbsp;&nbsp;录</el-button>
+    </el-form>
     <p class="text-tips">
       <i class="el-icon-edit"></i> ©make by VUE + ELEMENT UI
     </p>
@@ -32,15 +32,25 @@ export default {
   computed: {
     storeColor() {
       return this.$store.getters.defaultColor;
+    },
+    uName() {
+      return this.$store.state.user.name;
     }
   },
 
   data() {
     return {
-      username: "",
-      password: "",
-      isLoging: false,
-      loginBtnLoading: true
+      ruleForm: {
+        username: "",
+        password: ""
+      },
+      rules: {
+        username: [
+          { required: true, message: "请输入用户名", trigger: "blur" }
+        ],
+        password: [{ required: true, message: "请输入密码", trigger: "blur" }]
+      },
+      loginBtnLoading: false
     };
   },
 
@@ -51,20 +61,34 @@ export default {
   created() {},
 
   methods: {
-    handleLogin() {
-      this.loginBtnLoading = true;
-      if (!this.username || !this.password) {
-        return this.$message.warning("用户名和密码不能为空");
-      }
-      this.isLoging = true;
-      this.login({
-        username: this.username,
-        password: this.password
-      }).then(res => {
-        this.$message.success("登录成功");
-        this.$router.push({ name: "home" });
-        this.isLoging = false;
+    submitForm(formName) {
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          this.loginBtnLoading = true;
+
+          this.$store
+            .dispatch("login", {
+              username: this.ruleForm.username,
+              password: this.ruleForm.password
+            })
+            .then(
+              function(json) {
+                //更新用户
+                //判断用户密码
+                this.loginBtnLoading = false;
+              },
+              function(error) {
+                //服务器错误
+                this.loginBtnLoading = false;
+              }
+            );
+        } else {
+          return false;
+        }
       });
+    },
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
     }
   }
 };
@@ -72,26 +96,6 @@ export default {
 
 
 <style  lang="less" scoped>
-.m-list-group {
-  border-radius: 3px;
-  padding: 0;
-  margin: 0 0 20px;
-}
-.m-list-group .m-list-group-item {
-  position: relative;
-  display: block;
-  padding: 6px 10px;
-  margin-bottom: -1px;
-  border: 1px solid #e7ecee;
-}
-.m-list-group .m-list-group-item:first-child {
-  border-top-left-radius: 3px;
-  border-top-right-radius: 3px;
-}
-.m-list-group .m-list-group-item:last-child {
-  border-bottom-left-radius: 3px;
-  border-bottom-right-radius: 3px;
-}
 .login-box {
   position: relative;
   width: 330px;
@@ -112,48 +116,6 @@ export default {
 .login-box .text-tips {
   text-align: center;
   color: #909db7;
-}
-.login-box .m-input {
-  width: 100%;
-  padding: 10px;
-  border: none;
-  outline: none;
-  box-sizing: border-box;
-}
-.login-box .m-btn {
-  font-size: 18px;
-  width: 100%;
-  color: #fff;
-  background-color: #36c1fa;
-  display: inline-block;
-  padding: 10px 12px;
-  margin-bottom: 5px;
-  line-height: 1.42857143;
-  text-align: center;
-  cursor: pointer;
-  outline: none;
-  border-radius: 2px;
-  border: 1px solid #36c1fa;
-  box-sizing: border-box;
-  text-decoration: none;
-}
-.login-box .m-btn.m-btn-text {
-  background: #fff;
-  color: #36c1fa;
-}
-.login-box .m-btn:hover {
-  background-color: #2db7f5;
-}
-.login-box .m-btn.m-btn-text:hover {
-  background-color: #f4f5f5;
-}
-.login-box .m-btn:active {
-  opacity: 0.8;
-}
-@media (max-width: 768px) {
-  .login-box {
-    width: auto;
-  }
 }
 
 .login-box .loginBtn {

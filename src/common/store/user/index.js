@@ -1,22 +1,21 @@
 import api from '../../api'
 import tools from "../../components/tools";
+import request from '../../components/request'
 
 //Token-d77b15d5-fae3-4f91-95ec-6ba79d246972
-export const TokenKey = 'user-token'
+export const TokenKey = 'token'
 
 const user = {
   // 类似组件中的data
   state: {
-    //用户名 比如admin/user
-    user: '',
+    //用户ID 比如admin/user
+    user: 'none',
     //用户状态 正常停用之类，这里0表示正常，1停用
-    status: '',
-    //用户的序列id
-    id: '',
-    //当前对应的token
-    token: tools.cookies.get(TokenKey),
-    //用户名称
-    name: '',
+    status: '0',
+    //用户的序列id 1，2，3
+    id: '-1',
+    //用户名称 管理员/普通用户
+    name: '访客',
     //权限
     roles: [],
     //扩展信息
@@ -24,98 +23,78 @@ const user = {
     }
   },
 
-  getters : {
-    // userTokenKey: state => state.user.userTokenKey,
-    // token: state => {
-    //     return state.user.state == 1 return "激活"
+  getters: {
+    token: state => {
+      var token = tools.cookies.get(TokenKey);
+      return token
+    },
 
-    // },
-    // avatar: state => state.user.avatar,
-    // name: state => state.user.name,
-    // introduction: state => state.user.introduction,
-    // status: state => state.user.status,
-    // roles: state => state.user.roles,
-    // setting: state => state.user.setting,
-    // addRouters: state => state.permission.addRouters,
+    status: state => {
+      if (state.status == '0') {
+        return "正常"
+      }
 
-
-
+      if (state.status == '1') {
+        return "停用"
+      }
+    }
   },
 
   //必须通过这一步来修改数据
-  //不能直接改变 store 中的状态。改变 store 中的状态的唯一途径就是显式地提交 (commit) mutation。这样可以方便地跟踪每一个状态的变化。
   mutations: {
-    SET_CODE: (state, code) => {
-      state.code = code
-    },
-    SET_TOKEN: (state, token) => {
-      state.token = token
-    },
-    SET_INTRODUCTION: (state, introduction) => {
-      state.introduction = introduction
-    },
-    SET_SETTING: (state, setting) => {
-      state.setting = setting
+
+    SET_USER: (state, user) => {
+      state.user = user
     },
     SET_STATUS: (state, status) => {
       state.status = status
     },
+    SET_ID: (state, id) => {
+      state.id = id
+    },
     SET_NAME: (state, name) => {
       state.name = name
     },
-    SET_AVATAR: (state, avatar) => {
-      state.avatar = avatar
-    },
     SET_ROLES: (state, roles) => {
       state.roles = roles
+    },
+    SET_INFO: (state, info) => {
+      state.info = info
     }
+
   },
 
   // 用户派发的行为，类似methods
   actions: {
-    // 用户名登录（需要同步进行）
-    LoginByUsername({ commit }, userInfo) {
-      const username = userInfo.username.trim()
-      return new Promise((resolve, reject) => {
-        loginByUsername(username, userInfo.password).then(response => {
-          const data = response.data
-          commit('SET_TOKEN', data.token)
-          //设置cookies的操作由服务器完成
-          // tools.cookies.set(TokenKey, response.data.token)
-          resolve()
-        }).catch(error => {
-          reject(error)
-        })
-      })
+    // 用户名登录
+    login({ commit }, userInfo) {
+      //这里应该return 因为可能有后续操作 比如激活按钮等等
+      return request.get(api.gwssi.user.login, userInfo);
     },
 
-    // 获取用户信息（需要同步进行）
-    GetUserInfo({ commit, state }) {
-      return new Promise((resolve, reject) => {
-        getUserInfo(state.token).then(response => {
-          if (!response.data) { // 由于mockjs 不支持自定义状态码只能这样hack
-            reject('error')
-          }
-          const data = response.data
+    // 获取用户信息（从服务器获取用户信息）
+    getUserInfo({ commit, state }) {
 
-          if (data.roles && data.roles.length > 0) { // 验证返回的roles是否是一个非空数组
-            commit('SET_ROLES', data.roles)
-          } else {
-            reject('getInfo: roles must be a non-null array !')
-          }
+      request.get(api.gwssi.user.info, null).then(function (json) {
+        console.log("获取用户信息");
 
-          commit('SET_NAME', data.name)
-          commit('SET_AVATAR', data.avatar)
-          commit('SET_INTRODUCTION', data.introduction)
-          resolve(response)
-        }).catch(error => {
-          reject(error)
-        })
-      })
+        if (json.data != null) {
+          commit('SET_USER', json.data.name)
+          commit('SET_STATUS', json.data.status)
+          commit('SET_ID', json.data.id)
+          commit('SET_NAME', json.data.name)
+          commit('SET_ROLES', json.data.roles)
+          commit('SET_INFO', json.data.info)
+        }
+
+      }, function (error) {
+        console.error('获取用户信息错误：', error);
+      });
+
     },
 
     // 登出
-    LogOut({ commit, state }) {
+    logOut({ commit, state }) {
       return new Promise((resolve, reject) => {
         logout(state.token).then(() => {
           commit('SET_TOKEN', '')
@@ -129,7 +108,7 @@ const user = {
     },
 
     // 验证权限
-    CheckRoles({ commit }, role) {
+    checkRoles({ commit }, role) {
       return new Promise(resolve => {
         commit('SET_TOKEN', role)
         setToken(role)
