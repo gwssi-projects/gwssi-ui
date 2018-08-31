@@ -1,7 +1,8 @@
 import api from '../../api'
+import tools from "../../components/tools";
 
 //Token-d77b15d5-fae3-4f91-95ec-6ba79d246972
-const TokenKey = 'user-token'
+export const TokenKey = 'user-token'
 
 const user = {
   // 类似组件中的data
@@ -13,7 +14,7 @@ const user = {
     //用户的序列id
     id: '',
     //当前对应的token
-    token: gwTools.cookies.get(TokenKey),
+    token: tools.cookies.get(TokenKey),
     //用户名称
     name: '',
     //权限
@@ -21,6 +22,24 @@ const user = {
     //扩展信息
     info: {
     }
+  },
+
+  getters : {
+    // userTokenKey: state => state.user.userTokenKey,
+    // token: state => {
+    //     return state.user.state == 1 return "激活"
+
+    // },
+    // avatar: state => state.user.avatar,
+    // name: state => state.user.name,
+    // introduction: state => state.user.introduction,
+    // status: state => state.user.status,
+    // roles: state => state.user.roles,
+    // setting: state => state.user.setting,
+    // addRouters: state => state.permission.addRouters,
+
+
+
   },
 
   //必须通过这一步来修改数据
@@ -62,7 +81,7 @@ const user = {
           const data = response.data
           commit('SET_TOKEN', data.token)
           //设置cookies的操作由服务器完成
-          // gwTools.cookies.set(TokenKey, response.data.token)
+          // tools.cookies.set(TokenKey, response.data.token)
           resolve()
         }).catch(error => {
           reject(error)
@@ -101,7 +120,7 @@ const user = {
         logout(state.token).then(() => {
           commit('SET_TOKEN', '')
           commit('SET_ROLES', [])
-          gwTools.cookies.remove(TokenKey)
+          tools.cookies.remove(TokenKey)
           resolve()
         }).catch(error => {
           reject(error)

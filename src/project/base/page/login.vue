@@ -1,7 +1,7 @@
 
 <template>
   <div class="login-box">
-    <div class="logo" :style="{ 'color': defaultColor }">
+    <div class="logo" :style="{ 'color': storeColor }">
       <i class="iconfont icon-shenfenzheng"></i>
     </div>
     <p class="text-tips">你好｛用户｝，欢迎登录</p>
@@ -28,6 +28,13 @@
 <script>
 export default {
   name: "login",
+
+  computed: {
+    storeColor() {
+      return this.$store.getters.defaultColor;
+    }
+  },
+
   data() {
     return {
       username: "",
@@ -38,8 +45,6 @@ export default {
   },
 
   props: {
-    //项目中的默认颜色
-    defaultColor: String,
     obj: Object
   },
 

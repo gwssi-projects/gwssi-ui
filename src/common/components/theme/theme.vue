@@ -1,5 +1,5 @@
 <template>
-  <el-color-picker v-model="colors.primary" @active-change="activeChange" @change="colorChange"></el-color-picker>
+  <el-color-picker :storeColor="storeColor" v-model="colors.primary" @active-change="activeChange" @change="colorChange"></el-color-picker>
 </template>
 
 <script>
@@ -7,10 +7,13 @@
 //此控件只修改elementui相关主题颜色，整体应用主题颜色通过调用父组件colorChange自行处理。
 import objectAssign from "object-assign";
 import generateColors from "./color";
+import store from "../../store";
 
-let appContextPath = "";
+//部署的二级路径，用于正确加载CSS中的woff和ttf文件
+let appContextPath = process.env.REQUEST_PATH;
 
 export default {
+  store,
   name: "gw-color-picker",
   methods: {
     writeNewStyle() {
@@ -46,32 +49,15 @@ export default {
         style.innerText = cssText;
         document.head.appendChild(style);
       } else {
-        // console.log("再次设置");
         style.innerText = cssText;
       }
-
-      // console.log(this.originalStylesheetCount);
-      // console.log(document.styleSheets.length);
-      // if (this.originalStylesheetCount === document.styleSheets.length) {
-      //   const style = document.createElement("style");
-      //   style.innerText = cssText;
-      //   document.head.appendChild(style);
-      // } else {
-      //   //lastChild有时候会变成<script type="text/javascript" charset="utf-8" src="moz-extension://74478412-ab19-4a5d-88fc-526311cbb59b/js/gwdang-notifier-ff.js">
-      //   // document.head.lastChild.innerText = cssText;
-      //   document.head.getElementsByTagName("style")[document.styleSheets.length - 1].innerText = cssText;
-      // }
     },
 
     colorChange: function() {
-      //触发颜色更新事件 返回给父页面
-      this.$emit("colorChange", this.colors.primary);
-
-      //更新vue组件颜色
-      this.writeNewStyle();
-
-      //记录颜色更改至cookie中
-      gwTools.setCookie("theme-color", this.colors.primary, 100, "/");
+      //触发颜色更新事件 返回给父页面 更改从storeColor调用
+      //this.$emit("colorChange", this.colors.primary);
+      //更新store
+      this.$store.dispatch("setThemeColor", this.colors.primary);
     },
     activeChange: function() {
       //触发颜色更新事件 返回给父页面
@@ -82,7 +68,6 @@ export default {
       this.getFile("/static/element-ui/2.4.6/lib/theme-chalk/index.css").then(
         ({ data }) => {
           this.originalStyle = this.getStyleTemplate(data);
-          //console.log(this.originalStyle);
         }
       );
     },
@@ -189,25 +174,16 @@ export default {
     //防止某些异步操作出错
     this.$nextTick(() => {
       this.originalStylesheetCount = document.styleSheets.length;
-      // console.info("theme color = " + this.colors.primary);
 
-      var color = gwTools.getCookie("theme-color");
+      var color = this.$store.getters.themeColor;
       if (color != null && color != "") {
-        this.colors.primary = color;
-      }
-
-      //如果默认颜色不相同的话 执行更新主题操作
-      if ((this.colors.primary + "").toLowerCase() != this.primaryColor) {
-        //debugger
-        this.$emit("colorChange", this.colors.primary);
-        this.writeNewStyle();
-        //更新颜色cookie时间
-        gwTools.setCookie("theme-color", this.colors.primary, 100, "/");
+        //更新颜色
+        this.$store.dispatch("setThemeColor", color);
       }
     });
   },
 
-  //通过监听的方式解决 异步加载主题css，第一次打开页面替换主题的话会导致基础模版构建不出来的问题
+  //通过监听的方式解决 异步加载主题css
   watch: {
     originalStyle: function(val, oldVal) {
       console.log("originalStyle change");
@@ -230,16 +206,32 @@ export default {
   beforeCreate: function() {},
 
   props: {
-    //项目中的默认颜色
-    defaultColor: String,
-    //部署的耳机路径 配置后用于加载CSS中的woff和ttf文件
     obj: Object
+  },
+
+  //computed的内容必须放到页面上才能生效？
+  //computed里面的内容，貌似只有在html里面调用到，才会实时更新,props中使用也不行？
+  //现在的做法是绑定一个 storeColor在组件上
+  computed: {
+    storeColor() {
+      //第一次也会执行 （不是更改后才执行）
+      this.colors.primary = this.$store.getters.defaultColor;
+
+      //如果默认颜色不相同的话 执行更新主题操作
+      if ((this.colors.primary + "").toLowerCase() != this.primaryColor) {
+        this.writeNewStyle();
+        //触发颜色更新事件 返回给父页面
+        this.$emit("colorChange", this.colors.primary);
+      }
+
+      return this.$store.getters.defaultColor;
+    }
   },
 
   data() {
     return {
       colors: {
-        primary: this.defaultColor
+        primary: "#409eff"
       },
       //elementUI的默认颜色
       primaryColor: "#409eff",

@@ -17,8 +17,6 @@ export default {
   beforeMount: function() {},
 
   props: {
-    //项目中的默认颜色
-    defaultColor: String,
     obj: Object
   },
 

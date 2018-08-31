@@ -18,7 +18,7 @@ module.exports = {
 
     //project
     //base ui
-    baseUIIndex: './src/project/base/main.js'
+    "project/base/baseUIIndex" : './src/project/base/main.js'
 
     //iptrm
 
@@ -76,6 +76,7 @@ module.exports = {
   },
 
   plugins: [
+	 //CommonsChunkPlugin主要是用来提取第三方库和公共模块，避免首屏加载的bundle文件或者按需加载的bundle文件体积过大，从而导致加载时间过长。
     //重复引用的公共组件 会打包成 /manifest.js /vendor.js 将第三方包分离
     //减少其他JS引入相同公共组件后会重复打包的问题（如果没有配置CommonsChunkPlugin，会在自己的JS中打入第三方库的JS包）
     new webpack.optimize.CommonsChunkPlugin({
@@ -94,7 +95,7 @@ module.exports = {
       title: '长城软件基础UI组件及应用项目',
       filename: resolve(__dirname, '../dist/project/base/index.html'),
       template: resolve(__dirname, '../src/project/base/index.html'),
-      chunks: ['manifest', 'vendor', 'baseUIIndex']
+      chunks: ['manifest', 'vendor', 'project/base/baseUIIndex']
     }),
     // 直接复制静态文件
     new CopyWebpackPlugin([

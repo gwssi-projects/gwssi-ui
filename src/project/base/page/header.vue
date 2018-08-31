@@ -1,6 +1,6 @@
 <template>
 
-  <div class="container" :style="{ 'border-top-color': themeColor }">
+  <div class="container" :style="{ 'border-top-color': storeColor }">
 
     <el-row>
       <!--左右各留出两格的距离 一共24列-->
@@ -41,7 +41,7 @@
 
       <el-col :span="1" :offset="1">
         <el-badge :hidden="badgeHidden" :value="$t('gwssi.tips.colorPickerItem')" class="colorPickerItem">
-          <gw-color-picker @colorChange="colorChange" @activeChange="activeChange" :defaultColor='themeColor'></gw-color-picker>
+          <gw-color-picker @colorChange="colorChange" @activeChange="activeChange" :obj='themeObj'></gw-color-picker>
         </el-badge>
       </el-col>
 
@@ -62,8 +62,6 @@ export default {
   beforeMount: function() {},
 
   props: {
-    //项目中的默认颜色
-    defaultColor: String,
     obj: Object
   },
 
@@ -75,30 +73,31 @@ export default {
   //   GwTheme
   // },
 
+  computed: {
+    storeColor() {
+      return this.$store.getters.defaultColor;
+    }
+  },
+
   methods: {
     selectItems(index) {
       console.log(index);
     },
     colorChange(color) {
-      this.themeColor = color;
-      this.$emit("colorChange", color);
       this.badgeHidden = true;
     },
-    activeChange(color) {
-      //这里只是选择颜色 没有确定
-    }
+    activeChange(color) {}
   },
   data() {
     return {
-      //默认颜色
-      themeColor: this.defaultColor,
       //根据路由获取激活菜单选中对象
       activeName:
         this.$route.name == "" || this.$route.name == "index"
           ? "login"
           : this.$route.name,
       menuRouter: true,
-      badgeHidden: false
+      badgeHidden: false,
+      themeObj: {}
     };
   }
 };

@@ -1,4 +1,6 @@
 
+import tools from "../components/tools";
+
 const userMap = {
   admin: {
     roles: ['admin'],
@@ -22,7 +24,7 @@ export default {
     return userMap[username]
   },
   getUserInfo: config => {
-    const { token } = gwTools.param2Obj(config.url)
+    const { token } = tools.param2Obj(config.url)
     if (userMap[token]) {
       return userMap[token]
     } else {

@@ -13,6 +13,7 @@ import app from './main.vue'
 
 import '../../common/mock'
 
+import store from "../../common/store"
 
 // import { Loading } from "element-ui";
 
@@ -32,6 +33,7 @@ Vue.use(VueMeta)
 new Vue({
   i18n,
   router,
+  store,
   beforeCreate() {
 
   },

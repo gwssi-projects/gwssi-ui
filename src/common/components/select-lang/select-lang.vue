@@ -16,27 +16,18 @@
 //需要首先注册全局对象 
 // window.gwI18n = i18n;
 // window.i18n = i18n.vueLocale;
-import tools from "../tools";
+//store对象
+import store from "../../store"
 
 export default {
+  store,
   name: "gw-select-lang",
   methods: {
     langChange() {
       i18n.locale = this.lang;
       gwI18n.eleLocale(this.lang);
-      //如果是多级域名，是需要设置domain的
-      tools.setCookie("content-language", this.lang, 100, "/");
+      this.$store.dispatch('setLanguage', this.lang);
     }
-  },
-  //mounted不能国际化下述data中的内容，生命周期顺序加载的问题
-  //mounted: function() {
-  beforeCreate: function() {
-    //这部分代码在i18n组件完成
-    //这部分可以通过浏览器来选择默认语言(第一次语言设置在初始化window.i18n的代码中进行)，这里首先通过参数和cookie判断语言
-    // var lang = tools.getQueryString("language");
-    // if (lang == null) {
-    //   lang = tools.getCookie("content-language");
-    // }
   },
   props: { test: "" },
   data() {

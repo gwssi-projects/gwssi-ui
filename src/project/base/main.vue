@@ -2,20 +2,20 @@
 <template>
 
   <!--<el-container>：外层容器。当子元素中包含 <el-header> 或 <el-footer> 时，全部子元素会垂直上下排列，否则会水平左右排列。-->
-  <el-container>
+  <el-container :storeColor="storeColor">
 
     <el-header>
-      <app-header @colorChange="colorChange" :defaultColor='themeColor'></app-header>
+      <app-header></app-header>
     </el-header>
 
     <el-main>
       <!-- 路由出口 -->
       <!-- 路由匹配到的组件将渲染在这里 -->
-      <router-view :defaultColor='themeColor'></router-view>
+      <router-view></router-view>
     </el-main>
 
     <el-footer>
-      <app-footer :defaultColor='themeColor'></app-footer>
+      <app-footer></app-footer>
     </el-footer>
 
   </el-container>
@@ -36,28 +36,33 @@ export default {
     AppHeader,
     AppFooter
   },
+
+  //主题颜色更新监控（storeColor必须在html中被调用才能监控，在当前控件或者父控件中调用都可以生效）
+  computed: {
+    storeColor() {
+      console.log("更新项目UI颜色" + this.$store.getters.defaultColor);
+      //更新a标签主题颜色
+      var cssText =
+        "a {color:" +
+        this.$store.getters.defaultColor +
+        ";}  a:focus, a:hover {color:" +
+        this.$store.getters.defaultColor +
+        ";}";
+
+      this.writeNewStyle(cssText);
+
+      return this.$store.getters.defaultColor;
+    }
+  },
+
+  watch: {},
+
   methods: {
     selectItems(index) {
       console.log(index);
     },
-    colorChange(color) {
-      this.themeColor = color;
-      console.log("更新项目UI颜色" + color);
-      //更新a标签主题颜色
-      var cssText =
-        "a {color:" +
-        this.themeColor +
-        ";}  a:focus, a:hover {color:" +
-        this.themeColor +
-        ";}";
 
-      this.writeNewStyle(cssText);
-    },
-
-    writeNewStyle(cssText) { 
-      //更新app字体颜色
-      console.log("更新项目字体颜色" + this.themeColor);
-
+    writeNewStyle(cssText) {
       if (cssText == null || cssText == "") {
         console.log("cssText is null!!");
         return;
@@ -76,10 +81,7 @@ export default {
     }
   },
   data() {
-    return {
-      //默认颜色
-      themeColor: "#409eff"
-    };
+    return {};
   }
 };
 </script>
