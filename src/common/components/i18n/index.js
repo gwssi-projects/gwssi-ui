@@ -12,15 +12,16 @@ import gwssiZhLocale from '../../lib/locale/lang/zh-CN.js'
 //require 和 import , ES6建议全部使用 import
 //const merge = require('webpack-merge')
 //webpack-merge类似jquery的extends 合并对象
-import merge from 'webpack-merge'
+// import merge from 'webpack-merge'
+import tools from "../../components/tools";
 
 //store对象
 import store from '../../store'
 
 Vue.use(VueI18n)
 //语言合并
-const en = merge(enLocale, gwssiEnLocale)
-const cn = merge(zhLocale, gwssiZhLocale)
+const en = tools.objectMerge(enLocale, gwssiEnLocale)
+const cn = tools.objectMerge(zhLocale, gwssiZhLocale)
 
 const messages = {
   en: en,

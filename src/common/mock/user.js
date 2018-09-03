@@ -2,12 +2,20 @@
 import tools from "../components/tools";
 import { TokenKey } from '../../common/store/user'
 
+import { errNo } from '../../common/components/request'
+import { errDes } from '../../common/components/request'
+import { content } from '../../common/components/request'
+
 const admin_token = 'admin_token'
 const user_token = 'user_token'
 
 const admin_pw = 'admin'
 const user_pw = 'user'
 
+var json = {};
+json[errNo] = '0'
+json[errDes] = ''
+json[content] = ''
 
 const userMap = {
   admin: {
@@ -45,28 +53,49 @@ const userMap = {
 
 export default {
   loginByUsername: config => {
-    const { username } = JSON.parse(config.body)
-    return userMap[username]
+
+    console.log(config.url);
+    console.log(config.type);
+    console.log(config.body);
+
+    var jsonObj = tools.deepClone(json);
+    var obj = tools.param2Obj(config.url);
+
+    var username = obj.user;
+    var password = obj.password;
+
+    if (username == null || username == "" || username != "admin" || username != "user") {
+      jsonObj[errNo] = "01";
+      jsonObj[errDes] = "用户不存在";
+      return jsonObj;
+    }
+
+    jsonObj.content = userMap[username];
+    return jsonObj
   },
   getUserInfo: config => {
 
     console.info("mock getUserInfo");
 
+    var jsonObj = tools.deepClone(json);
     var token = tools.cookies.get(TokenKey);
 
     if (token == null || token == "") {
-      return userMap.none
+      jsonObj[content] = userMap.none;
+      return jsonObj
     }
 
     if (token == admin_token) {
-      return userMap.admin
+      jsonObj[content] = userMap.admin;
+      return jsonObj
     }
 
     if (token == user_token) {
-      return userMap.user
+      jsonObj[content] = userMap.user;
+      return jsonObj
     }
-
-    return userMap.none
+    jsonObj[content] = userMap.none;
+    return jsonObj
   },
   logout: () => 'success'
 }

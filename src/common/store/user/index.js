@@ -43,6 +43,17 @@ const user = {
   //必须通过这一步来修改数据
   mutations: {
 
+    UPDATE_USEROBJ: (state, userObj) => {
+
+      state.user = userObj.user
+      state.status = userObj.status
+      state.id = userObj.id
+      state.name = userObj.name
+      state.roles = userObj.roles
+      state.info = userObj.info
+
+    },
+
     SET_USER: (state, user) => {
       state.user = user
     },
@@ -66,25 +77,26 @@ const user = {
 
   // 用户派发的行为，类似methods
   actions: {
+
+    //更新用户信息
+    updateUserInfo({ commit }, userInfo) {
+      commit('UPDATE_USEROBJ', userInfo)
+    },
+
     // 用户名登录
     login({ commit }, userInfo) {
       //这里应该return 因为可能有后续操作 比如激活按钮等等
-      return request.get(api.gwssi.user.login, userInfo);
+      return request.get(api.gwssi.user.login.url, userInfo);
     },
 
     // 获取用户信息（从服务器获取用户信息）
     getUserInfo({ commit, state }) {
 
-      request.get(api.gwssi.user.info, null).then(function (json) {
+      request.get(api.gwssi.user.info.url, null).then(function (json) {
         console.log("获取用户信息");
 
         if (json.data != null) {
-          commit('SET_USER', json.data.name)
-          commit('SET_STATUS', json.data.status)
-          commit('SET_ID', json.data.id)
-          commit('SET_NAME', json.data.name)
-          commit('SET_ROLES', json.data.roles)
-          commit('SET_INFO', json.data.info)
+          commit('UPDATE_USEROBJ', json.data)
         }
 
       }, function (error) {

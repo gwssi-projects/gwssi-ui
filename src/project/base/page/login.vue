@@ -12,11 +12,11 @@
         <el-input v-model="ruleForm.username" placeholder="用户名"></el-input>
       </el-form-item>
       <el-form-item prop="password">
-        <el-input v-model="ruleForm.password" placeholder="密码"></el-input>
+        <el-input type="password" v-model="ruleForm.password" placeholder="密码"></el-input>
       </el-form-item>
       <p class="text-tips">使用用户admin/admin，user/user来测试不同用户权限，使用其它用户密码测试登录不正确返回结果。</p>
       <!--点击后加载状态 :loading="true"-->
-      <el-button type="primary" :loading="loginBtnLoading" class="loginBtn" @click="submitForm('ruleForm')">登&nbsp;&nbsp;&nbsp;录</el-button>
+      <el-button type="primary" native-type="button" :loading="loginBtnLoading" class="loginBtn" @click="submitForm('ruleForm')">登&nbsp;&nbsp;&nbsp;录</el-button>
     </el-form>
     <p class="text-tips">
       <i class="el-icon-edit"></i> ©make by VUE + ELEMENT UI
@@ -72,12 +72,13 @@ export default {
               password: this.ruleForm.password
             })
             .then(
-              function(json) {
+              json => {
                 //更新用户
                 //判断用户密码
                 this.loginBtnLoading = false;
+                this.$store.dispatch("updateUserInfo", json.data);
               },
-              function(error) {
+              error => {
                 //服务器错误
                 this.loginBtnLoading = false;
               }

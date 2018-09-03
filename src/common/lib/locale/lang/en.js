@@ -25,7 +25,7 @@ exports.default = {
       loginBtn: "login",
       registerBtn: "register",
       colorPickerItem: "Theme color",
-      page:"Public page",
+      page: "Public page",
       build: "build components......",
       loggedBtn: "logged",
       portalBtn: "portal",
@@ -36,7 +36,8 @@ exports.default = {
       routerTitle: "router",
       syncRouterBtn: "sync router",
       btn404: "404",
-      btn500: "500"
+      btn500: "500",
+      ajaxErr: "Error loading data"
 
     },
     portal: {

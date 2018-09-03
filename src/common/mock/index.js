@@ -14,9 +14,9 @@ if (process.env.NODE_ENV === 'development') {
     })
 
     // 登录相关
-    Mock.mock(apiUrl.gwssi.user.login, userAPI.loginByUsername)
-    Mock.mock(apiUrl.gwssi.user.logout, userAPI.logout)
-    Mock.mock(apiUrl.gwssi.user.info, userAPI.getUserInfo)
+    Mock.mock(apiUrl.gwssi.user.login.rurl, 'get', userAPI.loginByUsername)
+    Mock.mock(apiUrl.gwssi.user.logout.rurl, userAPI.logout)
+    Mock.mock(apiUrl.gwssi.user.info.rurl, userAPI.getUserInfo)
 
     // // 文章相关
     // Mock.mock(/\/article\/list/, 'get', articleAPI.getList)

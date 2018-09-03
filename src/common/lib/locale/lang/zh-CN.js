@@ -36,7 +36,8 @@ exports.default = {
       routerBtn: "嵌套/权限-路由",
       syncRouterBtn: "异步路由权限",
       btn404: "404",
-      btn500: "500"
+      btn500: "500",
+      ajaxErr: "加载数据发生错误"
     },
 
     portal: {

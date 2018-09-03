@@ -222,7 +222,7 @@ export default {
     Object.keys(source).forEach(property => {
       const sourceProperty = source[property]
       if (typeof sourceProperty === 'object') {
-        target[property] = objectMerge(target[property], sourceProperty)
+        target[property] = this.objectMerge(target[property], sourceProperty)
       } else {
         target[property] = sourceProperty
       }

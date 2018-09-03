@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { Message } from 'element-ui'
+import { Notification } from 'element-ui'
 import store from '../../store'
 import { TokenKey } from '../../store/user'
 
@@ -7,6 +8,10 @@ import { TokenKey } from '../../store/user'
 //在一些切换频率较低的情况下，在切换到另一个页面的时候，上一个页面基本没有未完成的异步请求，即时有，在一些情况下也是可以忽略的。
 //可以通过使用CancelToken来取消axios发起的请求，我们可以自己写一段代码来验证。
 const CancelToken = axios.CancelToken
+export const errDes = 'errDes'
+export const errNo = 'errNo'
+export const content = 'content'
+
 var cancel;
 
 // create an axios instance
@@ -38,34 +43,53 @@ service.interceptors.request.use(
 
 // respone interceptor
 service.interceptors.response.use(
-  response => response,
+  // response => response,
 
-  // /**
-  //  * 下面的注释为通过在response里，自定义code来标示请求状态,可以根据项目情况自定义封装统一判断错误标识
-  //  */
-  // response => {
-  //   const res = response.data
-  //   if (res.errorCode !== 20000) {
-  //     Message({
-  //       message: res.message,
-  //       type: 'error',
-  //       duration: 5 * 1000
-  //     })
-  //     return Promise.reject('error')
-  //   } else {
-  //     return response.data
-  //   }
-  // },
+  /**
+   * 下面的注释为通过在response里，自定义code来标示请求状态,可以根据项目情况自定义封装统一判断错误标识
+   * 这里使用 errNo 和 errDes
+   */
+  response => {
+
+    debugger
+    const no = response.data[errNo]
+    if (no != null) {
+
+      if (no != "" && no != "0") {
+
+        Notification({
+          title: i18n.t("gwssi.tips.ajaxErr"),
+          type: 'error',
+          message: response.data[errNo] + ' - ' + response.data[errDes]
+        });
+
+        return Promise.reject('error：' + response.data[errNo] + ' - ' + response.data[errDes])
+
+      }
+
+    } else {
+      return response
+    }
+  },
 
   //箭头函数 相当于function(error){
   error => {
+    //服务器错误
     console.log(error)
     //elementUI的message
-    Message({
-      message: error.message,
+    // Message({
+    //   message: error.message,
+    //   type: 'error',
+    //   duration: 5 * 1000
+    // })
+
+    Notification({
+      title: i18n.t("gwssi.tips.ajaxErr"),
       type: 'error',
-      duration: 5 * 1000
-    })
+      message: error.message
+    });
+
+
     return Promise.reject(error)
   }
 )
@@ -85,6 +109,8 @@ export default {
 
   service: service,
 
+  //get的话如果param提交的是json也会封装成参数字符串
+  //post的话如果param是json那body提交的就是json
   //get请求 
   get(url, param) {
 
@@ -98,6 +124,7 @@ export default {
       }).then(res => {
         resolve(res)
       }).catch(err => {
+        //Promise.reject(error)
         reject(err)
       })
     })
@@ -109,6 +136,7 @@ export default {
       service({
         method: 'post',
         url,
+        //post这里用的是data
         data: param,
         cancelToken: new CancelToken(c => { cancel = c })
       }).then(res => {
