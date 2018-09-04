@@ -8,13 +8,13 @@
     <!--status-icon 为反馈图标-->
 
     <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" class="login-form">
-      <el-form-item prop="username">
+      <el-form-item prop="username" :error="usernameErrorMsg">
         <el-input v-model="ruleForm.username" placeholder="用户名"></el-input>
       </el-form-item>
-      <el-form-item prop="password">
+      <el-form-item prop="password" :error="passwordErrorMsg">
         <el-input type="password" v-model="ruleForm.password" placeholder="密码"></el-input>
       </el-form-item>
-      <p class="text-tips">使用用户admin/admin，user/user来测试不同用户权限，使用其它用户密码测试登录不正确返回结果。</p>
+      <p class="text-tips">使用用户admin/admin，user/user来测试不同用户权限，可以测试用户密码错误提示，使用其它用户密码测试登录不正确返回结果的样例。</p>
       <!--点击后加载状态 :loading="true"-->
       <el-button type="primary" native-type="button" :loading="loginBtnLoading" class="loginBtn" @click="submitForm('ruleForm')">登&nbsp;&nbsp;&nbsp;录</el-button>
     </el-form>
@@ -50,7 +50,9 @@ export default {
         ],
         password: [{ required: true, message: "请输入密码", trigger: "blur" }]
       },
-      loginBtnLoading: false
+      loginBtnLoading: false,
+      usernameErrorMsg: "",
+      passwordErrorMsg: ""
     };
   },
 
@@ -64,7 +66,11 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          this.loginBtnLoading = true;
+
+          //在请求前将错误信息置空，否则errorMsg只会响应一次(内容相同的话)
+          this.loginBtnLoading = true
+          this.usernameErrorMsg = ""
+          this.passwordErrorMsg = ""
 
           this.$store
             .dispatch("login", {
@@ -76,11 +82,28 @@ export default {
                 //更新用户
                 //判断用户密码
                 this.loginBtnLoading = false;
-                this.$store.dispatch("updateUserInfo", json.data);
+                this.$store.dispatch("updateUserInfo", json.data.content);
+
+                this.$alert("登录成功", "提示", {
+                  confirmButtonText: "确定",
+                  callback: action => {
+                    //跳转登录后页面
+                  }
+                });
               },
               error => {
+                console.log("登录发生错误" + error);
                 //服务器错误
                 this.loginBtnLoading = false;
+
+                var errNO = error.data.errNo;
+                if (errNO == "01") {
+                  this.usernameErrorMsg = "用户不存在";
+                }
+
+                if (errNO == "02") {
+                  this.passwordErrorMsg = "密码错误";
+                }
               }
             );
         } else {

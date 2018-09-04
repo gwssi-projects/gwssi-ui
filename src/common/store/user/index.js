@@ -96,7 +96,7 @@ const user = {
         console.log("获取用户信息");
 
         if (json.data != null) {
-          commit('UPDATE_USEROBJ', json.data)
+          commit('UPDATE_USEROBJ', json.data.content)
         }
 
       }, function (error) {
@@ -107,16 +107,7 @@ const user = {
 
     // 登出
     logOut({ commit, state }) {
-      return new Promise((resolve, reject) => {
-        logout(state.token).then(() => {
-          commit('SET_TOKEN', '')
-          commit('SET_ROLES', [])
-          tools.cookies.remove(TokenKey)
-          resolve()
-        }).catch(error => {
-          reject(error)
-        })
-      })
+      return request.get(api.gwssi.user.logout.url, null);
     },
 
     // 验证权限

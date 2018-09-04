@@ -61,15 +61,37 @@ export default {
     var jsonObj = tools.deepClone(json);
     var obj = tools.param2Obj(config.url);
 
-    var username = obj.user;
+    var username = obj.username;
     var password = obj.password;
 
-    if (username == null || username == "" || username != "admin" || username != "user") {
+    if (username == null || username == "" || (username != "admin" && username != "user")) {
       jsonObj[errNo] = "01";
       jsonObj[errDes] = "用户不存在";
       return jsonObj;
     }
 
+    if (username == "admin" && password != "admin") {
+      jsonObj[errNo] = "02";
+      jsonObj[errDes] = "密码错误";
+      return jsonObj;
+    }
+
+    if (username == "user" && password != "user") {
+      jsonObj[errNo] = "02";
+      jsonObj[errDes] = "密码错误";
+      return jsonObj;
+    }
+
+    //增加token
+    var _token = "";
+    if (username == "admin") {
+      _token = admin_token
+    }
+
+    if (username == "user") {
+      _token = user_token
+    }
+    tools.setCookie(TokenKey, _token, 10, "/");
     jsonObj.content = userMap[username];
     return jsonObj
   },
@@ -97,5 +119,7 @@ export default {
     jsonObj[content] = userMap.none;
     return jsonObj
   },
-  logout: () => 'success'
+  logout: () => {
+    tools.cookies.remove(TokenKey);
+  }
 }

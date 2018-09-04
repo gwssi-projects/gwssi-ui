@@ -51,7 +51,6 @@ service.interceptors.response.use(
    */
   response => {
 
-    debugger
     const no = response.data[errNo]
     if (no != null) {
 
@@ -63,9 +62,12 @@ service.interceptors.response.use(
           message: response.data[errNo] + ' - ' + response.data[errDes]
         });
 
-        return Promise.reject('error：' + response.data[errNo] + ' - ' + response.data[errDes])
+        //返回一个被拒绝的promise对象，这样才能触发promise的reject方法
+        return Promise.reject(response)
 
       }
+
+      return response
 
     } else {
       return response
@@ -75,7 +77,7 @@ service.interceptors.response.use(
   //箭头函数 相当于function(error){
   error => {
     //服务器错误
-    console.log(error)
+    console.log("服务器错误" + error)
     //elementUI的message
     // Message({
     //   message: error.message,
@@ -89,7 +91,7 @@ service.interceptors.response.use(
       message: error.message
     });
 
-
+    //返回一个被拒绝的promise对象，这样才能触发promise的reject方法
     return Promise.reject(error)
   }
 )
