@@ -31,7 +31,7 @@ exports.default = {
       portalBtn: "门户",
       formBtn: "表单样例",
       gridBtn: "列表",
-      buttonBtn: "权限按钮",
+      buttonBtn: "页面权限",
       routerTitle: "登录后路由权限",
       routerBtn: "嵌套/权限-路由",
       syncRouterBtn: "异步路由权限",

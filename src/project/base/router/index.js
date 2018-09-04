@@ -3,7 +3,8 @@ import VueRouter from 'vue-router'
 
 //路由对应的页面
 import login from '../page/login'
-
+//登陆后页面
+import logged from '../page/logged'
 
 Vue.use(VueRouter);
 
@@ -16,10 +17,6 @@ Vue.use(VueRouter);
 
 
 
-
-
-
-const logged = { template: '<div>logged</div>' }
 const register = { template: '<div>register</div>' }
 const portal = { template: '<div>portal</div>' }
 const form = { template: '<div>form</div>' }

@@ -76,6 +76,13 @@ export default {
   computed: {
     storeColor() {
       return this.$store.getters.defaultColor;
+    },
+    //其它组件中路由跳转 触发菜单切换 所以需要定义在computed中
+    activeName() {
+      //根据路由获取激活菜单选中对象
+      return this.$route.name == "" || this.$route.name == "index"
+        ? "login"
+        : this.$route.name;
     }
   },
 
@@ -90,11 +97,6 @@ export default {
   },
   data() {
     return {
-      //根据路由获取激活菜单选中对象
-      activeName:
-        this.$route.name == "" || this.$route.name == "index"
-          ? "login"
-          : this.$route.name,
       menuRouter: true,
       badgeHidden: false,
       themeObj: {}

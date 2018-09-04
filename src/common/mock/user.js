@@ -6,6 +6,10 @@ import { errNo } from '../../common/components/request'
 import { errDes } from '../../common/components/request'
 import { content } from '../../common/components/request'
 
+import Mock from 'mockjs'
+
+var Random = Mock.Random
+
 const admin_token = 'admin_token'
 const user_token = 'user_token'
 
@@ -33,7 +37,7 @@ const userMap = {
     user: 'user',
     status: '0',
     id: '1',
-    name: '用户',
+    name: '普通用户',
     roles: ['user'],
     info: {
       introduction: '我是普通用户',
@@ -44,7 +48,7 @@ const userMap = {
     user: 'none',
     status: '0',
     id: '-1',
-    name: '访客',
+    name: '未登录用户',
     roles: [],
     info: {
     }
@@ -92,7 +96,9 @@ export default {
       _token = user_token
     }
     tools.setCookie(TokenKey, _token, 10, "/");
-    jsonObj.content = userMap[username];
+    jsonObj[content] = userMap[username];
+    jsonObj[content].info.lastLoginTime = Random.datetime('yyyy-MM-dd A HH:mm:ss')
+
     return jsonObj
   },
   getUserInfo: config => {
@@ -117,9 +123,11 @@ export default {
       return jsonObj
     }
     jsonObj[content] = userMap.none;
+    jsonObj[content].info.lastLoginTime = Random.datetime('yyyy-MM-dd A HH:mm:ss')
     return jsonObj
   },
   logout: () => {
     tools.cookies.remove(TokenKey);
+    return "ok"
   }
 }

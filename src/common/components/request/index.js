@@ -51,6 +51,10 @@ service.interceptors.response.use(
    */
   response => {
 
+    if (response.data == null) {
+      return response;
+    }
+
     const no = response.data[errNo]
     if (no != null) {
 

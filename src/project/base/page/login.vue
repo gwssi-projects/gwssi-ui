@@ -16,7 +16,10 @@
       </el-form-item>
       <p class="text-tips">使用用户admin/admin，user/user来测试不同用户权限，可以测试用户密码错误提示，使用其它用户密码测试登录不正确返回结果的样例。</p>
       <!--点击后加载状态 :loading="true"-->
-      <el-button type="primary" native-type="button" :loading="loginBtnLoading" class="loginBtn" @click="submitForm('ruleForm')">登&nbsp;&nbsp;&nbsp;录</el-button>
+      <el-form-item style="text-align: center;">
+        <el-button type="primary" native-type="button" :loading="loginBtnLoading" class="loginBtn" @click="submitForm('ruleForm')">登&nbsp;&nbsp;&nbsp;录</el-button>
+        <el-button native-type="button" class="loginBtn" @click="resetForm('ruleForm')">清&nbsp;&nbsp;&nbsp;空</el-button>
+      </el-form-item>
     </el-form>
     <p class="text-tips">
       <i class="el-icon-edit"></i> ©make by VUE + ELEMENT UI
@@ -66,11 +69,10 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-
           //在请求前将错误信息置空，否则errorMsg只会响应一次(内容相同的话)
-          this.loginBtnLoading = true
-          this.usernameErrorMsg = ""
-          this.passwordErrorMsg = ""
+          this.loginBtnLoading = true;
+          this.usernameErrorMsg = "";
+          this.passwordErrorMsg = "";
 
           this.$store
             .dispatch("login", {
@@ -86,8 +88,10 @@ export default {
 
                 this.$alert("登录成功", "提示", {
                   confirmButtonText: "确定",
+                  //箭头函数可以使用this
                   callback: action => {
                     //跳转登录后页面
+                    this.$router.push("/logged");
                   }
                 });
               },
@@ -143,7 +147,7 @@ export default {
 }
 
 .login-box .loginBtn {
-  width: 100%;
+  width: 45%;
 }
 </style>
 
