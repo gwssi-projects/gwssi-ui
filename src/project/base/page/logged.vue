@@ -39,7 +39,7 @@ export default {
             //箭头函数可以使用this
             callback: action => {
               //跳转登录后页面
-              this.$router.back();
+              this.$router.push('/login');
             }
           });
         },

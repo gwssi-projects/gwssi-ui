@@ -13,7 +13,9 @@
              -->
         <el-menu :default-active="activeName" :router="menuRouter" class="gw-el-menu" mode="horizontal" @select="selectItems">
           <el-menu-item index="login">{{ $t('gwssi.tips.loginBtn') }}</el-menu-item>
-          <el-menu-item index="logged">{{ $t('gwssi.tips.loggedBtn') }}</el-menu-item>
+          <el-menu-item :router='false' index="logged">
+            <a href="#/logged" target="_blank">{{ $t('gwssi.tips.loggedBtn') }}</a>
+          </el-menu-item>
 
           <el-submenu index="routerTmp">
             <template slot="title">{{ $t('gwssi.tips.routerTitle') }}</template>
