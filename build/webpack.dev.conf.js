@@ -12,18 +12,7 @@ var webpackConfig = merge(baseWebpackConfig, {
     devServer: {
         host: '0.0.0.0',
         port: config.dev.port,
-        proxy: {
-            '/api/': {
-                target: 'http://127.0.0.1:8080',
-                changeOrigin: true,
-                pathRewrite: {
-                    '^/api': ''
-                }
-            }
-        },
-        historyApiFallback: {
-            index: url.parse('/assets/').pathname
-        }
+        disableHostCheck: true
     },
     //用于调试 控制是否生成，以及如何生成 Source Map。用于对应到源码的行号。
     //eval-source-map 适合开发，source-map 适合线上环境
