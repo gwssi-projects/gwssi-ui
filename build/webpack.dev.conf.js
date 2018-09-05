@@ -10,7 +10,7 @@ var env = config.dev.env
 var webpackConfig = merge(baseWebpackConfig, {
 
     devServer: {
-        host: '127.0.0.1',
+        host: '0.0.0.0',
         port: config.dev.port,
         proxy: {
             '/api/': {
