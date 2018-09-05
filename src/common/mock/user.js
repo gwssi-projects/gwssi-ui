@@ -58,9 +58,9 @@ const userMap = {
 export default {
   loginByUsername: config => {
 
-    console.log(config.url);
-    console.log(config.type);
-    console.log(config.body);
+    console.log("url = " + config.url);
+    console.log("type = " + config.type);
+    console.log("body = " + config.body);
 
     var jsonObj = tools.deepClone(json);
     var obj = tools.param2Obj(config.url);
@@ -115,11 +115,13 @@ export default {
 
     if (token == admin_token) {
       jsonObj[content] = userMap.admin;
+      jsonObj[content].info.lastLoginTime = Random.datetime('yyyy-MM-dd A HH:mm:ss')
       return jsonObj
     }
 
     if (token == user_token) {
       jsonObj[content] = userMap.user;
+      jsonObj[content].info.lastLoginTime = Random.datetime('yyyy-MM-dd A HH:mm:ss')
       return jsonObj
     }
     jsonObj[content] = userMap.none;

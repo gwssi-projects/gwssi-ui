@@ -16,7 +16,7 @@ const user = {
     id: '-1',
     //用户名称 管理员/普通用户
     name: '访客',
-    //权限
+    //权限 必须是数组！！
     roles: [],
     //扩展信息
     info: {
@@ -111,19 +111,30 @@ const user = {
     },
 
     // 验证权限
-    checkRoles({ commit }, role) {
-      return new Promise(resolve => {
-        commit('SET_TOKEN', role)
-        setToken(role)
-        getUserInfo(role).then(response => {
-          const data = response.data
-          commit('SET_ROLES', data.roles)
-          commit('SET_NAME', data.name)
-          commit('SET_AVATAR', data.avatar)
-          commit('SET_INTRODUCTION', data.introduction)
-          resolve()
-        })
-      })
+    checkRoles({ commit, state }, role) {
+
+      debugger
+
+      if (state.roles.length == 0) {
+        return false;
+      }
+
+      // debugger
+      //判断权限
+      var check = false;
+      for (var i = 0; i < role.length; i++) {
+        var r = (role[i]);
+
+        for (var n = 0; n < state.roles.length; n++) {
+          var r2 = (state.roles[n]);
+          if (r == r2) {
+            check = true;
+          }
+        }
+
+      }
+
+      return check;
     }
   }
 }
