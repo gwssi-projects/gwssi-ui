@@ -113,7 +113,6 @@ const user = {
     // 验证权限
     checkRoles({ commit, state }, role) {
 
-      debugger
 
       if (state.roles.length == 0) {
         return false;
