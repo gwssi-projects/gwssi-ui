@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from '../../../common/store'
-import { ElAlert } from 'element-ui'
+import { Notification } from 'element-ui'
+import tools from "../../../common/components/tools";
+import { TokenKey } from '../../../common/store/user'
 
 //路由对应的页面
 import login from '../page/login'
-//登陆后页面
-import logged from '../page/logged'
 
 Vue.use(VueRouter);
 
@@ -26,15 +26,16 @@ const routes = [
   {
     path: '/logged',
     name: "logged",
-    component: logged,
+    // component: logged,
+    // 权限模块需要使用异步加载
+    component: (resolve) => require(['../page/logged'], resolve),
     // meta 字段就是路由元信息字段，这里可以配置自定义字段
     meta: {
       title: '登陆后页面',
       permisson: ['admin1', 'user1'],
       requireAuth: true
     }
-    // 模块使用异步加载
-    // component: (resolve) => require(['../components/login/login.vue'], resolve)
+
   },
   { path: '/register', name: "register", component: register },
   { path: '/portal', name: "portal", component: portal },
@@ -62,24 +63,40 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
 
-  //判断权限
+  //需要判断权限
   if (to.matched.some(record => record.meta.requireAuth)) {
 
-    console.log("record.meta.permisson：" + to.meta.permisson);
-    var role = store.dispatch("checkRoles", to.meta.permisson);
+    //先判断是否有token
+    if (tools.cookies.get(TokenKey) == null || tools.cookies.get(TokenKey) == '') {
 
+      console.log("未登录用户");
+
+      Notification({
+        title: "无权限",
+        type: 'error',
+        message: '当前用户未登录。'
+      });
+
+      next('/login')
+
+      return
+
+    }
+
+    var role = store.dispatch("checkRoles", to.meta.permisson);
+    console.log("record.meta.permisson：" + to.meta.permisson);
     console.log("role = " + role);
 
     if (!role) {
 
-      ElAlert("当前用户未登录或无权限访问此页面。", "提示", {
-        confirmButtonText: "确定",
-        //箭头函数可以使用this
-        callback: action => {
-          //跳转登录后页面
-          next('/login')
-        }
+      Notification({
+        title: "无权限",
+        type: 'error',
+        message: '当前用户无权限访问此页面。'
       });
+
+      next('/login')
+      return
 
     } else {
       next()
