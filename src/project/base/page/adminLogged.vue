@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import "./css/logged.css";
 import { userLogout } from "@appBase/utils/auth";
 
 export default {
@@ -65,47 +66,7 @@ export default {
 </script>
 
 <style type="text/css" scoped>
-.user-panel {
-  position: relative;
-  width: 360px;
-  background: #fff;
-  margin: 0 auto;
-  margin-top: 20px;
-  padding: 15px;
-  border-radius: 4px;
-  font-family: Roboto, Segoe UI, "Microsoft YaHei";
-}
-
-/**使用字体图标或svg图标来控制整个主题颜色**/
-.user-panel .logo {
-  margin: 0 auto;
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.user-panel .icon-damailogo {
-  font-size: 60px;
-}
-
 .user-panel .user-code {
-  font-size: 1.5rem;
-  font-weight: 30;
-  text-align: center;
-  margin: 0;
-}
-.user-panel .user-description {
-  text-align: center;
-  margin-bottom: 5px;
-}
-.user-panel .user-ctrl {
-  text-align: center;
-  margin-top: 20px;
-  margin-bottom: 30px;
-}
-.user-panel .copyright {
-  text-align: center;
-  color: #bfbfbf;
-  font-size: 10px;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    font-size: 1.5rem;
 }
 </style>

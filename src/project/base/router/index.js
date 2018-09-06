@@ -16,6 +16,8 @@ import {
 
 //路由对应的页面
 import login from '@appBase/page/login'
+import p404 from '@appBase/page/404'
+import p500 from '@appBase/page/500'
 
 Vue.use(VueRouter);
 
@@ -37,34 +39,23 @@ const portal = {
 const form = {
   template: '<div>form</div>'
 }
-const button = {
-  template: '<div>button</div>'
-}
 const grid = {
   template: '<div>grid</div>'
 }
-const page404 = {
-  template: '<div>404</div>'
-}
-const page500 = {
-  template: '<div>page500</div>'
-}
+
 
 const routes = [
   //login不需要权限验证
   {
     path: '/',
-    name: "index",
     component: login
   },
   {
     path: '/login',
-    name: "login",
     component: login
   },
   {
     path: '/logged',
-    name: "logged",
     // component: logged,
     // 权限模块需要使用异步加载 否则beforeEach只执行一次？
     component: (resolve) => require(['../page/logged'], resolve),
@@ -78,7 +69,6 @@ const routes = [
   },
   {
     path: '/adminLogged',
-    name: "adminLogged",
     component: (resolve) => require(['../page/adminLogged'], resolve),
     meta: {
       title: 'admin登陆后页面',
@@ -88,7 +78,6 @@ const routes = [
   },
   {
     path: '/router2',
-    name: "router2",
     component: (resolve) => require(['../page/subRouter'], resolve),
     meta: {
       title: '嵌套路由',
@@ -108,35 +97,39 @@ const routes = [
     ]
   },
   {
+    path: '/button',
+    component: (resolve) => require(['../page/comAuth'], resolve),
+    meta: {
+      title: '组件权限',
+      permisson: ['admin', 'user'],
+      requireAuth: true
+    }
+  },
+  {
+    path: '/page404',
+    component: p404
+  },
+  {
+    path: '/page500',
+    component: p500
+  },
+  //这样就配置了其它页面都是404了
+  {
+    path: '*',
+    component: p404
+  },
+
+  {
     path: '/portal',
-    name: "portal",
     component: portal
   },
   {
     path: '/form',
-    name: "form",
     component: form
   },
   {
-    path: '/button',
-    name: "button",
-    component: button
-  },
-  {
     path: '/grid',
-    name: "grid",
     component: grid
-  },
-
-  {
-    path: '/page404',
-    name: "page404",
-    component: page404
-  },
-  {
-    path: '/page500',
-    name: "page500",
-    component: page500
   }
 ]
 
@@ -209,11 +202,15 @@ router.beforeEach((to, from, next) => {
       return
     }
 
+    if (to.meta.permisson == null) {
+      next()
+      return
+    }
+
     // 初步判断当前用户是否已拉取完user_info信息
     if (store.state.user.roles.length === 0) {
 
       console.log("路由获取用户信息");
-
 
       let loadingInstance = Loading.service({
         target: "main#app-main",

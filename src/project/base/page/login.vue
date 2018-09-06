@@ -52,7 +52,7 @@ export default {
     },
     islogin() {
       if (this.$store.state.user.user == "none") {
-        return "block";
+        return "";
       }
       return "none";
     },
@@ -60,7 +60,7 @@ export default {
       if (this.$store.state.user.user == "none") {
         return "none";
       }
-      return "block";
+      return "";
     }
   },
 
