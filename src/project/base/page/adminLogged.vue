@@ -2,10 +2,10 @@
   <div class="user-panel animated fadeInUp">
 
     <div class="logo" :style="{ 'color': storeColor }">
-      <i class="iconfont icon-wodedamaijihuo"></i>
+      <i class="iconfont icon-damailogo"></i>
     </div>
 
-    <h1 class="user-code">用户信息</h1>
+    <h1 class="user-code">管理员页面(普通用户无法查看)</h1>
 
     <p class="user-description">用户ID ：{{$store.state.user.user}}</p>
     <p class="user-description">用户名 ：{{$store.state.user.name}}</p>
@@ -83,12 +83,12 @@ export default {
   margin-bottom: 20px;
 }
 
-.user-panel .icon-wodedamaijihuo {
+.user-panel .icon-damailogo {
   font-size: 60px;
 }
 
 .user-panel .user-code {
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 30;
   text-align: center;
   margin: 0;

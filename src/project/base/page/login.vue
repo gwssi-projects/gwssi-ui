@@ -4,10 +4,10 @@
     <div class="logo" :style="{ 'color': storeColor }">
       <i class="iconfont icon-shenfenzheng"></i>
     </div>
-    <p class="text-tips">你好｛{{uName}}｝，欢迎登录</p>
+    <p class="text-tips">你好｛{{uName}}｝~</p>
     <!--status-icon 为反馈图标-->
 
-    <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" class="login-form">
+    <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" class="login-form" :style="{ 'display': islogin }">
       <el-form-item prop="username" :error="usernameErrorMsg">
         <el-input v-model="ruleForm.username" placeholder="用户名"></el-input>
       </el-form-item>
@@ -21,6 +21,14 @@
         <el-button native-type="button" class="loginBtn" @click="resetForm('ruleForm')">清&nbsp;&nbsp;&nbsp;空</el-button>
       </el-form-item>
     </el-form>
+
+    <div class="logged" :style="{ 'display': islogged }">
+      <p class="text-tips">当前用户已登录系统</p>
+      <div class="user-ctrl">
+        <el-button type="primary" native-type="button" class="loginBtn" @click="logout" style=" width: 95%;">登&nbsp;&nbsp;&nbsp;出</el-button>
+      </div>
+    </div>
+
     <p class="text-tips">
       <i class="el-icon-edit"></i> ©make by VUE + ELEMENT UI
     </p>
@@ -29,6 +37,9 @@
 
 
 <script>
+import { userLogout } from "@appBase/utils/auth";
+import { Message } from "element-ui";
+
 export default {
   name: "login",
 
@@ -38,6 +49,18 @@ export default {
     },
     uName() {
       return this.$store.state.user.name;
+    },
+    islogin() {
+      if (this.$store.state.user.user == "none") {
+        return "block";
+      }
+      return "none";
+    },
+    islogged() {
+      if (this.$store.state.user.user == "none") {
+        return "none";
+      }
+      return "block";
     }
   },
 
@@ -86,14 +109,13 @@ export default {
                 this.loginBtnLoading = false;
                 this.$store.dispatch("updateUserInfo", json.data.content);
 
-                this.$alert("登录成功", "提示", {
-                  confirmButtonText: "确定",
-                  //箭头函数可以使用this
-                  callback: action => {
-                    //跳转登录后页面
-                    this.$router.push("/logged");
-                  }
+                Message({
+                  message: "登录成功",
+                  type: "success",
+                  duration: 5 * 1000
                 });
+
+                this.$router.push("/logged");
               },
               error => {
                 console.log("登录发生错误" + error);
@@ -117,6 +139,30 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
+    },
+    logout() {
+      // this.$alert("确认退出系统？", "提示", {
+      //   confirmButtonText: "确定",
+      //   //箭头函数可以使用this
+      //   callback: action => {
+      //     userLogout(this.$store, this.$router);
+      //   }
+      // });
+
+      this.$confirm("即将退出系统, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          userLogout(this.$store, this.$router);
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消退出"
+          });
+        });
     }
   }
 };

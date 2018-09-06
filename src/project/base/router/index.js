@@ -16,15 +16,14 @@ import {
 
 //路由对应的页面
 import login from '@appBase/page/login'
+import adminLogged from '@appBase/page/adminLogged'
 
 Vue.use(VueRouter);
 
 //无权限跳转地址
 const indexPage = '/login';
 
-const register = {
-  template: '<div>register</div>'
-}
+
 const portal = {
   template: '<div>portal</div>'
 }
@@ -36,9 +35,6 @@ const button = {
 }
 const grid = {
   template: '<div>grid</div>'
-}
-const adminLogged = {
-  template: '<div>adminLogged</div>'
 }
 const page404 = {
   template: '<div>404</div>'
@@ -74,9 +70,14 @@ const routes = [
 
   },
   {
-    path: '/register',
-    name: "register",
-    component: register
+    path: '/adminLogged',
+    name: "adminLogged",
+    component: (resolve) => require(['../page/adminLogged'], resolve),
+    meta: {
+      title: 'admin登陆后页面',
+      permisson: ['admin'],
+      requireAuth: true
+    }
   },
   {
     path: '/portal',
@@ -98,11 +99,7 @@ const routes = [
     name: "grid",
     component: grid
   },
-  {
-    path: '/adminLogged',
-    name: "adminLogged",
-    component: adminLogged
-  },
+
   {
     path: '/page404',
     name: "page404",
@@ -185,26 +182,26 @@ router.beforeEach((to, from, next) => {
 
 
       let loadingInstance = Loading.service({
-        target: "#app-main",
+        target: "main#app-main",
         body: false,
         background: "#ffffff",
         text: '正在加载页面',
-        lock: true
+        lock: false
       });
 
-      this.$store.dispatch("getUserInfoPromise", null)
+      store.dispatch("getUserInfoPromise", null)
         .then(function (json) {
 
           loadingInstance.close();
 
           if (json.data.content != null) {
-            this.$store.dispatch("updateUserInfo", json.data.content);
+            store.dispatch("updateUserInfo", json.data.content);
           }
 
           if (hasPermission(store.state.user.roles, to.meta.permisson)) {
             next()
           } else {
-            noAuth('当前用户无权限访问此页面。', "无权限", '当前用户无权限访问此页面。');
+            noAuth('当前用户权限无法访问此页面。', "权限不足", '当前用户权限无法访问此页面。');
             next(indexPage)
             return
           }
@@ -225,7 +222,7 @@ router.beforeEach((to, from, next) => {
       if (hasPermission(store.state.user.roles, to.meta.permisson)) {
         next()
       } else {
-        noAuth('当前用户无权限访问此页面。', "无权限", '当前用户无权限访问此页面。');
+        noAuth('当前用户权限无法访问此页面。', "权限不足", '当前用户权限无法访问此页面。');
         next(indexPage)
         return
       }
