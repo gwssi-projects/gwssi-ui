@@ -16,12 +16,19 @@ import {
 
 //路由对应的页面
 import login from '@appBase/page/login'
-import adminLogged from '@appBase/page/adminLogged'
 
 Vue.use(VueRouter);
 
 //无权限跳转地址
 const indexPage = '/login';
+
+const UserID = {
+  template: '<p style=" text-align: center; ">这是一个页面组件，UserName = {{ $store.state.user.name }} , UserID = {{ $route.params.id }} 。</p>'
+}
+
+const UserProfile = {
+  template: '<p style=" text-align: center; ">这是一个页面组件，UserProfile 。</p>'
+}
 
 
 const portal = {
@@ -80,6 +87,27 @@ const routes = [
     }
   },
   {
+    path: '/router2',
+    name: "router2",
+    component: (resolve) => require(['../page/subRouter'], resolve),
+    meta: {
+      title: '嵌套路由',
+      permisson: ['admin', 'user'],
+      requireAuth: true
+    },
+    children: [{
+        // 当 /router2/:id 匹配成功渲染
+        path: ':id',
+        component: UserID
+      },
+      {
+        // 当 /router2/:id/profile 匹配成功，
+        path: ':id/profile',
+        component: UserProfile
+      }
+    ]
+  },
+  {
     path: '/portal',
     name: "portal",
     component: portal
@@ -117,6 +145,12 @@ const router = new VueRouter({
 })
 
 function hasPermission(roles, permissionRoles) {
+
+  //没有设置路由权限
+  if (permissionRoles == null) {
+    return true
+  }
+
   if (roles.length == 0) {
     return false;
   }
