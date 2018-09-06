@@ -23,7 +23,6 @@ import "./css/logged.css";
 import { userLogout } from "@appBase/utils/auth";
 
 export default {
-  name: "logged",
 
   methods: {
     userName() {

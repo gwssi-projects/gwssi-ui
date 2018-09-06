@@ -18,6 +18,15 @@ import {
 import login from '@appBase/page/login'
 import p404 from '@appBase/page/404'
 import p500 from '@appBase/page/500'
+import form from '@appBase/page/form/index'
+
+
+import step1 from '@appBase/page/form/step1.vue'
+import step2 from '@appBase/page/form/step2.vue'
+import step3 from '@appBase/page/form/step3.vue'
+import step4 from '@appBase/page/form/step4.vue'
+
+
 
 Vue.use(VueRouter);
 
@@ -35,9 +44,6 @@ const UserProfile = {
 
 const portal = {
   template: '<div>portal</div>'
-}
-const form = {
-  template: '<div>form</div>'
 }
 const grid = {
   template: '<div>grid</div>'
@@ -113,6 +119,10 @@ const routes = [
     path: '/page500',
     component: p500
   },
+  {
+    path: '/form',
+    component: form
+  },
   //这样就配置了其它页面都是404了
   {
     path: '*',
@@ -122,10 +132,6 @@ const routes = [
   {
     path: '/portal',
     component: portal
-  },
-  {
-    path: '/form',
-    component: form
   },
   {
     path: '/grid',
