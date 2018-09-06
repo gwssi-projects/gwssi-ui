@@ -11,14 +11,18 @@
                unique-opened 	是否只保持一个子菜单的展开，可以使用多级菜单
                router 	是否使用 vue-router 的模式，启用该模式会在激活导航时以 index 作为 path 进行路由跳转
              -->
+
+        <!--如果是打开窗口或者外部链接 可以单独设置    :router='false' 并加上a标签即可
+                      <el-menu-item :router='false' index="logged"><a href =""> {{ $t('gwssi.tips.loggedBtn') }} </a></el-menu-item>
+        -->
         <el-menu :default-active="activeName" :router="menuRouter" class="gw-el-menu" mode="horizontal" @select="selectItems">
           <el-menu-item index="login">{{ $t('gwssi.tips.loginBtn') }}</el-menu-item>
-          <el-menu-item :router='false' index="logged"> {{ $t('gwssi.tips.loggedBtn') }} </el-menu-item>
 
           <el-submenu index="routerTmp">
             <template slot="title">{{ $t('gwssi.tips.routerTitle') }}</template>
+            <el-menu-item index="logged"> {{ $t('gwssi.tips.loggedBtn') }} </el-menu-item>
+            <el-menu-item index="adminLogged">{{ $t('gwssi.tips.adminRouterBtn') }}</el-menu-item>
             <el-menu-item index="router2">{{ $t('gwssi.tips.routerBtn') }}</el-menu-item>
-            <el-menu-item index="syncRouter">{{ $t('gwssi.tips.syncRouterBtn') }}</el-menu-item>
           </el-submenu>
 
           <el-menu-item index="button">{{ $t('gwssi.tips.buttonBtn') }}</el-menu-item>
@@ -52,7 +56,7 @@
 </template>
 
 <script>
-import GwTheme from "../../../common/components/theme/";
+import GwTheme from "@components/theme/";
 import Vue from "vue";
 
 Vue.use(GwTheme);

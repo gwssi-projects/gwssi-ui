@@ -29,6 +29,7 @@ exports.default = {
       build: "build components......",
       loggedBtn: "logged",
       portalBtn: "portal",
+      adminRouterBtn: "adminRouterBtn",
       formBtn: "form",
       gridBtn: "grid",
       buttonBtn: "button",

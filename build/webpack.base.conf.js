@@ -18,7 +18,7 @@ module.exports = {
 
     //project
     //base ui
-    "project/base/baseUIIndex" : './src/project/base/main.js'
+    "project/base/baseUIIndex": './src/project/base/main.js'
 
     //iptrm
 
@@ -43,40 +43,45 @@ module.exports = {
 
   module: {
     rules: [{
-      test: /\.vue$/,
-      use: ['vue-loader']
-    },
-    {
-      test: /\.js$/,
-      use: ['babel-loader'],
-      exclude: /node_modules/
-    },
-    {
-      test: /\.css$/,
-      use: ['style-loader', 'css-loader', 'postcss-loader']
-    },
-    {
-      test: /\.less$/,
-      use: [
-        'style-loader',
-        { loader: 'css-loader', options: { importLoaders: 1 } },
-        'less-loader'
-      ]
-    },
-    {
-      test: /\.(png|jpg|jpeg|gif|eot|ttf|woff|woff2|svg|svgz)(\?.+)?$/,
-      use: [{
-        loader: 'url-loader',
-        options: {
-          limit: 10000
-        }
-      }]
-    }
+        test: /\.vue$/,
+        use: ['vue-loader']
+      },
+      {
+        test: /\.js$/,
+        use: ['babel-loader'],
+        exclude: /node_modules/
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader', 'postcss-loader']
+      },
+      {
+        test: /\.less$/,
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1
+            }
+          },
+          'less-loader'
+        ]
+      },
+      {
+        test: /\.(png|jpg|jpeg|gif|eot|ttf|woff|woff2|svg|svgz)(\?.+)?$/,
+        use: [{
+          loader: 'url-loader',
+          options: {
+            limit: 10000
+          }
+        }]
+      }
     ]
   },
 
   plugins: [
-	 //CommonsChunkPlugin主要是用来提取第三方库和公共模块，避免首屏加载的bundle文件或者按需加载的bundle文件体积过大，从而导致加载时间过长。
+    //CommonsChunkPlugin主要是用来提取第三方库和公共模块，避免首屏加载的bundle文件或者按需加载的bundle文件体积过大，从而导致加载时间过长。
     //重复引用的公共组件 会打包成 /manifest.js /vendor.js 将第三方包分离
     //减少其他JS引入相同公共组件后会重复打包的问题（如果没有配置CommonsChunkPlugin，会在自己的JS中打入第三方库的JS包）
     new webpack.optimize.CommonsChunkPlugin({
@@ -98,22 +103,28 @@ module.exports = {
       chunks: ['manifest', 'vendor', 'project/base/baseUIIndex']
     }),
     // 直接复制静态文件
-    new CopyWebpackPlugin([
-      {
-        from: resolve(__dirname, '../static/'),
-        to: resolve(__dirname, '../dist/static/'),
-        ignore: ['.*']
-      }
-    ])
+    new CopyWebpackPlugin([{
+      from: resolve(__dirname, '../static/'),
+      to: resolve(__dirname, '../dist/static/'),
+      ignore: ['.*']
+    }])
   ],
   resolve: {
     alias: {
-      '~': resolve(__dirname, 'src'),
+      '@': resolve(__dirname, '../src'),
+      '@components': resolve(__dirname, '../src/common/components'),
+      '@lib': resolve(__dirname, '../src/common/lib'),
+      '@mock': resolve(__dirname, '../src/common/mock'),
+      '@store': resolve(__dirname, '../src/common/store'),
+
+      '@appBase': resolve(__dirname, '../src/project/base'),
+      '@appPortal': resolve(__dirname, '../src/project/portal'),
+
+      '@config': resolve(__dirname, '../config'),
+      '@static': resolve(__dirname, '../static'),
       vue: 'vue/dist/vue.js'
     },
     //路径优化，即Hello.vue这个组件我们不需要添加.vue后缀就可以引用到了，如果不用extensions， 我们就必须要用@components/Hello.vue来引入这个文件。 
     extensions: ['.js', '.vue', '.json', '.css']
   },
 }
-
-

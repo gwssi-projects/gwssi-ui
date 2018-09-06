@@ -17,7 +17,7 @@
 // window.gwI18n = i18n;
 // window.i18n = i18n.vueLocale;
 //store对象
-import store from "../../store"
+import store from "@store"
 
 export default {
   store,

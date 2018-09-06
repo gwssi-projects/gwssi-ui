@@ -1,10 +1,10 @@
 
-import tools from "../components/tools";
-import { TokenKey } from '../../common/store/user'
+import tools from "@components/tools";
+import { TokenKey } from '@store/user'
 
-import { errNo } from '../../common/components/request'
-import { errDes } from '../../common/components/request'
-import { content } from '../../common/components/request'
+import { errNo } from '@components/request'
+import { errDes } from '@components/request'
+import { content } from '@components/request'
 
 import Mock from 'mockjs'
 

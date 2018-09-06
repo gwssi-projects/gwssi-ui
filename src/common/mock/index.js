@@ -1,6 +1,6 @@
 import Mock from 'mockjs'
-import userAPI from './user'
-import apiUrl from '../api'
+import userAPI from '@mock/user'
+import apiUrl from '@/common/api'
 // import articleAPI from './article'
 // import remoteSearchAPI from './remoteSearch'
 // import transactionAPI from './transaction'

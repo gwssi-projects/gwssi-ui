@@ -9,10 +9,10 @@ import VueMeta from 'vue-meta'
 
 import ElementUI from 'element-ui'
 
-import Lang from '../../common/components/select-lang'
-import router from './router/index'
-import '../../common/mock'
-import store from "../../common/store"
+import Lang from '@components/select-lang'
+import router from '@appBase/router'
+import '@mock'
+import store from "@store"
 
 import app from './main.vue'
 

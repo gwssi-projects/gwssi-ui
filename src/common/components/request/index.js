@@ -1,8 +1,8 @@
 import axios from 'axios'
 import { Message } from 'element-ui'
 import { Notification } from 'element-ui'
-import store from '../../store'
-import { TokenKey } from '../../store/user'
+import store from '@store'
+import { TokenKey } from '@store/user'
 
 
 //在一些切换频率较低的情况下，在切换到另一个页面的时候，上一个页面基本没有未完成的异步请求，即时有，在一些情况下也是可以忽略的。

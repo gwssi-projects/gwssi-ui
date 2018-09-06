@@ -1,6 +1,6 @@
-import api from '../../api'
-import tools from "../../components/tools";
-import request from '../../components/request'
+import api from '@/common/api'
+import tools from "@components/tools";
+import request from '@components/request'
 
 //Token-d77b15d5-fae3-4f91-95ec-6ba79d246972
 export const TokenKey = 'token'
@@ -97,7 +97,7 @@ const user = {
       request.get(api.gwssi.user.info.url, null).then(function (json) {
         console.log("获取用户信息");
 
-        if (json.data != null) {
+        if (json.data.content != null) {
           commit('UPDATE_USEROBJ', json.data.content)
         }
 
@@ -107,35 +107,14 @@ const user = {
 
     },
 
+    // 获取用户信息（异步对象）
+    getUserInfoPromise({ commit, state }) {
+      return request.get(api.gwssi.user.info.url, null)
+    },
+
     // 登出
     logOut({ commit, state }) {
       return request.get(api.gwssi.user.logout.url, null);
-    },
-
-    // 验证权限
-    checkRoles({ commit, state }, role) {
-
-
-      if (state.roles.length == 0) {
-        return false;
-      }
-
-      // debugger
-      //判断权限
-      var check = false;
-      for (var i = 0; i < role.length; i++) {
-        var r = (role[i]);
-
-        for (var n = 0; n < state.roles.length; n++) {
-          var r2 = (state.roles[n]);
-          if (r == r2) {
-            check = true;
-          }
-        }
-
-      }
-
-      return check;
     }
   }
 }

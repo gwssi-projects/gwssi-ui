@@ -1,0 +1,38 @@
+{
+
+    "title": "配置使vscode支持 webpack的alias",
+    "compilerOptions": {
+        "allowSyntheticDefaultImports": true,
+        "baseUrl": "./",
+        "paths": {
+            "@/*": [
+                "src/*"
+            ],
+            "@components/*": [
+                "src/common/components/*"
+            ],
+            "@lib/*": [
+                "src/common/lib/*"
+            ],
+            "@mock/*": [
+                "src/common/mock/*"
+            ],
+            "@store/*": [
+                "src/common/store/*"
+            ],
+            "@appBase/*": [
+                "src/project/base/*"
+            ],
+            "@appPortal/*": [
+                "src/project/portal/*"
+            ]
+        }
+    },
+    "exclude": [
+        "node_modules",
+        "dist"
+    ],
+    "include": [
+        "src"
+    ]
+}

@@ -1,4 +1,4 @@
-import tools from "../../components/tools";
+import tools from "@components/tools";
 
 export const themeColorKey = 'theme-color'
 const defaultColor = '#409eff';

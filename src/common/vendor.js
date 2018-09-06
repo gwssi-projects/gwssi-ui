@@ -11,22 +11,22 @@ import axios from 'axios'
 
 //基础组件
 //工具类
-import tools from "../common/components/tools";
+import tools from "@components/tools";
 //语言包
-import i18n from "../common/components/i18n";
-import selectLang from "../common/components/select-lang";
+import i18n from "@components/i18n";
+import selectLang from "@components/select-lang";
 //request
-import request from "../common/components/request";
+import request from "@components/request";
 //theme
-import theme from "../common/components/theme";
+import theme from "@components/theme";
 //hashMap
-import hashMap from "../common/components/hashMap";
+import hashMap from "@components/hashMap";
 
 //mock
-import mock from '../common/mock'
+import mock from '@mock'
 
 //store对象
-import store from '../common/store'
+import store from '@store'
 
 //注册全局对象
 window.gwI18n = i18n;
