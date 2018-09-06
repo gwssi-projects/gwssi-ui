@@ -8,7 +8,7 @@
       <app-header></app-header>
     </el-header>
 
-    <el-main>
+    <el-main id="app-main">
       <!-- 路由出口 -->
       <!-- 路由匹配到的组件将渲染在这里 -->
       <router-view></router-view>

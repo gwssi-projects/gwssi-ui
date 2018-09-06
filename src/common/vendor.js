@@ -28,6 +28,9 @@ import mock from '@mock'
 //store对象
 import store from '@store'
 
+//api
+import api from '@/common/api'
+
 //注册全局对象
 window.gwI18n = i18n;
 window.i18n = i18n.vueLocale;

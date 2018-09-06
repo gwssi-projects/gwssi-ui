@@ -43,6 +43,7 @@ const app = {
       }
 
       if (lang != null && lang != "") {
+        console.log("获取自定义lang = " + lang);
       } else {
         lang = state.language;
       }

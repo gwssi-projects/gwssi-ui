@@ -1,9 +1,14 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import store from '@store'
+
 import {
   Notification
 } from 'element-ui'
+import {
+  Loading
+} from 'element-ui'
+
+import store from '@store/index'
 import tools from "@components/tools";
 import {
   TokenKey
@@ -161,14 +166,10 @@ function noAuth(logStr, titleStr, messageStr) {
 //你可以向 next 传递任意位置对象，且允许设置诸如 replace: true、name: 'home' 之类的选项以及任何用在 router-link 的 to prop 或 router.push 中的选项。
 
 
-
 router.beforeEach((to, from, next) => {
 
   //需要判断权限
   if (to.matched.some(record => record.meta.requireAuth)) {
-
-
-
 
     //先判断是否有token
     if (tools.cookies.get(TokenKey) == null || tools.cookies.get(TokenKey) == '') {
@@ -177,21 +178,24 @@ router.beforeEach((to, from, next) => {
       return
     }
 
-
     // 初步判断当前用户是否已拉取完user_info信息
     if (store.state.user.roles.length === 0) {
 
+      console.log("路由获取用户信息");
 
-      const loading = this.$loading({
-        lock: true,
-        text: 'Loading',
-        spinner: 'el-icon-loading',
-        background: 'rgba(0, 0, 0, 0.7)'
+
+      let loadingInstance = Loading.service({
+        target: "#app-main",
+        body: false,
+        background: "#ffffff",
+        text: '正在加载页面',
+        lock: true
       });
-
 
       this.$store.dispatch("getUserInfoPromise", null)
         .then(function (json) {
+
+          loadingInstance.close();
 
           if (json.data.content != null) {
             this.$store.dispatch("updateUserInfo", json.data.content);
@@ -206,12 +210,17 @@ router.beforeEach((to, from, next) => {
           }
 
         }, function (error) {
+
+          loadingInstance.close();
+
           noAuth('获取用户信息错误：' + error, "无权限", '获取用户信息错误。');
           next(indexPage)
           return
         });
 
     } else {
+
+      console.log("已经加载用户信息");
 
       if (hasPermission(store.state.user.roles, to.meta.permisson)) {
         next()
@@ -228,7 +237,6 @@ router.beforeEach((to, from, next) => {
   }
 
 })
-
 
 // router.beforeResolve((to, from, next) => {
 //   /* must call `next` */

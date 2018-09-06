@@ -17,8 +17,13 @@ export default {
       expires = "expires=" + d.toUTCString() + "; ";
     }
 
-    var path = "path=" + path;
-    var cookieStr = cname + "=" + cvalue + "; " + expires + path;
+    var _path = "";
+
+    if (path != null && path != "") {
+      _path = "path=" + path;
+    }
+
+    var cookieStr = cname + "=" + cvalue + "; " + expires + _path;
     console.info(cookieStr);
     document.cookie = cookieStr;
     //console.info(document.cookie);
@@ -48,7 +53,7 @@ export default {
 
     if (url.indexOf("?") != -1) {
       var str = url.substr(1);
-      strs = str.split("&");
+      var strs = str.split("&");
       for (var i = 0; i < strs.length; i++) {
         theRequest[strs[i].split("=")[0]] = (strs[i].split("=")[1]);
       }
@@ -63,7 +68,8 @@ export default {
 
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
     var r = window.location.search.substr(1).match(reg);
-    if (r != null) return (r[2]); return null;
+    if (r != null) return (r[2]);
+    return null;
 
   },
 
@@ -92,15 +98,16 @@ export default {
     }
     const time_str = format.replace(/{(y|m|d|h|i|s|a)+}/g, (result, key) => {
       let value = formatObj[key]
-      if (key === 'a') { return ['一', '二', '三', '四', '五', '六', '日'][value - 1] }
+      if (key === 'a') {
+        return ['一', '二', '三', '四', '五', '六', '日'][value - 1]
+      }
       if (result.length > 0 && value < 10) {
         value = '0' + value
       }
       return value || 0
     })
     return time_str
-  }
-  ,
+  },
   formatTime: function (time, option) {
     time = +time * 1000
     const d = new Date(time)
@@ -176,8 +183,7 @@ export default {
       }
     }
     return newArray
-  }
-  ,
+  },
   param: function (json) {
     if (!json) return ''
     return cleanArray(
@@ -186,8 +192,7 @@ export default {
         return encodeURIComponent(key) + '=' + encodeURIComponent(json[key])
       })
     ).join('&')
-  }
-  ,
+  },
   param2Obj: function (url) {
     const search = url.split('?')[1]
     if (!search) {
@@ -196,19 +201,17 @@ export default {
     return JSON.parse(
       '{"' +
       decodeURIComponent(search)
-        .replace(/"/g, '\\"')
-        .replace(/&/g, '","')
-        .replace(/=/g, '":"') +
+      .replace(/"/g, '\\"')
+      .replace(/&/g, '","')
+      .replace(/=/g, '":"') +
       '"}'
     )
-  }
-  ,
+  },
   html2Text: function (val) {
     const div = document.createElement('div')
     div.innerHTML = val
     return div.textContent || div.innerText
-  }
-  ,
+  },
   objectMerge: function (target, source) {
     /* Merges two  objects,
        giving the last one precedence */
@@ -228,8 +231,7 @@ export default {
       }
     })
     return target
-  }
-  ,
+  },
   scrollTo: function (element, to, duration) {
     if (duration <= 0) return
     const difference = to - element.scrollTop
@@ -240,8 +242,7 @@ export default {
       if (element.scrollTop === to) return
       scrollTo(element, to, duration - 10)
     }, 10)
-  }
-  ,
+  },
   toggleClass: function (element, className) {
     if (!element || !className) {
       return
@@ -256,16 +257,14 @@ export default {
         classString.substr(nameIndex + className.length)
     }
     element.className = classString
-  }
-  ,
+  },
   getTime: function (type) {
     if (type === 'start') {
       return new Date().getTime() - 3600 * 1000 * 24 * 90
     } else {
       return new Date(new Date().toDateString())
     }
-  }
-  ,
+  },
   debounce: function (func, wait, immediate) {
     let timeout, args, context, timestamp, result
 
@@ -307,7 +306,7 @@ export default {
    * If you want to use a perfect deep copy, use lodash's _.cloneDeep
    */
   deepClone: function (source) {
-    if (!source && typeof source !== 'object') {
+    if (source == null || (!source && typeof source !== 'object')) {
       throw new Error('error arguments', 'shallowClone')
     }
     const targetObj = source.constructor === Array ? [] : {}
