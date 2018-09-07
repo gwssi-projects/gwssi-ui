@@ -14,7 +14,8 @@
             <div class="el-form-item__label" style="padding-bottom: 0;"> 活动分类</div>
           </el-col>
           <el-col class="" :span="2">
-            <el-button type="text" @click.native="dialogFormFenLeiVisible = true" style="margin: 0;padding: 0;">设置</el-button>
+            <!--给组件绑定原生事件，当你给一个vue组件绑定事件时候，要加上native，如果是普通的html元素，就不需要。-->
+            <el-button type="text" @click.native="dialogFormFenLeiVisible = true;" style="margin: 0;padding: 0;">设置</el-button>
           </el-col>
         </el-row>
         <el-radio-group v-model="ruleForm.fenLei">
@@ -24,10 +25,10 @@
 
       <!-- 这里有一个坑，活动标签并不是一个表单元素，无法使用element自带的验证功能 -->
       <el-form-item label="活动标签" required>
-        <el-tag v-for="tag in ruleForm.tags" :key="tag" :closable="true" type="primary" @close="handleClose(tag)">
+        <el-tag v-for="tag in ruleForm.tags" :key="tag.name" :closable="true" type="primary" @close="handleClose(tag)">
           {{tag.name}}
         </el-tag>
-        <el-button icon="plus" size="large" @click.native="showDialog" style="vertical-align: middle;margin: 10px;"></el-button>
+        <el-button type="primary" icon="el-icon-edit" @click.native="showDialog" circle></el-button>
         <transition name="fade">
           <div class="el-form-item__error" v-show="tagsValid">{{ tagsError }}</div>
         </transition>
@@ -102,7 +103,6 @@
       </el-form-item>
 
       <el-form-item label="活动地点" required>
-
         <!-- 自己封装的一个二级联动地址选择器 -->
         <address-select :province="ruleForm.province" :city="ruleForm.city" :detail="ruleForm.detail" :isAddressTrue="isAddressTrue"></address-select>
       </el-form-item>
@@ -122,13 +122,15 @@
       </el-form-item>
 
       <el-form-item label="活动封面">
-        <el-upload action="http://jsonplaceholder.typicode.com/" type="drag" :multiple="true" :on-preview="handlePreview" :on-remove="handleRemove" :on-success="handleSuccess" :on-error="handleError">
+
+        <el-upload class="upload-demo" drag action="https://jsonplaceholder.typicode.com/posts/" multiple :on-preview="handlePreview" :on-remove="handleRemove" :on-success="handleSuccess" :on-error="handleError">
           <i class="el-icon-upload"></i>
-          <div class="el-dragger__text">将文件拖到此处，或
+          <div class="el-upload__text">将文件拖到此处，或
             <em>点击上传</em>
           </div>
-          <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过2M</div>
+          <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
         </el-upload>
+
       </el-form-item>
 
       <el-form-item label="活动简介">
@@ -160,13 +162,15 @@
             <el-button type="text" @click.native="openAd">开通赞助广告</el-button>
           </el-col>
         </el-row>
-        <el-upload action="http://jsonplaceholder.typicode.com/" type="drag" :multiple="true" :on-preview="handlePreview" :on-remove="handleRemove" :on-success="handleSuccess" :on-error="handleError">
+
+        <el-upload class="upload-demo" drag action="https://jsonplaceholder.typicode.com/posts/" multiple :on-preview="handlePreview" :on-remove="handleRemove" :on-success="handleSuccess" :on-error="handleError">
           <i class="el-icon-upload"></i>
-          <div class="el-dragger__text">将文件拖到此处，或
+          <div class="el-upload__text">将文件拖到此处，或
             <em>点击上传</em>
           </div>
-          <div class="el-upload__tip" slot="tip">图片尺寸建议比例1；4.18，如160*666像素，且不超过2M</div>
+          <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
         </el-upload>
+
       </el-form-item>
 
       <el-form-item>
@@ -187,7 +191,7 @@
     </el-form>
 
     <!-- 弹框 -->
-    <el-dialog title="添加活动标签" v-model="dialogFormVisible" top="35%">
+    <el-dialog title="添加活动标签" :visible.sync="dialogFormVisible">
       <el-form :model="dialogForm">
         <el-form-item>
           <el-input v-model="dialogForm.name" auto-complete="off"></el-input>
@@ -200,7 +204,7 @@
     </el-dialog>
 
     <!-- 设置活动分类 -->
-    <el-dialog title="设置活动分类" v-model="dialogFormFenLeiVisible">
+    <el-dialog title="设置活动分类" :visible.sync="dialogFormFenLeiVisible">
       <el-form :model="dialogFormFenLei">
         <el-form-item>
           <el-tag v-for="feiLei of ruleForm.fenLeis" :key="feiLei.name" :closable="true" type="primary" @close="handleCloseFenLei(feiLei)">
@@ -223,7 +227,7 @@
 
 <script>
 import addressSelect from "@appBase/utils/address/address";
-import store from "@store";
+import store from "@appBase/store/store";
 
 export default {
   name: "step1",
@@ -240,7 +244,6 @@ export default {
       dialogFormFenLeiVisible: false,
       dialogForm: { name: "" },
       dialogFormFenLei: { name: "" },
-      ruleFormChange: false,
       ruleFormValid: false,
       rules: {
         name: [
@@ -276,11 +279,7 @@ export default {
       },
       ruleForm: {
         name: "",
-        fenLeis: [
-          { name: "未发布" },
-          { name: "测试活动" },
-          { name: "精彩活动" }
-        ],
+        fenLeis: [],
         fenLei: "",
         tags: [],
         activeStartTimeDate: "",
@@ -307,7 +306,6 @@ export default {
       handler: function(val, oldVal) {
         store.commit("setRuleForm", this.ruleForm);
         this.tagsValid = !this.ruleForm.tags.length ? "" : false;
-        this.ruleFormChange = true;
       },
       deep: true
     }
@@ -379,13 +377,9 @@ export default {
   },
   created: function() {
     Object.assign(this.ruleForm, store.state.ruleForm);
-    var _this = this;
-    setTimeout(function() {
-      _this.ruleFormChange = false;
-    });
   },
   beforeRouteLeave: function(to, from, next) {
-    if (to.path == "/activePublic/step2") {
+    if (to.path == "/form/step2") {
       var _this = this;
       this.isAddressTrue = true;
       this.tagsValid = this.ruleForm.tags.length ? false : true;

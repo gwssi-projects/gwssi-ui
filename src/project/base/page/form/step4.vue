@@ -248,7 +248,7 @@
 
 
 <script>
-import store from "@store";
+import store from "@appBase/store/store";
 
 const template1 = `<span style="font-size: 16px;line-height: 1.6em;">
           积分使用

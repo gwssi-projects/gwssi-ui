@@ -25,10 +25,9 @@ export default {
   name: "activePublic",
   data: function() {
     return {
-      isRouter: false,
-      preview: true,
+      preview: false,
       preStep: false,
-      nextStep: true,
+      nextStep: false,
       publish: false,
       step: 1
     };
@@ -38,21 +37,16 @@ export default {
       console.log("预览");
     },
     handlePreStep: function() {
-      this.$router.go(-1);
+      this.$router.push("/form/step" + (this.step - 1));
       this.step--;
       this.goStep(this.step);
-      $("html,body").animate({ scrollTop: 0 }, 500);
+      window.scroll(0, 0);
     },
     handleNextStep: function() {
-      this.$router.push("/activePublic/step" + (this.step + 1));
-      var _this = this;
-      setTimeout(function() {
-        if (_this.isRouter) {
-          _this.step++;
-          _this.goStep(_this.step);
-        }
-      });
-      $("html,body").animate({ scrollTop: 0 }, 500);
+      this.$router.push("/form/step" + (this.step + 1));
+      this.step++;
+      this.goStep(this.step);
+      window.scroll(0, 0);
     },
     handlePublish: function() {
       console.log("发布");
@@ -60,25 +54,19 @@ export default {
     goStep: function(n) {
       switch (n) {
         case 1:
-          this.preview = true;
+          this.preview = false;
           this.preStep = false;
           this.nextStep = true;
           this.publish = false;
           break;
-        case 2:
-          this.preview = false;
-          this.preStep = true;
-          this.nextStep = true;
-          this.publish = false;
-          break;
-        case 3:
+        case 2 | 3:
           this.preview = false;
           this.preStep = true;
           this.nextStep = true;
           this.publish = false;
           break;
         case 4:
-          this.preview = false;
+          this.preview = true;
           this.preStep = true;
           this.nextStep = false;
           this.publish = true;
@@ -86,24 +74,26 @@ export default {
       }
     }
   },
-  watch: {
-    $route: function(to, from) {
-      this.isRouter = true;
+  beforeCreated: function() {
+    if (this.$route.path != "/form") {
+      this.$router.push("/form");
     }
+  },
+  Created: function() {
+    this.goStep(this.step);
   }
 };
 </script>
 <style>
-
 .activePublic {
-    position: relative;
-    width: 1080px;
-    background: #fff;
-    margin: 0 auto;
-    margin-top: 20px;
-    padding: 15px;
-    border-radius: 4px;
-    font-family: Roboto, Segoe UI, "Microsoft YaHei";
+  position: relative;
+  width: 1080px;
+  background: #fff;
+  margin: 0 auto;
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 4px;
+  font-family: Roboto, Segoe UI, "Microsoft YaHei";
 }
 
 .activePublic .router-link {

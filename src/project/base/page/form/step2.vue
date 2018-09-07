@@ -65,7 +65,7 @@
 
       <el-form-item label="设置报名表" prop="" class="setSign">
 
-        <el-row :gutter="20" v-for="item of signForm.signFormList" :key="item">
+        <el-row :gutter="20" v-for="item of signForm.signFormList" :key="item.title">
           <el-col :span="3">
             <el-checkbox class="checkbox" v-model="item.require">必填</el-checkbox>
           </el-col>
@@ -76,7 +76,7 @@
             <el-input :placeholder="'提示语:请输入您的'+item.title" size="large" readonly></el-input>
           </el-col>
 
-          <el-button icon="delete" @click.native.prevent="removeItem(item)" title="删除"></el-button>
+          <el-button type="danger" @click.native.prevent="removeItem(item)" title="删除" icon="el-icon-delete" circle></el-button>
 
           <el-dropdown trigger="click" style="margin-left: 10px;color: #20a0ff;">
             <el-button>
@@ -141,7 +141,7 @@
   </div>
 </template>
 <script>
-import store from "@store";
+import store from "@appBase/store/store";
 
 export default {
   name: "step2",

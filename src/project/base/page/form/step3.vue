@@ -11,12 +11,12 @@
             </el-form-item>
 
             <el-form-item label="分享图片">
-                <el-upload action="http://jsonplaceholder.typicode.com/" type="drag" :thumbnail-mode="true" :on-preview="handlePreview" :on-remove="handleRemove">
+                <el-upload class="upload-demo" drag action="https://jsonplaceholder.typicode.com/posts/" multiple>
                     <i class="el-icon-upload"></i>
-                    <div class="el-dragger__text">将文件拖到此处，或
+                    <div class="el-upload__text">将文件拖到此处，或
                         <em>点击上传</em>
                     </div>
-                    <div class="el-upload__tip" slot="tip">图片尺寸建议比例1:1,如160*160像素，图片不能大于2M</div>
+                    <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
                 </el-upload>
             </el-form-item>
         </el-form>
@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import store from "@store";
+import store from "@appBase/store/store";
 
 export default {
   name: "step3",

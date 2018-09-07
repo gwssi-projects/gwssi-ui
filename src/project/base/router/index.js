@@ -119,7 +119,28 @@ const routes = [
   },
   {
     path: '/form',
-    component: form
+    component: form,
+    children: [{
+        path: '',
+        component: step1
+      },
+      {
+        path: 'step1',
+        component: step1
+      },
+      {
+        path: 'step2',
+        component: step2
+      },
+      {
+        path: 'step3',
+        component: step3
+      },
+      {
+        path: 'step4',
+        component: step4
+      }
+    ]
   },
   //这样就配置了其它页面都是404了
   {
