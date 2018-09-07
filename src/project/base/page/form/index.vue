@@ -28,8 +28,7 @@ export default {
       preview: false,
       preStep: false,
       nextStep: false,
-      publish: false,
-      step: 1
+      publish: false
     };
   },
   methods: {
@@ -37,15 +36,11 @@ export default {
       console.log("预览");
     },
     handlePreStep: function() {
-      this.$router.push("/form/step" + (this.step - 1));
-      this.step--;
-      this.goStep(this.step);
+      this.$router.push("/form/step" + (this.step - 0 - 1));
       window.scroll(0, 0);
     },
     handleNextStep: function() {
-      this.$router.push("/form/step" + (this.step + 1));
-      this.step++;
-      this.goStep(this.step);
+      this.$router.push("/form/step" + (this.step - 0 + 1));
       window.scroll(0, 0);
     },
     handlePublish: function() {
@@ -58,29 +53,45 @@ export default {
           this.preStep = false;
           this.nextStep = true;
           this.publish = false;
+          console.log("步骤1");
           break;
-        case 2 | 3:
+        case 2:
           this.preview = false;
           this.preStep = true;
           this.nextStep = true;
           this.publish = false;
+          console.log("步骤2");
+          break;
+        case 3:
+          this.preview = false;
+          this.preStep = true;
+          this.nextStep = true;
+          this.publish = false;
+          console.log("步骤3");
           break;
         case 4:
           this.preview = true;
           this.preStep = true;
           this.nextStep = false;
           this.publish = true;
+          console.log("步骤4");
           break;
       }
     }
   },
-  beforeCreated: function() {
-    if (this.$route.path != "/form") {
-      this.$router.push("/form");
+
+  computed: {
+    step() {
+      // $route为当前router跳转对象里面可以获取name、path、query、params等
+      // $router为VueRouter实例，想要导航到不同URL，则使用$router.push方法
+      var step =
+        (this.$route.path + "").charAt(this.$route.path.length - 1) - 0;
+      if (isNaN(step) || step == 0) {
+        step = 1;
+      }
+      this.goStep(step);
+      return step;
     }
-  },
-  Created: function() {
-    this.goStep(this.step);
   }
 };
 </script>

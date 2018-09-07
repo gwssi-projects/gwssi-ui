@@ -84,11 +84,16 @@ export default {
     //其它组件中路由跳转 触发菜单切换 所以需要定义在computed中
     activeName() {
       //根据路由获取激活菜单选中对象
-
+      // $route为当前router跳转对象里面可以获取name、path、query、params等
+      // $router为VueRouter实例，想要导航到不同URL，则使用$router.push方法
       console.log(this.$route.path);
 
-      if (this.$route.path.indexOf("\/router2") == 0) {
+      if (this.$route.path.indexOf("/router2") == 0) {
         return "/router2";
+      }
+
+      if (this.$route.path.indexOf("/form") == 0) {
+        return "/form";
       }
 
       return this.$route.path == "" || this.$route.path == "/"
@@ -149,7 +154,6 @@ export default {
 .colorPickerItem {
   margin-top: @margintop;
 }
-
 </style>
 
 
