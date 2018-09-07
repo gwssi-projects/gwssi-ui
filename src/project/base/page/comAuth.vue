@@ -4,20 +4,21 @@
     <h1 class="user-code">页面组件通过权限配置是否显示</h1>
 
     <p class="user-description">当前用户ID ：{{$store.state.user.user}}，权限 ：{{$store.state.user.roles}}。</p>
-    <p class="user-description">通过vue的计算函数computed，监控user store的权限即可轻松控制页面按钮的显示与隐藏，区域可见原理相同。</p>
+    <p class="user-description">通过vue的计算函数computed，监控user store的权限即可轻松控制页面按钮的显示与隐藏（使用v-show或者直接设置display），区域可见原理相同。</p>
 
     <div class="demosource">
       <div class="demoblock">
         <span class="demonstration">admin可见按钮</span>
         <div class="demobutton">
-          <el-button type="primary" size="small" :style="{ 'display': isAdmin }">admin可见</el-button>
-          <el-button type="primary" size="small" :disabled="(isAdmin == '') ? false : true">admin可使用</el-button>
+          <!--可以使用 v-show来判断-->
+          <el-button type="primary" size="small" v-show="isAdmin">admin可见</el-button>
+          <el-button type="primary" size="small" :disabled="!isAdmin">admin可使用</el-button>
         </div>
       </div>
       <div class="demoblock">
         <span class="demonstration">登录用户可见按钮</span>
         <div class="demobutton">
-          <el-button type="primary" size="small" :style="{ 'display': isUser }">user按钮</el-button>
+          <el-button type="primary" size="small" v-show="isUser">user按钮</el-button>
         </div>
       </div>
     </div>
@@ -34,7 +35,6 @@ import "./css/logged.css";
 import { userLogout } from "@appBase/utils/auth";
 
 export default {
-
   methods: {},
 
   computed: {
@@ -43,12 +43,12 @@ export default {
     },
 
     isAdmin() {
-      var auth = "none";
+      var auth = false;
 
       for (var n = 0; n < this.$store.state.user.roles.length; n++) {
         var r = this.$store.state.user.roles[n];
         if (r == "admin") {
-          auth = "";
+          auth = true;
         }
       }
 
@@ -57,9 +57,9 @@ export default {
 
     isUser() {
       if (this.$store.state.user.roles.length == 0) {
-        return "none";
+        return false;
       }
-      return "";
+      return true;
     }
   }
 };

@@ -7,7 +7,7 @@
     <p class="text-tips">你好｛{{uName}}｝~</p>
     <!--status-icon 为反馈图标-->
 
-    <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" class="login-form" :style="{ 'display': islogin }">
+    <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" class="login-form" v-show="islogin">
       <el-form-item prop="username" :error="usernameErrorMsg">
         <el-input v-model="ruleForm.username" placeholder="用户名"></el-input>
       </el-form-item>
@@ -22,7 +22,7 @@
       </el-form-item>
     </el-form>
 
-    <div class="logged" :style="{ 'display': islogged }">
+    <div class="logged" v-show="islogged">
       <p class="text-tips">当前用户已登录系统</p>
       <div class="user-ctrl">
         <el-button type="primary" native-type="button" class="loginBtn" @click="logout" style=" width: 95%;">登&nbsp;&nbsp;&nbsp;出</el-button>
@@ -52,15 +52,15 @@ export default {
     },
     islogin() {
       if (this.$store.state.user.user == "none") {
-        return "";
+        return true;
       }
-      return "none";
+      return false;
     },
     islogged() {
       if (this.$store.state.user.user == "none") {
-        return "none";
+        return false;
       }
-      return "";
+      return true;
     }
   },
 

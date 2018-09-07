@@ -95,6 +95,8 @@ export default {
     if (username == "user") {
       _token = user_token
     }
+
+    //服务端生成token验证解密之后需要有过期时间 不要再像烽火台一样token没有过期时间！
     tools.setCookie(TokenKey, _token, 10, "/");
     jsonObj[content] = userMap[username];
     jsonObj[content].info.lastLoginTime = Random.datetime('yyyy-MM-dd A HH:mm:ss')

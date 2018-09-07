@@ -19,8 +19,6 @@ import login from '@appBase/page/login'
 import p404 from '@appBase/page/404'
 import p500 from '@appBase/page/500'
 import form from '@appBase/page/form/index'
-
-
 import step1 from '@appBase/page/form/step1.vue'
 import step2 from '@appBase/page/form/step2.vue'
 import step3 from '@appBase/page/form/step3.vue'

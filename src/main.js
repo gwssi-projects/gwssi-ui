@@ -21,5 +21,15 @@ new Vue({
   // }
 })
 
+
 console.log("当前模式：" + process.env.NODE_ENV);
 console.log("当前domain：" + process.env.DOMAIN);
+console.log("当前path：" + process.env.REQUEST_PATH);
+console.log("当前首页：" + process.env.GW_INDEX);
+
+//跳转首页
+if (process.env.INDEX == null || process.env.INDEX == "" || process.env.INDEX == "base") {
+  window.location.href = "./project/base/";
+} else if (process.env.INDEX == "portal") {
+  window.location.href = "./project/portal/";
+}

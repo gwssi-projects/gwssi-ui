@@ -23,10 +23,10 @@ import theme from "@components/theme";
 import hashMap from "@components/hashMap";
 
 //mock
-import mock from '@mock'
+import mock from '@mock/index'
 
 //store对象
-import store from '@store'
+import store from '@store/index'
 
 //api
 import api from '@/common/api'
