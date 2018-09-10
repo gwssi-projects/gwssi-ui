@@ -51,6 +51,11 @@ module.exports = {
         use: ['babel-loader'],
         exclude: /node_modules/
       },
+      // {
+      //   test: /\.tsx?$/,
+      //   loader: 'ts-loader',
+      //   exclude: /node_modules/
+      // },
       {
         test: /\.css$/,
         use: ['style-loader', 'css-loader', 'postcss-loader']
@@ -116,6 +121,7 @@ module.exports = {
       '@lib': resolve(__dirname, '../src/common/lib'),
       '@mock': resolve(__dirname, '../src/common/mock'),
       '@store': resolve(__dirname, '../src/common/store'),
+      '@types': resolve(__dirname, '../src/common/types'),
 
       '@appBase': resolve(__dirname, '../src/project/base'),
       '@appPortal': resolve(__dirname, '../src/project/portal'),
@@ -125,6 +131,6 @@ module.exports = {
       vue: 'vue/dist/vue.js'
     },
     //路径优化，即Hello.vue这个组件我们不需要添加.vue后缀就可以引用到了，如果不用extensions， 我们就必须要用@components/Hello.vue来引入这个文件。 
-    extensions: ['.js', '.vue', '.json', '.css']
+    extensions: ['.js', '.vue', '.json', '.css', '.d.ts']
   },
 }

@@ -31,6 +31,9 @@ import store from '@store/index'
 //api
 import api from '@/common/api'
 
+//通过接口定义的组件
+//import GwComponents from "@types/index";
+
 //注册全局对象
 window.gwI18n = i18n;
 window.i18n = i18n.vueLocale;

@@ -23,8 +23,7 @@ import step1 from '@appBase/page/form/step1.vue'
 import step2 from '@appBase/page/form/step2.vue'
 import step3 from '@appBase/page/form/step3.vue'
 import step4 from '@appBase/page/form/step4.vue'
-
-
+import grid from '@appBase/page/grid'
 
 Vue.use(VueRouter);
 
@@ -42,9 +41,6 @@ const UserProfile = {
 
 const portal = {
   template: '<div>portal</div>'
-}
-const grid = {
-  template: '<div>grid</div>'
 }
 
 

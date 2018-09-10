@@ -20,6 +20,9 @@
             "@store/*": [
                 "src/common/store/*"
             ],
+            "@types/*": [
+                "src/common/types/*"
+            ],
             "@appBase/*": [
                 "src/project/base/*"
             ],
