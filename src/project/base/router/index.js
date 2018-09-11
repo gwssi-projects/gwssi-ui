@@ -25,6 +25,20 @@ import step3 from '@appBase/page/form/step3.vue'
 import step4 from '@appBase/page/form/step4.vue'
 import grid from '@appBase/page/grid'
 
+//异步加载的权限路由
+//使用异步加载，对应的组件 ../page/logged 会单独生成一个JS文件 在路由点击的时候才会加载这个JS
+//把某个路由下的所有组件都打包在同个异步块 (chunk) 中。只需要使用 命名 webpackChunkName，对应webpack conf中的    chunkFilename: '[name].js?[chunkhash]',
+// 下述会在project\base\page生成路由对应组件的完整JS
+const logged = () =>
+  import( /* webpackChunkName: "project/base/page/logged" */ '../page/logged')
+const adminLogged = () =>
+  import( /* webpackChunkName: "project/base/page/adminLogged" */ '../page/adminLogged')
+const subRouter = () =>
+  import( /* webpackChunkName: "project/base/page/subRouter" */ '../page/subRouter')
+const comAuth = () =>
+  import( /* webpackChunkName: "project/base/page/comAuth" */ '../page/comAuth')
+
+
 Vue.use(VueRouter);
 
 //无权限跳转地址
@@ -56,20 +70,17 @@ const routes = [
   },
   {
     path: '/logged',
-    // component: logged,
-    // 权限模块需要使用异步加载 否则beforeEach只执行一次？
-    component: (resolve) => require(['../page/logged'], resolve),
+    component: logged,
     // meta 字段就是路由元信息字段，这里可以配置自定义字段
     meta: {
       title: '登陆后页面',
       permisson: ['admin', 'user'],
       requireAuth: true
     }
-
   },
   {
     path: '/adminLogged',
-    component: (resolve) => require(['../page/adminLogged'], resolve),
+    component: adminLogged,
     meta: {
       title: 'admin登陆后页面',
       permisson: ['admin'],
@@ -78,7 +89,7 @@ const routes = [
   },
   {
     path: '/router2',
-    component: (resolve) => require(['../page/subRouter'], resolve),
+    component: subRouter,
     meta: {
       title: '嵌套路由',
       permisson: ['admin', 'user'],
@@ -98,7 +109,7 @@ const routes = [
   },
   {
     path: '/button',
-    component: (resolve) => require(['../page/comAuth'], resolve),
+    component: comAuth,
     meta: {
       title: '组件权限',
       permisson: ['admin', 'user'],
@@ -138,20 +149,20 @@ const routes = [
       }
     ]
   },
-  //这样就配置了其它页面都是404了
   {
-    path: '*',
-    component: p404
+    path: '/grid',
+    component: grid
   },
-
   {
     path: '/portal',
     component: portal
   },
+  //这样就配置了其它页面都是404了
   {
-    path: '/grid',
-    component: grid
+    path: '*',
+    component: p404
   }
+
 ]
 
 const router = new VueRouter({
@@ -234,9 +245,9 @@ router.beforeEach((to, from, next) => {
       console.log("路由获取用户信息");
 
       let loadingInstance = Loading.service({
-        target: "main#app-main",
+        target: "#app-main",
         body: false,
-        background: "#ffffff",
+        //background: "#ffffff",
         text: '正在加载页面',
         lock: false
       });

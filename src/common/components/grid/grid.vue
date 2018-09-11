@@ -1,6 +1,6 @@
 <template>
   <div class="el-step">
-    grid test
+    grid test，使用动态组件加载分页和内容页
   </div>
 </template>
 

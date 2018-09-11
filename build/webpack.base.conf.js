@@ -29,13 +29,37 @@ module.exports = {
     path: config.build.assetsRoot,
     //编译生成的js文件,如果不是dev模式则生成带hash码的js，可以设置路径比如 js/[name].js
     filename: process.env.NODE_ENV === 'production' ? '[name].js?[chunkhash]' : '[name].js',
-    /* * chunkFilename用来打包require.ensure方法中引入的模块,如果该方法中没有引入任何模块则不会生成任何chunk块文件 * 
-    比如在main.js文件中,require.ensure([],function(require){alert(11);}),这样不会打包块文件 * 
-    只有这样才会打包生成块文件require.ensure([],function(require){alert(11);require('./greeter')}) * 
-    或者这样require.ensure(['./greeter'],function(require){alert(11);}) * 
-    chunk的hash值只有在require.ensure中引入的模块发生变化,hash值才会改变 * 
-    注意:对于不是在ensure方法中引入的模块,此属性不会生效,只能用CommonsChunkPlugin插件来提取 * */
-    chunkFilename: '[id].js?[chunkhash]',
+    // filename是主入口的文件名，chunkFilename是非主入口的文件名
+    // filename应该比较好理解，就是对应于entry里面生成出来的文件名。比如：
+    // {
+    //     entry: {
+    //         "index": "pages/index.jsx"
+    //     },
+    //     output: {
+    //         filename: "[name].min.js",
+    //         chunkFilename: "[name].min.js"
+    //     }
+    // }
+    // 生成出来的文件名为index.min.js。
+    // chunkname理解是未被列在entry中，却又需要被打包出来的文件命名配置。在按需加载（异步）模块的时候，这样的文件是没有被列在entry中的，如使用CommonJS的方式异步加载模块：
+    // require.ensure(["modules/tips.jsx"], function(require) {
+    //     var a = require("modules/tips.jsx");
+    //     // ...
+    // }, 'tips');
+    //   以及VUE使用的异步路由
+    //   const logged = () =>
+    //   import( /* webpackChunkName: "group-foo" */ '../page/logged')
+    // const adminLogged = () =>
+    //   import( /* webpackChunkName: "group-foo" */ '../page/adminLogged')
+    // const subRouter = () =>
+    //   import( /* webpackChunkName: "group-foo" */ '../page/subRouter')
+    // const comAuth = () =>
+    //   import( /* webpackChunkName: "group-foo" */ '../page/comAuth')
+    // 异步加载的模块是要以文件形式加载，所以这时生成的文件名是以chunkname配置的，上述modules/tips.jsx生成出的文件名就是tips.min.js。
+    // 如果使用ID的话就是根据 Chunks 生成 0.js 1.js这样
+    // chunkFilename: '[id].js?[chunkhash]',
+    //这里的name 通过上述的/* webpackChunkName: "group-foo" */配置
+    chunkFilename: '[name].js?[chunkhash]',
     //JS和HTML编译后的主目录
     //HTML和CSS中的资源文件路径的补全 包括css中的图片 和html中引入的JS等 比如 <script type="text/javascript" src="/assets/vendor.js"> 
     publicPath: process.env.NODE_ENV === 'production' ? config.build.assetsPublicPath : config.dev.assetsPublicPath,
