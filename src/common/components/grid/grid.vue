@@ -7,6 +7,7 @@
 <script>
 import request from "@components/request";
 import { Notification } from "element-ui";
+import { contentTotal } from "@components/grid";
 
 export default {
   name: "gw-grid",
@@ -66,10 +67,11 @@ export default {
       request.get(this.action, null).then(
         json => {
           this.data = json.data.content;
+          this.total = json.data[contentTotal]
           this.loading = false;
           //更新对应数据
-          console.log('更新数据');
-          this.$emit("updateGrid", this.data);
+          console.log("更新数据");
+          this.$emit("updateGrid", this.data, this.total);
         },
         error => {
           this.loading = false;

@@ -5,7 +5,7 @@
 
     <h3>基础grid</h3>
 
-    <gw-grid ref="tableDemo1" id="tableDemo1" class="tableDemo1" :action="action1" @updateGrid="updateGrid1">
+    <gw-grid ref="tableDemo1" id="tableDemo1" class="tableDemo1" :action="action1" :form="formInline1" @updateGrid="updateGrid1">
 
       <el-form :inline="true" :model="formInline1" class="demo-form-inline">
         <el-form-item label="姓名">
@@ -31,7 +31,7 @@
         </el-table-column>
       </el-table>
 
-      <el-pagination class="elPaginationDemo" @size-change="handleSizeChange1" @current-change="handleCurrentChange1" :current-page="currentPage1" :page-sizes="pageSizes1" :page-size="pageSize1" :layout="layout1" :total="total1">
+      <el-pagination class="elPaginationDemo" :current-page="formInline1.currentPage" :page-size="formInline1.pageSize1" @current-change="handleCurrentChange1" @size-change="handleSizeChange1" :page-sizes="pageSizes1" :layout="layout1" :total="total1">
       </el-pagination>
 
     </gw-grid>
@@ -58,11 +58,13 @@ export default {
       console.log(`当前页: ${val}`);
     },
     query1() {
-      console.log("query1");
-      this.$refs.tableDemo1.query();
+      //获取数据
+      this.formInline1.currentPage = 1;
+      this.$refs.tableDemo1.query(this.formInline1);
     },
-    updateGrid1(data) {
+    updateGrid1(data, total) {
       this.tableData1 = data;
+      this.total1 = total;
     }
     ///////
   },
@@ -79,14 +81,15 @@ export default {
       formInline1: {
         name: "",
         address: "",
-        pageSize: this.pageSize1,
-        currentPage: this.currentPage1
+        //每页显示条数
+        pageSize: 20,
+        //当前页数
+        currentPage: 1
       },
-      currentPage1: 5,
-      pageSize1: 200,
-      pageSizes1: [100, 200, 300, 400],
+      //每页显示个数选择器的选项设置
+      pageSizes1: [20, 50, 100, 150, 200],
       layout1: "total, sizes, prev, pager, next, jumper",
-      total1: 400,
+      total1: 0,
       tableData1: []
       ////////////
     };

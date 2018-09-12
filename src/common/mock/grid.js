@@ -8,6 +8,10 @@ import {
     content
 } from '@components/request'
 
+import {
+    contentTotal
+} from '@components/grid'
+
 import tools from "@components/tools";
 import Mock from 'mockjs'
 
@@ -84,6 +88,7 @@ export default {
     gridDemo1: config => {
 
         var jsonObj = tools.deepClone(json);
+        jsonObj[contentTotal] = 226;
         jsonObj[content] = dataMap.tableData1;
 
         return jsonObj
