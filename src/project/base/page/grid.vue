@@ -1,7 +1,7 @@
 <template>
   <div class="gridDemo ">
 
-    <h1 class="title">Grid 用法实例</h1>
+    <h1 class="title">Grid 用法实例<br>(grid只做数据获取和更新，具体的表单样式都是自定义的)</h1>
 
     <h3>基础grid</h3>
 
