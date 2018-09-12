@@ -15,7 +15,6 @@ export default {
                 rurl: /\/user\/login/
             },
 
-
             logout: {
                 url: process.env.REQUEST_PATH + "/user/logout",
                 rurl: /\/user\/logout/
@@ -26,6 +25,12 @@ export default {
                 rurl: /\/user\/info/
             }
 
+        },
+        grid: {
+            list: {
+                url: process.env.REQUEST_PATH + "/grid/list",
+                rurl: /\/grid\/list/
+            }
         }
     },
 

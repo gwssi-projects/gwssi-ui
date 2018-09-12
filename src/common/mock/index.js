@@ -1,5 +1,6 @@
 import Mock from 'mockjs'
 import userAPI from '@mock/user'
+import grid from '@mock/grid'
 import apiUrl from '@/common/api'
 // import articleAPI from './article'
 // import remoteSearchAPI from './remoteSearch'
@@ -18,18 +19,8 @@ if (process.env.NODE_ENV === 'development') {
     Mock.mock(apiUrl.gwssi.user.logout.rurl, userAPI.logout)
     Mock.mock(apiUrl.gwssi.user.info.rurl, userAPI.getUserInfo)
 
-    // // 文章相关
-    // Mock.mock(/\/article\/list/, 'get', articleAPI.getList)
-    // Mock.mock(/\/article\/detail/, 'get', articleAPI.getArticle)
-    // Mock.mock(/\/article\/pv/, 'get', articleAPI.getPv)
-    // Mock.mock(/\/article\/create/, 'post', articleAPI.createArticle)
-    // Mock.mock(/\/article\/update/, 'post', articleAPI.updateArticle)
-
-    // // 搜索相关
-    // Mock.mock(/\/search\/user/, 'get', remoteSearchAPI.searchUser)
-
-    // // 账单相关
-    // Mock.mock(/\/transaction\/list/, 'get', transactionAPI.getList)
+    // GRID相关
+    Mock.mock(apiUrl.gwssi.grid.list.rurl, 'get', grid.gridDemo1)
 
 
 }

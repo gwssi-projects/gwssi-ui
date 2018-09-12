@@ -3,9 +3,26 @@
 
     <h1 class="title">Grid 用法实例</h1>
 
-    <gw-grid>
+    <h3>基础grid</h3>
 
-      <el-table :data="tableData" border style="width: 100%">
+    <gw-grid ref="tableDemo1" id="tableDemo1" class="tableDemo1" :action="action1" @updateGrid="updateGrid1">
+
+      <el-form :inline="true" :model="formInline1" class="demo-form-inline">
+        <el-form-item label="姓名">
+          <el-input v-model="formInline1.name" placeholder="姓名"></el-input>
+        </el-form-item>
+        <el-form-item label="地址">
+          <el-select v-model="formInline1.address" placeholder="地址">
+            <el-option label="上海" value="shanghai"></el-option>
+            <el-option label="北京" value="beijing"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="query1">查询</el-button>
+        </el-form-item>
+      </el-form>
+
+      <el-table :data="tableData1" border style="width: 100%">
         <el-table-column prop="date" label="日期" width="180">
         </el-table-column>
         <el-table-column prop="name" label="姓名" width="180">
@@ -13,6 +30,10 @@
         <el-table-column prop="address" label="地址">
         </el-table-column>
       </el-table>
+
+      <el-pagination class="elPaginationDemo" @size-change="handleSizeChange1" @current-change="handleCurrentChange1" :current-page="currentPage1" :page-sizes="pageSizes1" :page-size="pageSize1" :layout="layout1" :total="total1">
+      </el-pagination>
+
     </gw-grid>
 
   </div>
@@ -21,35 +42,53 @@
   <script>
 import GwGrid from "@components/grid";
 import Vue from "vue";
+import apiUrl from "@/common/api";
 
 Vue.use(GwGrid);
 
 export default {
   name: "gridDemo",
+
+  methods: {
+    //第一个grid
+    handleSizeChange1(val) {
+      console.log(`每页 ${val} 条`);
+    },
+    handleCurrentChange1(val) {
+      console.log(`当前页: ${val}`);
+    },
+    query1() {
+      console.log("query1");
+      this.$refs.tableDemo1.query();
+    },
+    updateGrid1(data) {
+      this.tableData1 = data;
+    }
+    ///////
+  },
+
+  mounted() {
+    //创建之后直接获取数据
+    this.query1();
+  },
+
   data() {
     return {
-      tableData: [
-        {
-          date: "2016-05-02",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
-        },
-        {
-          date: "2016-05-04",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1517 弄"
-        },
-        {
-          date: "2016-05-01",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1519 弄"
-        },
-        {
-          date: "2016-05-03",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1516 弄"
-        }
-      ]
+      //第一个grid
+      action1: apiUrl.gwssi.grid.list.url,
+      formInline1: {
+        name: "",
+        address: "",
+        pageSize: this.pageSize1,
+        currentPage: this.currentPage1
+      },
+      currentPage1: 5,
+      pageSize1: 200,
+      pageSizes1: [100, 200, 300, 400],
+      layout1: "total, sizes, prev, pager, next, jumper",
+      total1: 400,
+      tableData1: []
+      ////////////
     };
   }
 };
@@ -65,11 +104,14 @@ export default {
   border-radius: 4px;
   font-family: Roboto, Segoe UI, "Microsoft YaHei";
 }
-
 .gridDemo .title {
   font-size: 2rem;
   font-weight: 30;
   text-align: center;
   margin: 0;
+}
+.elPaginationDemo {
+  margin-top: 10px;
+  text-align: right;
 }
 </style>
