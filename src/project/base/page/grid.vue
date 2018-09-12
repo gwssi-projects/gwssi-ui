@@ -90,12 +90,12 @@ export default {
         name: "",
         address: "",
         //每页显示条数
-        pageSize: 20,
+        pageSize: 15,
         //当前页数
         currentPage: 1
       },
       //每页显示个数选择器的选项设置
-      pageSizes1: [20, 50, 100, 150, 200],
+      pageSizes1: [15, 50, 100, 150, 200],
       layout1: "total, sizes, prev, pager, next, jumper",
       total1: 0,
       tableData1: []
