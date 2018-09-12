@@ -3,9 +3,9 @@
 
     <h1 class="title">Grid 用法实例<br>(grid只做数据获取和更新，具体的表单样式都是自定义的)</h1>
 
-    <h3>基础grid</h3>
+    <h3>基础grid(数据为mock模拟，主要测试前端功能和提交参数。)</h3>
 
-    <gw-grid ref="tableDemo1" id="tableDemo1" class="tableDemo1" :action="action1" :form="formInline1" @updateGrid="updateGrid1">
+    <gw-grid ref="tableDemo1" id="tableDemo1" class="tableDemo1" :action="action1" @updateGrid="updateGrid1">
 
       <el-form :inline="true" :model="formInline1" class="demo-form-inline">
         <el-form-item label="姓名">
@@ -53,9 +53,14 @@ export default {
     //第一个grid
     handleSizeChange1(val) {
       console.log(`每页 ${val} 条`);
+      this.formInline1.currentPage = 1;
+      this.formInline1.pageSize = val;
+      this.$refs.tableDemo1.query(this.formInline1);
     },
     handleCurrentChange1(val) {
       console.log(`当前页: ${val}`);
+      this.formInline1.currentPage = val;
+      this.$refs.tableDemo1.query(this.formInline1);
     },
     query1() {
       //获取数据
@@ -65,6 +70,9 @@ export default {
     updateGrid1(data, total) {
       this.tableData1 = data;
       this.total1 = total;
+      //移动到顶部
+      document.getElementById("tableDemo1").scrollIntoView(true);
+      return false;
     }
     ///////
   },

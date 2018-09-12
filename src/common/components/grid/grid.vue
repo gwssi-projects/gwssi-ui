@@ -16,17 +16,6 @@ export default {
     action: {
       type: String,
       default: ""
-    },
-    form: {
-      type: Object,
-      default: function() {
-        return {
-          //每页显示数量，默认10条
-          pageSize: 10,
-          //当前页，默认为1，从1开始
-          currentPage: 1
-        };
-      }
     }
   },
 
@@ -61,13 +50,14 @@ export default {
       }
 
       this.loading = true;
+      console.log("查询请求：" + JSON.stringify(formObj));
 
       //所有的错误判断已经封装到了request中
       //箭头函数中可以直接使用this
-      request.get(this.action, null).then(
+      request.get(this.action, formObj).then(
         json => {
           this.data = json.data.content;
-          this.total = json.data[contentTotal]
+          this.total = json.data[contentTotal];
           this.loading = false;
           //更新对应数据
           console.log("更新数据");

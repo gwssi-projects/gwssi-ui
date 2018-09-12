@@ -22,74 +22,47 @@ json[errNo] = '0'
 json[errDes] = ''
 json[content] = ''
 
-const dataMap = {
-    tableData1: [{
-            date: "2016-05-02",
-            name: "王小虎1",
-            address: "上海市普陀区金沙江路 1518 弄"
-        },
-        {
-            date: "2016-05-04",
-            name: "王小虎2",
-            address: "上海市普陀区金沙江路 1517 弄"
-        },
-        {
-            date: "2016-05-01",
-            name: "王小虎3",
-            address: "上海市普陀区金沙江路 1519 弄"
-        },
-        {
-            date: "2016-05-03",
-            name: "王小虎4",
-            address: "上海市普陀区金沙江路 1516 弄"
-        }, {
-            date: "2016-05-02",
-            name: "王小虎5",
-            address: "上海市普陀区金沙江路 1518 弄"
-        },
-        {
-            date: "2016-05-04",
-            name: "王小虎6",
-            address: "北京市 1517 弄"
-        },
-        {
-            date: "2016-05-01",
-            name: "王小虎7",
-            address: "北京市 1519 弄"
-        },
-        {
-            date: "2016-05-03",
-            name: "王小虎8",
-            address: "北京市 1516 弄"
-        }, {
-            date: "2016-05-02",
-            name: "王小虎9",
-            address: "北京市 1518 弄"
-        },
-        {
-            date: "2016-05-04",
-            name: "王小虎10",
-            address: "上海市普陀区金沙江路 1517 弄"
-        },
-        {
-            date: "2016-05-01",
-            name: "王小虎11",
-            address: "上海市普陀区金沙江路 1519 弄"
-        },
-        {
-            date: "2016-05-03",
-            name: "王小虎12",
-            address: "上海市普陀区金沙江路 1516 弄"
-        }
-    ]
-}
+
 
 export default {
     gridDemo1: config => {
 
+        console.log("url = " + config.url);
+        console.log("type = " + config.type);
+        console.log("body = " + config.body);
+
+
+        var obj = tools.param2Obj(config.url);
+
+        var name = obj.name;
+        var address = obj.address;
+        var pageSize = obj.pageSize;
+        var currentPage = obj.currentPage;
+
+        var total = 226;
+        var tmpPageSize = 'list|' + pageSize;
+        var tableDataTemplate = {}
+
+        //判断是否是最后一页
+        if (parseInt(total / pageSize - 0) == (currentPage - 1)) {
+            tmpPageSize = 'list|' + (total - pageSize * (currentPage - 1));
+        }
+
+        tableDataTemplate[tmpPageSize] = [{
+            //随机的中文标题
+            'name': '@ctitle(5, 15)',
+            //随机的描述
+            'address': '@cparagraph(2, 5)',
+            //随机的时间
+            'date': Random.now('yyyy-MM-dd')
+        }];
+
+
+        var mockData = Mock.mock(tableDataTemplate);
+
         var jsonObj = tools.deepClone(json);
-        jsonObj[contentTotal] = 226;
-        jsonObj[content] = dataMap.tableData1;
+        jsonObj[contentTotal] = total;
+        jsonObj[content] = mockData.list;
 
         return jsonObj
     }
