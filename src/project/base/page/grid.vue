@@ -7,27 +7,34 @@
 
     <gw-grid ref="tableDemo1" id="tableDemo1" class="tableDemo1" :action="action1" @updateGrid="updateGrid1">
 
-      <el-form :inline="true" :model="formInline1" class="demo-form-inline">
-        <el-form-item label="姓名">
+      <el-form :inline="true" :model="formInline1" ref="formInline1" class="demo-form-inline">
+        <el-form-item label="姓名" prop="name">
           <el-input v-model="formInline1.name" placeholder="姓名"></el-input>
         </el-form-item>
-        <el-form-item label="地址">
+        <el-form-item label="地址" prop="address">
           <el-select v-model="formInline1.address" placeholder="地址">
-            <el-option label="上海" value="shanghai"></el-option>
-            <el-option label="北京" value="beijing"></el-option>
+            <el-option label="上海" value="上海"></el-option>
+            <el-option label="北京" value="北京"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="query1">查询</el-button>
+          <el-button @click="resetForm('formInline1')">清空</el-button>
         </el-form-item>
       </el-form>
 
       <el-table :data="tableData1" border style="width: 100%">
         <el-table-column prop="date" label="日期" width="180">
         </el-table-column>
-        <el-table-column prop="name" label="姓名" width="180">
+        <el-table-column label="姓名" width="180">
+          <template slot-scope="scope">
+            <span class="col-cont" v-html="showDate1(scope.row.name, formInline1.name)"></span>
+          </template>
         </el-table-column>
-        <el-table-column prop="address" label="地址">
+        <el-table-column label="地址">
+          <template slot-scope="scope">
+            <span class="col-cont" v-html="showDate1(scope.row.address, formInline1.address)"></span>
+          </template>
         </el-table-column>
       </el-table>
 
@@ -73,8 +80,24 @@ export default {
       //移动到顶部
       document.getElementById("tableDemo1").scrollIntoView(true);
       return false;
-    }
+    },
+    // 高亮
+    showDate1(val, rep) {
+      val = val + "";
+      if (val.indexOf(rep) !== -1 && rep !== "") {
+        return val.replace(rep, '<font color="#f77373">' + rep + "</font>");
+      } else {
+        return val;
+      }
+    },
     ///////
+
+    resetForm(formName) {
+      //elementUI重置表单的条件
+      // 1.表单要写上ref="form"来自哪个 表单的数据
+      // 2.需要重置的选项必须加上prop="name"的指向
+      this.$refs[formName].resetFields();
+    }
   },
 
   mounted() {
@@ -90,12 +113,12 @@ export default {
         name: "",
         address: "",
         //每页显示条数
-        pageSize: 15,
+        pageSize: 10,
         //当前页数
         currentPage: 1
       },
       //每页显示个数选择器的选项设置
-      pageSizes1: [15, 50, 100, 150, 200],
+      pageSizes1: [10, 50, 100, 150, 200],
       layout1: "total, sizes, prev, pager, next, jumper",
       total1: 0,
       tableData1: []

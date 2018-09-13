@@ -50,9 +50,9 @@ export default {
 
         tableDataTemplate[tmpPageSize] = [{
             //随机的中文标题
-            'name': '@ctitle(5, 15)',
+            'name': '@ctitle(5, 15)' + name,
             //随机的描述
-            'address': '@cparagraph(2, 5)',
+            'address': '@cparagraph(2, 5)' + address,
             //随机的时间
             'date': Random.now('yyyy-MM-dd')
         }];
