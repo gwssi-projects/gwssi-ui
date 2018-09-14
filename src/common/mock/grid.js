@@ -48,13 +48,33 @@ export default {
             tmpPageSize = 'list|' + (total - pageSize * (currentPage - 1));
         }
 
+
+        //用 Random. 一下就能看到能模拟数据方法
+
         tableDataTemplate[tmpPageSize] = [{
             //随机的中文标题
             'name': '@ctitle(5, 15)' + name,
             //随机的描述
             'address': '@cparagraph(2, 5)' + address,
             //随机的时间
-            'date': Random.now('yyyy-MM-dd')
+            'date': '@date("yyyy-MM-dd")',
+            //随机省份
+            'province': '@province',
+            //随机市
+            'city': '@city',
+            //邮编
+            'zip': '@zip',
+            //中文名
+            'canme': '@cname()',
+            //邮箱
+            'email': '@email',
+            //图片
+            'image': "@dataImage('30x30')",
+            //随机数
+            'amount1': '@integer(1,100)',
+            'amount2': '@integer(1,100)',
+            'amount3': '@integer(1,100)',
+            'id' : '@id()'
         }];
 
 
