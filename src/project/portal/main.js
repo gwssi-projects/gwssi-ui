@@ -11,7 +11,6 @@ import ElementUI from 'element-ui'
 
 import Lang from '@components/select-lang'
 import router from '@appBase/router'
-import '@mock'
 import store from "@store"
 
 import app from './main.vue'
@@ -21,15 +20,7 @@ Vue.use(ElementUI)
 Vue.use(Lang)
 Vue.use(VueMeta)
 
-// import Vue from 'vue'
-// import ElStep from 'element-steps'
-// Vue.use(ElStep)
 
-// or
-
-// import Vue from 'vue'
-// import ElStep from 'element-steps'
-// Vue.component('el-step', ElStep)
 
 new Vue({
   i18n,

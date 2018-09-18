@@ -60,7 +60,7 @@
         <div class="menu">
           <el-menu router background-color="#222d32" text-color="#fff" :default-active="$route.path" class="menu" @open="handleOpen" @close="handleClose" :collapse="isCollapse">
             <template v-for="(menu_v,menu_k) in menu">
-              <el-submenu v-if="menu_v.children" :index="menu_k">
+              <el-submenu v-if="menu_v.children" :index="menu_k" :key="menu_v.children">
                 <template slot="title">
                   <i :class="menu_v.icon"></i>
                   <span slot="title">{{ menu_v.name }}</span>
@@ -70,7 +70,7 @@
                   <span slot="title">{{ menuChildren_v.name }}</span>
                 </el-menu-item>
               </el-submenu>
-              <el-menu-item v-else :index="menu_v.path">
+              <el-menu-item v-else :index="menu_v.path" :key="menu_v.path">
                 <i :class="menu_v.icon"></i>
                 <span slot="title">{{ menu_v.name }}</span>
               </el-menu-item>
@@ -113,6 +113,19 @@ export default {
       menu: Menu
     };
   },
+
+  created() {
+    //删除loading层，此时加载完毕所有JS
+    try {
+      document.body.removeChild(document.getElementById("appLoading"));
+    } catch (e) {
+      console.error(e);
+    }
+
+    //用户登录
+    this.$store.dispatch("getUserInfo");
+  },
+
   methods: {
     NavBarWidth() {
       let navBar = document.getElementById("nav-bar");

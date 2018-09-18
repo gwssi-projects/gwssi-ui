@@ -14,7 +14,7 @@
 </template>
 
 <script>
-  import ScrollPane from '~/components/ScrollPane/Index.vue'
+  import ScrollPane from '@appPortal/components/ScrollPane/Index.vue'
 
   export default {
     data() {
