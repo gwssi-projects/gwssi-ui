@@ -1,6 +1,6 @@
 import 'element-ui/lib/theme-chalk/index.css'
 import 'element-ui/lib/theme-chalk/reset.css'
-import Css from './main.less';
+import Css from './login.less';
 //字体图标 http://www.iconfont.cn/
 import '../../../static/font_810232/iconfont.css'
 
@@ -9,31 +9,16 @@ import VueMeta from 'vue-meta'
 
 import ElementUI from 'element-ui'
 
-import Lang from '@components/select-lang/index'
-import router from '@appBase/router/index'
+import Lang from '@components/select-lang'
+import app from './login.vue'
 import store from "@store"
 
-import app from './main.vue'
-
-
-//执行install方法
 Vue.use(ElementUI)
 Vue.use(Lang)
 Vue.use(VueMeta)
 
-// import Vue from 'vue'
-// import ElStep from 'element-steps'
-// Vue.use(ElStep)
-
-// or
-
-// import Vue from 'vue'
-// import ElStep from 'element-steps'
-// Vue.component('el-step', ElStep)
-
 new Vue({
   i18n,
-  router,
   store,
   el: '#app',
   render: h => h(app)

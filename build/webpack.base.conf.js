@@ -18,9 +18,12 @@ module.exports = {
 
     //project
     //base ui
-    "project/base/baseUIIndex": './src/project/base/main.js'
+    "project/base/baseUIIndex": './src/project/base/main.js',
 
-    //iptrm
+    //portal
+    "project/portal/main": './src/project/portal/main.js',
+    //可以做一个protal的单独登录页面，配合配置环境变量的首页跳转参数GW_INDEX可以直接跳转到此页面只访问portal
+    "project/portal/login": './src/project/portal/login.js'
 
   },
 
@@ -131,6 +134,22 @@ module.exports = {
       template: resolve(__dirname, '../src/project/base/index.html'),
       chunks: ['manifest', 'vendor', 'project/base/baseUIIndex']
     }),
+
+    //portal
+    new HtmlWebpackPlugin({
+      title: '长城软件统一管理平台',
+      filename: resolve(__dirname, '../dist/project/portal/index.html'),
+      template: resolve(__dirname, '../src/project/portal/index.html'),
+      chunks: ['manifest', 'vendor', 'project/portal/main']
+    }),
+
+    new HtmlWebpackPlugin({
+      title: '长城软件统一管理平台-登录',
+      filename: resolve(__dirname, '../dist/project/portal/login.html'),
+      template: resolve(__dirname, '../src/project/portal/login.html'),
+      chunks: ['manifest', 'vendor', 'project/portal/login']
+    }),
+
     // 直接复制静态文件
     new CopyWebpackPlugin([{
       from: resolve(__dirname, '../static/'),

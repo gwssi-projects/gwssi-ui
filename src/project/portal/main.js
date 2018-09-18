@@ -9,12 +9,12 @@ import VueMeta from 'vue-meta'
 
 import ElementUI from 'element-ui'
 
-import Lang from '@components/select-lang/index'
-import router from '@appBase/router/index'
+import Lang from '@components/select-lang'
+import router from '@appBase/router'
+import '@mock'
 import store from "@store"
 
 import app from './main.vue'
-
 
 //执行install方法
 Vue.use(ElementUI)

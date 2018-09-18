@@ -1,31 +1,31 @@
-
 <template>
   <div class="login-box">
     <div class="logo" :style="{ 'color': storeColor }">
       <i class="iconfont icon-shenfenzheng"></i>
     </div>
-    <p class="text-tips">你好｛{{uName}}｝~</p>
+    <p class="text-tips">{{ $t('gwssi.tips.hello') }}｛{{uName}}｝~</p>
     <!--status-icon 为反馈图标-->
 
     <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" class="login-form" v-show="islogin">
       <el-form-item prop="username" :error="usernameErrorMsg">
-        <el-input v-model="ruleForm.username" placeholder="用户名"></el-input>
+        <el-input v-model="ruleForm.username" :placeholder="$t('gwssi.tips.user')"></el-input>
       </el-form-item>
       <el-form-item prop="password" :error="passwordErrorMsg">
-        <el-input type="password" v-model="ruleForm.password" placeholder="密码"></el-input>
+        <el-input type="password" v-model="ruleForm.password" :placeholder="$t('gwssi.tips.password')"></el-input>
       </el-form-item>
       <p class="text-tips">使用用户admin/admin，user/user来测试不同用户权限，可以测试用户密码错误提示，使用其它用户密码测试登录不正确返回结果的样例。</p>
       <!--点击后加载状态 :loading="true"-->
       <el-form-item style="text-align: center;">
-        <el-button type="primary" native-type="button" :loading="loginBtnLoading" class="loginBtn" @click="submitForm('ruleForm')">登&nbsp;&nbsp;&nbsp;录</el-button>
-        <el-button native-type="button" class="loginBtn" @click="resetForm('ruleForm')">清&nbsp;&nbsp;&nbsp;空</el-button>
+        <el-button type="primary" native-type="button" :loading="loginBtnLoading" class="loginBtn" @click="submitForm('ruleForm')">{{ $t('gwssi.portal.loginBtn') }}</el-button>
+        <el-button native-type="button" class="loginBtn" @click="resetForm('ruleForm')">{{ $t('gwssi.portal.resetBtn') }}
+        </el-button>
       </el-form-item>
     </el-form>
 
     <div class="logged" v-show="islogged">
       <p class="text-tips">当前用户已登录系统</p>
       <div class="user-ctrl">
-        <el-button type="primary" native-type="button" class="loginBtn" @click="logout" style=" width: 95%;">登&nbsp;&nbsp;&nbsp;出</el-button>
+        <el-button type="primary" native-type="button" class="loginBtn" @click="logout" style=" width: 95%;">{{ $t('gwssi.portal.logoutBtn') }}</el-button>
       </div>
     </div>
 
@@ -72,9 +72,19 @@ export default {
       },
       rules: {
         username: [
-          { required: true, message: "请输入用户名", trigger: "blur" }
+          {
+            required: true,
+            message: i18n.t("gwssi.portal.inputUser"),
+            trigger: "blur"
+          }
         ],
-        password: [{ required: true, message: "请输入密码", trigger: "blur" }]
+        password: [
+          {
+            required: true,
+            message: i18n.t("gwssi.portal.inputPassword"),
+            trigger: "blur"
+          }
+        ]
       },
       loginBtnLoading: false,
       usernameErrorMsg: "",
@@ -110,7 +120,7 @@ export default {
                 this.$store.dispatch("updateUserInfo", json.data.content);
 
                 Message({
-                  message: "登录成功",
+                  message: i18n.t("gwssi.portal.loginSuccess"),
                   type: "success",
                   duration: 5 * 1000
                 });
@@ -118,17 +128,17 @@ export default {
                 this.$router.push("/logged");
               },
               error => {
-                console.log("登录发生错误" + error);
+                console.log(i18n.t("gwssi.portal.loginError") + error);
                 //服务器错误
                 this.loginBtnLoading = false;
 
                 var errNO = error.data.errNo;
                 if (errNO == "01") {
-                  this.usernameErrorMsg = "用户不存在";
+                  this.usernameErrorMsg = i18n.t("gwssi.portal.nouser");
                 }
 
                 if (errNO == "02") {
-                  this.passwordErrorMsg = "密码错误";
+                  this.passwordErrorMsg = i18n.t("gwssi.portal.passwordError");
                 }
               }
             );
@@ -149,9 +159,9 @@ export default {
       //   }
       // });
 
-      this.$confirm("即将退出系统, 是否继续?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
+      this.$confirm("即将退出系统, 是否继续?", i18n.t("gwssi.tips.tip"), {
+        confirmButtonText: i18n.t("gwssi.tips.confirm"),
+        cancelButtonText: i18n.t("gwssi.tips.cancel"),
         type: "warning"
       })
         .then(() => {
@@ -169,13 +179,14 @@ export default {
 </script>
 
 
-<style  lang="less" scoped>
+<style lang="less" scoped>
 .login-box {
   position: relative;
   width: 330px;
   margin: 0 auto;
   padding: 0px 15px;
 }
+
 /**使用字体图标或svg图标来控制整个主题颜色**/
 .login-box .logo {
   margin: 0 auto;
@@ -196,5 +207,3 @@ export default {
   width: 45%;
 }
 </style>
-
-

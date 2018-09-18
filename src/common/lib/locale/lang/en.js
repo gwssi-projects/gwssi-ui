@@ -21,6 +21,8 @@ exports.default = {
       lang: "Choose language",
       zh: "Chinese",
       en: "English",
+      user: "User",
+      password: "Password",
       login: "Login",
       loginBtn: "login",
       registerBtn: "register",
@@ -38,11 +40,30 @@ exports.default = {
       syncRouterBtn: "sync router",
       btn404: "404",
       btn500: "500",
-      ajaxErr: "Error loading data"
-
+      ajaxErr: "Error loading data",
+      hello : "hello",
+      confirm: "confirm",
+      cancel: "cancel",
+      tip: "tip"
     },
     portal: {
 
+      login: 'protal-login',
+      welcome: 'welcome gwssi protal',
+      loginBtn: 'login',
+      resetBtn: 'reset',
+      logoutBtn: 'logoutBtn',
+      inputUser: 'inputUser',
+      inputPassword: 'inputPassword',
+      loginError: 'loginError',
+      nouser: 'User does not exist',
+      passwordError: 'Password error',
+      loginSuccess: 'loginSuccess',
+
+      main: {
+
+
+      }
 
     }
   }

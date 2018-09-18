@@ -6,6 +6,30 @@ export default {
   //可以直接使用cookies操作cookies
   cookies: Cookies,
 
+
+  //增加一个a标签的样式
+
+  writeNewAStyle: function (color) {
+
+    if (color == null || color == "") {
+      console.log("color is null!!");
+      return;
+    }
+
+    var cssText = "a {color:" + color + ";}  a:focus, a:hover {color:" + color + ";}";
+
+    var style = document.getElementById("app_theme_style");
+    if (style == null) {
+      style = document.createElement("style");
+      style.id = "app_theme_style";
+      style.innerText = cssText;
+      document.head.appendChild(style);
+    } else {
+      // console.log("再次设置");
+      style.innerText = cssText;
+    }
+  },
+
   //设置cookie
   setCookie: function (cname, cvalue, exdays, path) {
 

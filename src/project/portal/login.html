@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/static/favicon.ico" mce_href="/static/favicon.ico" type="image/x-icon">
+  <title>
+    <%= htmlWebpackPlugin.options.title %>
+  </title>
+  <link rel="stylesheet" href="/static/css/pre.css">
+</head>
+
+<body>
+
+  <!--加载组件前的loading-->
+  <div id="appLoading">
+    <img src="/static/img/web_loading.gif" width="60px" height="60px" />
+  </div>
+
+  <!--v-cloak避免vue加载完毕前的闪烁-->
+  <div id="app" v-cloak>
+  </div>
+
+</body>
+
+</html>

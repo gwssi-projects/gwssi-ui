@@ -52,6 +52,12 @@ const UserProfile = {
   template: '<p style=" text-align: center; ">这是一个页面组件，UserProfile 。</p>'
 }
 
+
+const portal = {
+  template: '<div>portal</div>'
+}
+
+
 const routes = [
   //login不需要权限验证
   {
@@ -147,6 +153,10 @@ const routes = [
     path: '/grid',
     component: grid
   },
+  {
+    path: '/portal',
+    component: portal
+  },
   //这样就配置了其它页面都是404了
   {
     path: '*',
@@ -235,10 +245,9 @@ router.beforeEach((to, from, next) => {
       console.log("路由获取用户信息");
 
       let loadingInstance = Loading.service({
-        //target: "#app-main",
-        body: true,
-        //      spinner: 'el-icon-loading',
-        background: 'rgba(f, f, f, 0.7)',
+        target: "#app-main",
+        body: false,
+        //background: "#ffffff",
         text: '正在加载页面',
         lock: false
       });
@@ -264,7 +273,7 @@ router.beforeEach((to, from, next) => {
 
           loadingInstance.close();
 
-          noAuth('获取用户信息错误：' + error, "无权限", '当前用户未登录或已经超时。');
+          noAuth('获取用户信息错误：' + error, "无权限", '获取用户信息错误。');
           next(indexPage)
           return
         });

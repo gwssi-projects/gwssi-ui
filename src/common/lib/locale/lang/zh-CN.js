@@ -21,6 +21,8 @@ exports.default = {
       lang: "请选择语言",
       zh: "中文",
       en: "英文",
+      user: "用户名",
+      password: "密码",
       login: "请登录系统",
       loginBtn: "用户登录",
       registerBtn: "用户注册",
@@ -38,11 +40,30 @@ exports.default = {
       syncRouterBtn: "异步路由权限",
       btn404: "404",
       btn500: "500",
-      ajaxErr: "加载数据发生错误"
+      ajaxErr: "加载数据发生错误",
+      hello : "你好",
+      confirm: "确定",
+      cancel: "取消",
+      tip: "提示"
     },
 
     portal: {
+      login: '长城软件统一管理平台-登录',
+      welcome: '欢迎访问 长城软件统一管理平台',
+      loginBtn: '登      录',
+      resetBtn: '清      空',
+      logoutBtn: '登      出',
+      inputUser: '请输入用户名',
+      inputPassword: '请输入密码',
+      loginError: '登录发生错误',
+      nouser: '用户不存在',
+      passwordError: '密码错误',
+      loginSuccess : '登录成功',
 
+      main: {
+
+
+      }
 
     }
   }

@@ -70,19 +70,19 @@ export default {
 
     if (username == null || username == "" || (username != "admin" && username != "user")) {
       jsonObj[errNo] = "01";
-      jsonObj[errDes] = "用户不存在";
+      jsonObj[errDes] = i18n.t("gwssi.portal.nouser");
       return jsonObj;
     }
 
     if (username == "admin" && password != "admin") {
       jsonObj[errNo] = "02";
-      jsonObj[errDes] = "密码错误";
+      jsonObj[errDes] = i18n.t("gwssi.portal.passwordError");
       return jsonObj;
     }
 
     if (username == "user" && password != "user") {
       jsonObj[errNo] = "02";
-      jsonObj[errDes] = "密码错误";
+      jsonObj[errDes] = i18n.t("gwssi.portal.passwordError");
       return jsonObj;
     }
 
