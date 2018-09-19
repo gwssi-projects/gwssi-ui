@@ -1,7 +1,7 @@
 import tools from "@components/tools";
 
 export const themeColorKey = 'theme-color'
-const defaultColor = '#409eff';
+const defaultColor = '#367fa9';
 
 export const contentLanguageKey = 'content-language'
 const defaultLanguage = 'zh-cn'

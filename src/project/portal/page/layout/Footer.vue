@@ -2,11 +2,11 @@
   <div class="footer">
     <div class="version">
 
-      <b>Version</b> {{ $Config.version }}
-
       <a href="https://github.com/gwssi-projects/gwssi-ui/tree/1.x" target="_blank">
-        <i class="iconfont icon-github"></i>
+        <b>Version</b> {{ $Config.version }}
       </a>
+
+      <i class="iconfont icon-github"></i>
     </div>
     <strong>Copyright © 2018-2019 .</strong>All rights reserved.
   </div>
@@ -25,7 +25,6 @@ export default {
 
 <style lang="less">
 a {
-  color: #444;
 }
 
 .footer {

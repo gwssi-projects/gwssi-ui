@@ -1,7 +1,7 @@
 <template>
   <div class="main">
-    <div class="header">
-      <div class="logo">
+    <div class="header" :style="{ 'background-color': storeColor} ">
+      <div class="logo" :style="{ 'background-color': storeColor} ">
         <span class="big">{{ $t('gwssi.portal.main.siteName') }}</span>
         <span class="min">{{ $t('gwssi.portal.main.minSiteMame') }}</span>
       </div>
@@ -48,7 +48,7 @@
         </span>
         <el-dropdown>
           <span class="header-btn">
-            Admin
+            {{uName}}
             <i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <el-dropdown-menu slot="dropdown">
@@ -96,7 +96,7 @@
             </template>
           </el-menu>
         </div>
-        <div class="sidebar-toggle" @click="sidebarToggle">
+        <div class="sidebar-toggle" :style="{ 'background-color': storeColor } " @click="sidebarToggle">
           <div class="icon-left">
             <i class="el-icon-back"></i>
           </div>
@@ -132,6 +132,15 @@ export default {
       isCollapse: false,
       menu: Menu
     };
+  },
+
+  computed: {
+    storeColor() {
+      return this.$store.getters.defaultColor;
+    },
+    uName() {
+      return this.$store.state.user.name;
+    }
   },
 
   created() {},
@@ -303,7 +312,6 @@ export default {
       position: relative;
       width: 100%;
       height: 50px;
-      background-color: #367fa9;
       color: #fff;
       cursor: pointer;
       .icon-left {
@@ -336,8 +344,8 @@ export default {
   position: fixed;
   display: flex;
   height: 50px;
-  background-color: #3c8dbc;
   z-index: 10;
+  filter: alpha(opacity=80);
   .logo {
     .min {
       display: none;
@@ -347,7 +355,6 @@ export default {
     text-align: center;
     line-height: 50px;
     color: #fff;
-    background-color: #367fa9;
     -webkit-transition: width 0.35s;
     transition: all 0.3s ease-in-out;
   }
