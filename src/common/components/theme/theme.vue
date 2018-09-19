@@ -1,5 +1,5 @@
 <template>
-  <el-color-picker :storeColor="storeColor" v-model="colors.primary" @active-change="activeChange" @change="colorChange"></el-color-picker>
+  <el-color-picker :size="size" :storeColor="storeColor" v-model="colors.primary" @active-change="activeChange" @change="colorChange"></el-color-picker>
 </template>
 
 <script>
@@ -205,7 +205,7 @@ export default {
 
   beforeCreate: function() {},
 
-  props: ["obj"],
+  props: ["obj","size"],
 
   //computed的内容必须放到页面上才能生效？
   //computed里面的内容，貌似只有在html里面调用到，才会实时更新,props中使用也不行？

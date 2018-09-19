@@ -9,8 +9,13 @@
         <i class="el-icon-menu"></i>
       </span>
       <div class="right">
+
+        <span class="header-btn">
+          <gw-color-picker style="padding-top: 11px" size="mini" @colorChange="colorChange" @activeChange="activeChange" :obj='themeObj'></gw-color-picker>
+        </span>
+
         <span class="header-btn" @click="screenfullToggle">
-          <i class="fa fa-arrows-alt"></i>
+          <i class="el-icon-rank"></i>
         </span>
 
         <el-dropdown>
@@ -53,6 +58,20 @@
               <i style="padding-right: 8px" class="fa fa-key"></i>退出系统</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
+
+        <el-dropdown>
+          <span class="header-btn">
+            选择语言
+            <i class="el-icon-arrow-down el-icon--right"></i>
+          </span>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item @click.native="$router.push('/personal')">
+              <i style="padding-right: 8px" class="fa fa-cog"></i>中文</el-dropdown-item>
+            <el-dropdown-item @click.native="logout">
+              <i style="padding-right: 8px" class="fa fa-key"></i>英文</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+
       </div>
     </div>
     <div class="app">
@@ -106,6 +125,7 @@ import Menu from "@appPortal/components/Menu";
 export default {
   data() {
     return {
+      themeObj: {},
       fixedTabBar: false,
       switchTabBar: false,
       siteName: this.$Config.siteName,
@@ -117,6 +137,8 @@ export default {
   created() {},
 
   methods: {
+    colorChange(color) {},
+    activeChange(color) {},
     NavBarWidth() {
       let navBar = document.getElementById("nav-bar");
       if (!navBar) return;
@@ -358,6 +380,17 @@ export default {
     &:hover {
       background-color: #367fa9;
     }
+  }
+
+  .header-btn2 {
+    overflow: hidden;
+    height: 50px;
+    display: inline-block;
+    text-align: center;
+    line-height: 50px;
+    cursor: pointer;
+    padding: 0 14px;
+    color: #fff;
   }
 }
 
