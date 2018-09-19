@@ -2,11 +2,11 @@
 
   <el-container>
 
-    <el-header>
+    <el-header style="padding: 0px">
 
       <div class="container" :style="{ 'border-top-color': storeColor }">
         <el-row>
-          <el-col :span="2" :offset="18">
+          <el-col :span="2" :offset="17">
             <gw-select-lang></gw-select-lang>
           </el-col>
 
@@ -24,20 +24,23 @@
 
       <div class="login-box">
         <div class="logo" :style="{ 'color': storeColor }">
-          <i class="iconfont icon-shenfenzheng"></i>
+          <i class="iconfont icon-edit_code"></i>
         </div>
-        <p class="text-tips">{{ $t('gwssi.portal.welcome') }}</p>
+        <p class="text-tips">｛{{uName}}｝，{{ $t('gwssi.portal.welcome') }}</p>
         <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" class="login-form">
           <el-form-item prop="username" :error="usernameErrorMsg">
-            <el-input v-model="ruleForm.username" :placeholder="$t('gwssi.tips.user')"></el-input>
+            <el-input v-model="ruleForm.username" suffix-icon="iconfont icon-icon_wode_mian" :placeholder="$t('gwssi.tips.user')"></el-input>
           </el-form-item>
           <el-form-item prop="password" :error="passwordErrorMsg">
-            <el-input type="password" v-model="ruleForm.password" :placeholder="$t('gwssi.tips.password')"></el-input>
+            <el-input type="password" v-model="ruleForm.password" suffix-icon="iconfont icon-icon_wenben_mian" :placeholder="$t('gwssi.tips.password')"></el-input>
           </el-form-item>
-          <el-form-item style="text-align: center;">
+          <el-form-item style="text-align: center; margin-top: 10px;">
             <el-button type="primary" native-type="button" :loading="loginBtnLoading" class="loginBtn" @click="submitForm('ruleForm')">{{ $t('gwssi.portal.loginBtn') }}</el-button>
             <el-button native-type="button" class="loginBtn" @click="resetForm('ruleForm')">{{ $t('gwssi.portal.resetBtn') }}</el-button>
           </el-form-item>
+
+          <p class="text-tips">{{ $t('gwssi.portal.loginDemoTxt') }}</p>
+
         </el-form>
 
       </div>
@@ -69,16 +72,12 @@ Vue.use(GwTheme);
 export default {
   name: "login",
 
-  metaInfo: {
-    //标题国际化
-    title: i18n.t("gwssi.portal.login")
-  },
-
   computed: {
     storeColor() {
-      //更新a标签主题颜色
-      gwTools.writeNewAStyle(this.$store.getters.defaultColor);
       return this.$store.getters.defaultColor;
+    },
+    uName() {
+      return this.$store.state.user.name;
     }
   },
 
@@ -112,15 +111,6 @@ export default {
     };
   },
 
-  created() {
-    //删除loading层，此时加载完毕所有JS
-    try {
-      document.body.removeChild(document.getElementById("appLoading"));
-    } catch (e) {
-      console.error(e);
-    }
-  },
-
   methods: {
     colorChange(color) {
       this.badgeHidden = true;
@@ -146,7 +136,14 @@ export default {
                 //判断用户密码
                 this.loginBtnLoading = false;
                 this.$store.dispatch("updateUserInfo", json.data.content);
-                window.location.href = '../portal/';
+
+                this.$notify({
+                  title: i18n.t("gwssi.portal.loginSuccess"),
+                  message: i18n.t("gwssi.portal.welcome"),
+                  type: "success"
+                });
+
+                this.$router.push("/");
               },
               error => {
                 console.log(i18n.t("gwssi.portal.loginError") + error);
@@ -181,28 +178,27 @@ export default {
 @baseTextColor: rgb(51, 51, 51);
 @margintop : 10px;
 
-/***
-此处定义的CSS只在此组件中生效，比如下面的.container，只会在当前组件的.container生效，
-最终的结果是生成的css为 
-.container[data-v-0f61ca50] 
-生成的DIV为<div data-v-0f61ca50="" class="container">
-保证一一对应
-**/
 .container {
   transition: all 0.5s ease;
   border-top: solid 4px;
-  background-color: @baseBC;
   color: @baseTextColor;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.12), 0 0 6px 0 rgba(0, 0, 0, 0.04);
+  background-color: #fff;
   width: 100%;
   padding: 10px 0 10px 0;
 }
 
 .login-box {
+  width: 375px;
+  height: 400px;
+  padding: 30px;
+  background-color: #fff;
+  text-align: left;
+  border-radius: 4px;
   position: relative;
-  width: 330px;
+  zoom: 1;
+  display: block;
   margin: 0 auto;
-  padding: 0px 15px;
+  margin-top: 50px;
 }
 
 /**使用字体图标或svg图标来控制整个主题颜色**/
@@ -212,8 +208,8 @@ export default {
   margin-bottom: 20px;
 }
 
-.icon-shenfenzheng {
-  font-size: 60px;
+.icon-edit_code {
+  font-size: 80px;
 }
 
 .login-box .loginBtn {

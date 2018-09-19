@@ -36,7 +36,7 @@
           </el-submenu>
 
           <el-menu-item :router='false' index="">
-            <a href="../portal/" target="_blank"> {{ $t('gwssi.tips.portalBtn') }} </a>
+            <a href="../portal/#/login" target="_blank"> {{ $t('gwssi.tips.portalBtn') }} </a>
           </el-menu-item>
         </el-menu>
       </el-col>

@@ -41,13 +41,19 @@ exports.default = {
       btn404: "404",
       btn500: "500",
       ajaxErr: "加载数据发生错误",
-      hello : "你好",
+      hello: "你好",
       confirm: "确定",
       cancel: "取消",
-      tip: "提示"
+      tip: "提示",
+      sex: {
+        male: '男',
+        female: '女',
+        unknown: '未知'
+      }
     },
 
     portal: {
+      title: '长城计算机软件统一管理平台',
       login: '长城软件统一管理平台-登录',
       welcome: '欢迎访问 长城软件统一管理平台',
       loginBtn: '登      录',
@@ -58,10 +64,12 @@ exports.default = {
       loginError: '登录发生错误',
       nouser: '用户不存在',
       passwordError: '密码错误',
-      loginSuccess : '登录成功',
-
+      loginSuccess: '登录成功',
+      loginDemoTxt: "使用用户admin/admin，user/user来测试不同用户权限，可以测试用户密码错误提示，使用其它用户密码测试登录不正确返回结果的样例。",
       main: {
 
+        siteName: '长城软件统一管理平台',
+        minSiteMame: 'Protal'
 
       }
 

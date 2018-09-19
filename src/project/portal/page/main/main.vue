@@ -2,8 +2,8 @@
   <div class="main">
     <div class="header">
       <div class="logo">
-        <span class="big">{{ $Config.siteName }}</span>
-        <span class="min">{{ $Config.minSiteMame }}</span>
+        <span class="big">{{ $t('gwssi.portal.main.siteName') }}</span>
+        <span class="min">{{ $t('gwssi.portal.main.minSiteMame') }}</span>
       </div>
       <span class="header-btn" @click="hiddenSidebar">
         <i class="el-icon-menu"></i>
@@ -60,7 +60,7 @@
         <div class="menu">
           <el-menu router background-color="#222d32" text-color="#fff" :default-active="$route.path" class="menu" @open="handleOpen" @close="handleClose" :collapse="isCollapse">
             <template v-for="(menu_v,menu_k) in menu">
-              <el-submenu v-if="menu_v.children" :index="menu_k" :key="menu_v.children">
+              <el-submenu v-if="menu_v.children" :index="menu_k" :key="menu_v.path">
                 <template slot="title">
                   <i :class="menu_v.icon"></i>
                   <span slot="title">{{ menu_v.name }}</span>
@@ -114,17 +114,7 @@ export default {
     };
   },
 
-  created() {
-    //删除loading层，此时加载完毕所有JS
-    try {
-      document.body.removeChild(document.getElementById("appLoading"));
-    } catch (e) {
-      console.error(e);
-    }
-
-    //用户登录
-    this.$store.dispatch("getUserInfo");
-  },
+  created() {},
 
   methods: {
     NavBarWidth() {
@@ -161,7 +151,7 @@ export default {
     saveSwitchTabBarVal(v) {
       let containerDom = document.getElementById("mainContainer");
       v
-        ? (containerDom.style.minHeight = "calc(100vh - 139px)")
+        ? (containerDom.style.minHeight = "calc(100vh - 152px)")
         : (containerDom.style.minHeight = "calc(100vh - 101px)");
       v
         ? localStorage.setItem("switchTabBar", v)
@@ -201,7 +191,7 @@ export default {
     this.fixedTabBar = localStorage.getItem("fixedTabBar") ? true : false;
     if (this.switchTabBar)
       document.getElementById("mainContainer").style.minHeight =
-        "calc(100vh - 139px)";
+        "calc(100vh - 152px)";
 
     if (!this.isCollapse) {
       document.body.classList.remove("sidebar-hidden");

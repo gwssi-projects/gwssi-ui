@@ -41,13 +41,18 @@ exports.default = {
       btn404: "404",
       btn500: "500",
       ajaxErr: "Error loading data",
-      hello : "hello",
+      hello: "hello",
       confirm: "confirm",
       cancel: "cancel",
-      tip: "tip"
+      tip: "tip",
+      sex: {
+        male: 'male',
+        female: 'female',
+        unknown: 'unknown'
+      }
     },
     portal: {
-
+      title: 'gw protal',
       login: 'protal-login',
       welcome: 'welcome gwssi protal',
       loginBtn: 'login',
@@ -59,9 +64,11 @@ exports.default = {
       nouser: 'User does not exist',
       passwordError: 'Password error',
       loginSuccess: 'loginSuccess',
-
+      loginDemoTxt: "loginDemoTxt",
       main: {
 
+        siteName: 'Great Wall protal',
+        minSiteMame: 'Protal'
 
       }
 
