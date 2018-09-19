@@ -103,19 +103,15 @@ PermissionManage.permission = {
 
 export default menu;
 
-if(__DEV__){
+menu.development_tools = {
+  name: '开发工具',
+  icon: 'fa fa-wrench',
+  children: {}
+};
 
-  menu.development_tools = {
-    name: '开发工具',
-    icon: 'fa fa-wrench',
-    children: {}
-  };
+let DevelopmentTools = menu.development_tools.children;
 
-  let DevelopmentTools = menu.development_tools.children;
-
-  DevelopmentTools.code = {
-    name: '构建代码',
-    path: '/build_code',
-  };
-
-}
+DevelopmentTools.code = {
+  name: '构建代码',
+  path: '/build_code',
+};

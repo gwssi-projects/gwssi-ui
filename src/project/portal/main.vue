@@ -101,7 +101,7 @@
 import Screenfull from "screenfull";
 import EuiFooter from "@appPortal/page/layout/Footer.vue";
 import NavBar from "@appPortal/page/layout/NavBar.vue";
-import Menu from "@appPortal/page/menu";
+import Menu from "@appPortal/components/Menu";
 
 export default {
   data() {
