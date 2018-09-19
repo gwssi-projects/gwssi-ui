@@ -44,27 +44,31 @@ const routes = [{
           permisson: ['user'],
           requireAuth: true
         },
-        component: () => import( /* webpackChunkName: "project/portal/page/home" */ '../page/home')
+        component: () =>
+          import( /* webpackChunkName: "project/portal/page/home" */ '../page/home')
       },
-
-      //   {
-      //     path: '/font_awesome',
-      //     name: 'FontAwesome',
-      //     meta: {
-      //       title: 'FontAwesome 图标',
-      //       keepAlive: false
-      //     },
-      //     component: resolve => require(['~/views/Icon/FontAwesome.vue'], resolve),
-      //   },
-      //   {
-      //     path: '/element_icon',
-      //     name: 'ElementIcon',
-      //     meta: {
-      //       title: 'Element 图标',
-      //       keepAlive: false
-      //     },
-      //     component: resolve => require(['~/views/Icon/ElementIcon.vue'], resolve),
-      //   },
+      {
+        path: '/font_awesome',
+        name: 'FontAwesome',
+        meta: {
+          title: 'FontAwesome 图标',
+          permisson: ['user'],
+          requireAuth: true
+        },
+        component: () =>
+          import( /* webpackChunkName: "project/portal/page/icon/FontAwesome" */ '../page/icon/FontAwesome.vue')
+      },
+      {
+        path: '/element_icon',
+        name: 'ElementIcon',
+        meta: {
+          title: 'Element 图标',
+          permisson: ['user'],
+          requireAuth: true
+        },
+        component: () =>
+          import( /* webpackChunkName: "project/portal/page/icon/ElementIcon" */ '../page/icon/ElementIcon.vue')
+      },
       //   {
       //     path: '/post_manage',
       //     name: 'PostManage',

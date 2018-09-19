@@ -23,14 +23,19 @@ menu.font_icon = {
 let icon = menu.font_icon.children;
 
 icon.font_awesome = {
-  name: 'FontAwesome 4.7',
+  name: 'FontAwesome图标库',
   path: '/font_awesome',
 
 };
 icon.element_icon = {
-  name: 'ElementIcon',
+  name: 'ElementUI图标',
   path: '/element_icon',
 };
+icon.custom_icon = {
+  name: '自定义字体图标',
+  path: '/custom_icon',
+};
+
 
 /**
  * 内容管理
