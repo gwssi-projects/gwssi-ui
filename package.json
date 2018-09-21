@@ -21,7 +21,9 @@
     "vue-meta": "^1.5.2",
     "vue-router": "^3.0.1",
     "vuex": "3.0.1",
-    "screenfull": "^3.3.2"
+    "screenfull": "^3.3.2",
+    "echarts": "4.1.0",
+    "vue-count-to": "1.0.13"
   },
   "engines": {
     "node": ">=6"

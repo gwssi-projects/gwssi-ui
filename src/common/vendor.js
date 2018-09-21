@@ -38,3 +38,7 @@ import api from '@/common/api'
 window.gwI18n = i18n;
 window.i18n = i18n.vueLocale;
 window.gwTools = tools;
+
+//Vue中的全局变量通过Vue.prototype实现，vue对象中使用this获取
+// Vue.prototype.$gwTools = tools
+// Vue.prototype.$gwI18n = i18n

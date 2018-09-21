@@ -38,6 +38,22 @@ icon.custom_icon = {
 
 
 /**
+ * 图表
+ * @type {{name: string, icon: string, children: {}}}
+ */
+menu.charts_icon = {
+  name: '图表',
+  icon: 'fa fa-eercast',
+  children: {}
+};
+let charts = menu.charts_icon.children;
+
+charts.charDashboard = {
+  name: '仪表盘 ',
+  path: '/charDashboard'
+};
+
+/**
  * 内容管理
  * @type {{name: string, icon: string, children: {}}}
  */
@@ -49,25 +65,19 @@ menu.content_manage = {
 
 let ContentManage = menu.content_manage.children;
 
-ContentManage.post = {
-  name: '文章管理',
-  path: '/post_manage',
+ContentManage.grid = {
+  name: 'Grid样例',
+  path: '/grid_demo',
 };
 
-/**
- * 用户管理
- * @type {{name: string, icon: string, children: {}}}
- */
-menu.user_manage = {
-  name: '用户管理',
-  icon: 'fa fa-user-circle-o',
-  children: {}
+ContentManage.steps = {
+  name: '步骤条',
+  path: '/steps_demo',
 };
-let UserManage = menu.user_manage.children;
 
-UserManage.user = {
-  name: '用户列表',
-  path: '/user_manage',
+ContentManage.p404 = {
+  name: '404',
+  path: '/p404',
 };
 
 
@@ -76,47 +86,16 @@ UserManage.user = {
  * @type {{name: string, icon: string, children: {}}}
  */
 menu.category_manage = {
-  name: '分类管理',
+  name: '菜单管理',
   icon: 'fa fa-sitemap',
   children: {}
 };
 let CategoryManage = menu.category_manage.children;
 
 CategoryManage.category = {
-  name: '分类列表',
-  path: '/category_manage',
+  name: '菜单列表',
+  path: '/menu_list',
 };
 
-
-
-menu.permission_manage = {
-  name: '权限管理',
-  icon: 'fa fa-qrcode',
-  children: {}
-};
-let PermissionManage = menu.permission_manage.children;
-
-PermissionManage.role = {
-  name: '角色管理',
-  path: '/role_manage',
-};
-
-PermissionManage.permission = {
-  name: '权限列表',
-  path: '/permission_list',
-};
 
 export default menu;
-
-menu.development_tools = {
-  name: '开发工具',
-  icon: 'fa fa-wrench',
-  children: {}
-};
-
-let DevelopmentTools = menu.development_tools.children;
-
-DevelopmentTools.code = {
-  name: '构建代码',
-  path: '/build_code',
-};

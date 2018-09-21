@@ -28,7 +28,7 @@
     watch: {
       '$route': {
         handler: function () {
-          let index = this.$Func.hasValInArrayObj(this.nav, 'path', this.$route.path);
+          let index = gwTools.hasValInArrayObj(this.nav, 'path', this.$route.path);
           if (index != -1) return;
           this.nav.push({
             path: this.$route.path,
@@ -108,8 +108,6 @@
       }
     }
     .active {
-      border: 1px solid #3d8dbc;
-      background: #3d8dbc;
       color: #fff;
       .point {
         display: inline-block;

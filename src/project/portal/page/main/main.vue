@@ -1,7 +1,7 @@
 <template>
   <div class="main">
-    <div class="header" :style="{ 'background-color': storeColor} ">
-      <div class="logo" :style="{ 'background-color': storeColor} ">
+    <div class="header" :style="{ 'background-color': themeColor} ">
+      <div class="logo" :style="{ 'background-color': sideColor} ">
         <span class="big">{{ $t('gwssi.portal.main.siteName') }}</span>
         <span class="min">{{ $t('gwssi.portal.main.minSiteMame') }}</span>
       </div>
@@ -65,10 +65,10 @@
             <i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item @click.native="$router.push('/personal')">
-              <i style="padding-right: 8px" class="fa fa-cog"></i>中文</el-dropdown-item>
-            <el-dropdown-item @click.native="logout">
-              <i style="padding-right: 8px" class="fa fa-key"></i>英文</el-dropdown-item>
+            <el-dropdown-item @click.native='langChange("zh-cn")'>
+              <i style="padding-right: 8px" class="fa fa-bandcamp"></i>中文</el-dropdown-item>
+            <el-dropdown-item @click.native='langChange("en")'>
+              <i style="padding-right: 8px" class="fa fa-eercast"></i>英文</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
 
@@ -96,7 +96,7 @@
             </template>
           </el-menu>
         </div>
-        <div class="sidebar-toggle" :style="{ 'background-color': storeColor } " @click="sidebarToggle">
+        <div class="sidebar-toggle" :style="{ 'background-color': sideColor } " @click="sidebarToggle">
           <div class="icon-left">
             <i class="el-icon-back"></i>
           </div>
@@ -128,15 +128,44 @@ export default {
       themeObj: {},
       fixedTabBar: false,
       switchTabBar: false,
-      siteName: this.$Config.siteName,
       isCollapse: false,
       menu: Menu
     };
   },
 
   computed: {
-    storeColor() {
+    themeColor() {
       return this.$store.getters.defaultColor;
+    },
+    sideColor() {
+      var defaultColor = this.$store.getters.defaultColor;
+      var newColor = this.$store.getters.defaultColor;
+      try {
+        newColor = gwTools.getItemColors(newColor, 20);
+      } catch (e) {}
+
+      //设置按钮背景色
+      var cssText =
+        ".header-btn:hover {background-color:" +
+        newColor +
+        "; } .nav-bar .active {border: 1px solid " +
+        defaultColor +
+        "; background: " +
+        defaultColor +
+        ";}";
+
+      var style = document.getElementById("app_portal_style");
+      if (style == null) {
+        style = document.createElement("style");
+        style.id = "app_portal_style";
+        style.innerText = cssText;
+        document.head.appendChild(style);
+      } else {
+        // console.log("再次设置");
+        style.innerText = cssText;
+      }
+
+      return newColor;
     },
     uName() {
       return this.$store.state.user.name;
@@ -148,6 +177,50 @@ export default {
   methods: {
     colorChange(color) {},
     activeChange(color) {},
+    //更改语言
+    langChange(lang) {
+      i18n.locale = lang;
+      gwI18n.eleLocale(lang);
+      this.$store.dispatch("setLanguage", lang);
+    },
+    logout() {
+      this.$confirm("即将退出系统, 是否继续?", i18n.t("gwssi.tips.tip"), {
+        confirmButtonText: i18n.t("gwssi.tips.confirm"),
+        cancelButtonText: i18n.t("gwssi.tips.cancel"),
+        type: "warning"
+      })
+        .then(() => {
+          this.$store.dispatch("logOut", {}).then(
+            json => {
+              this.$store.dispatch("updateUserInfo", {
+                user: "none",
+                status: "0",
+                id: "-1",
+                name: "访客",
+                roles: [],
+                info: {}
+              });
+
+              this.$notify({
+                title: "登出成功",
+                message: "已退出统一管理平台",
+                type: "success"
+              });
+
+              this.$router.push("/login");
+            },
+            error => {
+              console.log("登出发生错误" + error);
+            }
+          );
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消退出"
+          });
+        });
+    },
     NavBarWidth() {
       let navBar = document.getElementById("nav-bar");
       if (!navBar) return;
@@ -206,10 +279,6 @@ export default {
       document.body.classList.toggle("sidebar-close");
       this.NavBarWidth();
     },
-    logout() {
-      sessionStorage.removeItem(this.$Config.tokenKey);
-      this.$router.push({ path: "/login" });
-    },
     handleOpen(key, keyPath) {
       //console.log(key, keyPath);
     },
@@ -248,12 +317,15 @@ export default {
       .big {
         display: none;
       }
+
       .min {
         display: block;
       }
+
       width: 64px;
     }
   }
+
   .aside {
     .sidebar-toggle {
       .icon-left {
@@ -261,12 +333,14 @@ export default {
       }
     }
   }
+
   .main {
     .app-body {
       margin-left: 64px;
     }
   }
 }
+
 .sidebar-close {
   .header {
     .logo {
@@ -274,15 +348,18 @@ export default {
       overflow: hidden;
     }
   }
+
   .aside {
     margin-left: -230px;
   }
+
   .main {
     .app-body {
       margin-left: 0;
     }
   }
 }
+
 .sidebar-hidden.sidebar-close {
   .aside {
     margin-left: -64px;
@@ -291,29 +368,35 @@ export default {
 
 .main {
   display: flex;
+
   .el-menu:not(.el-menu--collapse) {
     width: 230px;
   }
+
   .app {
     width: 100%;
     background-color: #ecf0f5;
   }
+
   .aside {
     position: fixed;
     margin-top: 50px;
     z-index: 10;
     background-color: #222d32;
     transition: all 0.3s ease-in-out;
+
     .menu {
       overflow-y: auto;
       height: calc(~"100vh - 100px");
     }
+
     .sidebar-toggle {
       position: relative;
       width: 100%;
       height: 50px;
       color: #fff;
       cursor: pointer;
+
       .icon-left {
         position: absolute;
         display: flex;
@@ -327,11 +410,13 @@ export default {
       }
     }
   }
+
   .app-body {
     margin-left: 230px;
     -webkit-transition: margin-left 0.3s ease-in-out;
     transition: margin-left 0.3s ease-in-out;
   }
+
   .main-container {
     //margin-top: 50px;
     padding: 6px;
@@ -345,11 +430,12 @@ export default {
   display: flex;
   height: 50px;
   z-index: 10;
-  filter: alpha(opacity=80);
+
   .logo {
     .min {
       display: none;
     }
+
     width: 230px;
     height: 50px;
     text-align: center;
@@ -358,10 +444,12 @@ export default {
     -webkit-transition: width 0.35s;
     transition: all 0.3s ease-in-out;
   }
+
   .right {
     position: absolute;
     right: 0;
   }
+
   .header-btn {
     .el-badge__content {
       top: 14px;
@@ -376,6 +464,7 @@ export default {
       vertical-align: baseline;
       border-radius: 0.25em;
     }
+
     overflow: hidden;
     height: 50px;
     display: inline-block;
@@ -384,9 +473,11 @@ export default {
     cursor: pointer;
     padding: 0 14px;
     color: #fff;
+    /**
     &:hover {
       background-color: #367fa9;
     }
+    **/
   }
 
   .header-btn2 {
@@ -396,7 +487,7 @@ export default {
     text-align: center;
     line-height: 50px;
     cursor: pointer;
-    padding: 0 14px;
+    padding: 0 14px; 
     color: #fff;
   }
 }
@@ -408,6 +499,7 @@ export default {
 .el-menu--vertical {
   min-width: 190px;
 }
+
 .setting-category {
   padding: 10px 0;
   border-bottom: 1px solid #eee;

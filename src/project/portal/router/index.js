@@ -15,6 +15,9 @@ import {
 } from '@store/user'
 
 
+import p404 from '@appPortal/page/common/404'
+
+
 Vue.use(VueRouter);
 
 var loginPage = '/login';
@@ -25,8 +28,21 @@ const login = () =>
 const main = () =>
   import( /* webpackChunkName: "project/portal/page/main" */ '../page/main/main.vue')
 
+const routes = [
 
-const routes = [{
+  //login不需要权限验证
+  {
+    path: '/login',
+    meta: {
+      title: '后台登录',
+      keepAlive: false
+    },
+    components: {
+      blank: login,
+    }
+  },
+
+  {
     path: '/',
     component: main,
     meta: {
@@ -34,7 +50,6 @@ const routes = [{
       permisson: ['user'],
       requireAuth: true
     },
-
 
     children: [{
         path: '/',
@@ -69,67 +84,149 @@ const routes = [{
         component: () =>
           import( /* webpackChunkName: "project/portal/page/icon/ElementIcon" */ '../page/icon/ElementIcon.vue')
       },
-      //   {
-      //     path: '/post_manage',
-      //     name: 'PostManage',
-      //     meta: {
-      //       title: '文章管理',
-      //       keepAlive: false
-      //     },
-      //     component: resolve => require(['~/views/ContentManage/Index.vue'], resolve),
-      //   },
-      //   {
-      //     path: '/user_manage',
-      //     name: 'UserManage',
-      //     meta: {
-      //       title: '用户列表',
-      //       keepAlive: true
-      //     },
-      //     component: resolve => require(['~/views/UserManage/Index.vue'], resolve),
-      //   },
-      //   {
-      //     path: '/category_manage',
-      //     name: 'CategoryManage',
-      //     meta: {
-      //       title: '分类列表',
-      //       keepAlive: true
-      //     },
-      //     component: resolve => require(['~/views/CategoryManage/Index.vue'], resolve),
-      //   },
-      //   {
-      //     path: '/role_manage',
-      //     name: 'RoleManage',
-      //     meta: {
-      //       title: '角色列表',
-      //       keepAlive: true
-      //     },
-      //     component: resolve => require(['~/views/PermissionManage/Role/Role.vue'], resolve),
-      //   },
-      //   {
-      //     path: '/permission_list',
-      //     name: 'PermissionList',
-      //     meta: {
-      //       title: '权限列表',
-      //       keepAlive: true
-      //     },
-      //     component: resolve => require(['~/views/PermissionManage/Permission/Index.vue'], resolve),
-      //   },
-      //   //个人中心，可能有修改密码，头像修改等路由
-      //   Personal.index,
+      {
+        path: '/custom_icon',
+        name: 'CustomIcon',
+        meta: {
+          title: '自定义图标',
+          permisson: ['user'],
+          requireAuth: true
+        },
+        component: () =>
+          import( /* webpackChunkName: "project/portal/page/icon/CustomIcon" */ '../page/icon/CustomIcon.vue')
+      },
+      //这两个页面直接使用base的页面
+      {
+        path: '/grid_demo',
+        name: 'Grid_demo',
+        meta: {
+          title: 'Grid样例',
+          permisson: ['user'],
+          requireAuth: true
+        },
+        component: () =>
+          import( /* webpackChunkName: "project/portal/page/post/grid" */ '../page/post/grid.vue')
+      },
+      {
+        path: '/steps_demo',
+        name: 'Steps_demo',
+        meta: {
+          title: '步骤条',
+          permisson: ['user'],
+          requireAuth: true
+        },
+        component: () =>
+          import( /* webpackChunkName: "project/portal/page/post/steps" */ '../page/post/steps.vue'),
+
+        children: [{
+            path: '',
+            name: 'step1',
+            meta: {
+              title: '步骤1',
+              permisson: ['user'],
+              requireAuth: true
+            },
+            component: () =>
+              import( /* webpackChunkName: "project/portal/page/post/steps/step1" */ '../page/post/steps/step1.vue'),
+          },
+          {
+            path: 'step1',
+            name: 'step1',
+            meta: {
+              title: '步骤1',
+              permisson: ['user'],
+              requireAuth: true
+            },
+            component: () =>
+              import( /* webpackChunkName: "project/portal/page/post/steps/step1" */ '../page/post/steps/step1.vue'),
+          },
+          {
+            path: 'step2',
+            name: 'step2',
+            meta: {
+              title: '步骤2',
+              permisson: ['user'],
+              requireAuth: true
+            },
+            component: () =>
+              import( /* webpackChunkName: "project/portal/page/post/steps/step2" */ '../page/post/steps/step2.vue'),
+          },
+          {
+            path: 'step3',
+            name: 'step3',
+            meta: {
+              title: '步骤3',
+              permisson: ['user'],
+              requireAuth: true
+            },
+            component: () =>
+              import( /* webpackChunkName: "project/portal/page/post/steps/step3" */ '../page/post/steps/step3.vue'),
+          },
+          {
+            path: 'step4',
+            name: 'step4',
+            meta: {
+              title: '步骤4',
+              permisson: ['user'],
+              requireAuth: true
+            },
+            component: () =>
+              import( /* webpackChunkName: "project/portal/page/post/steps/step4" */ '../page/post/steps/step4.vue'),
+          }
+        ]
+      },
+
+      {
+        path: '/menu_list',
+        name: 'Menu_list',
+        meta: {
+          title: '菜单列表',
+          permisson: ['user'],
+          requireAuth: true
+        },
+        component: () =>
+          import( /* webpackChunkName: "project/portal/page/menu/list" */ '../page/menu/list.vue')
+      },
+
+
+      //char
+      {
+        path: '/charDashboard',
+        name: 'CharDashboard',
+        meta: {
+          title: '图表仪表盘',
+          permisson: ['user'],
+          requireAuth: true
+        },
+        component: () =>
+          import( /* webpackChunkName: "project/portal/page/char/index" */ '../page/char/index.vue')
+      },
+
+      //个人中心
+      {
+        path: '/personal',
+        name: 'Personal',
+        meta: {
+          title: '个人中心',
+          permisson: ['user'],
+          requireAuth: true
+        },
+        component: () =>
+          import( /* webpackChunkName: "project/portal/page/personal/" */ '../page/personal/index.vue')
+      },
+
+      //这样就配置了其它页面都是404了
+      {
+        path: '/*',
+        name: 'p404',
+        meta: {
+          title: '当前页面不存在',
+          permisson: ['user'],
+          requireAuth: true
+        },
+        component: p404
+      }
     ]
-
-
-  },
-  //login不需要权限验证
-  {
-    path: '/login',
-    meta: {
-      title: '后台登录',
-      keepAlive: false
-    },
-    components: {
-      blank: login,
-    }
   }
 ]
 
