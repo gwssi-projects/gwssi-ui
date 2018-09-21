@@ -247,9 +247,6 @@ export default {
       Screenfull.toggle();
     },
     saveFixedTabBar(v) {
-      v
-        ? localStorage.setItem("fixedTabBar", v)
-        : localStorage.removeItem("fixedTabBar");
       this.NavBarWidth();
     },
     saveSwitchTabBarVal(v) {
@@ -257,9 +254,6 @@ export default {
       v
         ? (containerDom.style.minHeight = "calc(100vh - 152px)")
         : (containerDom.style.minHeight = "calc(100vh - 101px)");
-      v
-        ? localStorage.setItem("switchTabBar", v)
-        : localStorage.removeItem("switchTabBar");
       this.NavBarWidth();
     },
     sidebarToggle(e) {
@@ -287,8 +281,6 @@ export default {
     }
   },
   mounted: function() {
-    this.switchTabBar = localStorage.getItem("switchTabBar") ? true : false;
-    this.fixedTabBar = localStorage.getItem("fixedTabBar") ? true : false;
     if (this.switchTabBar)
       document.getElementById("mainContainer").style.minHeight =
         "calc(100vh - 152px)";
