@@ -60,7 +60,7 @@ const routes = [
           requireAuth: true
         },
         component: () =>
-          import( /* webpackChunkName: "project/portal/page/home" */ '../page/home')
+          import( /* webpackChunkName: "project/portal/page/home" */ '../page/home/Index.vue')
       },
       {
         path: '/font_awesome',
