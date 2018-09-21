@@ -212,7 +212,7 @@ const routes = [
           requireAuth: true
         },
         component: () =>
-          import( /* webpackChunkName: "project/portal/page/personal/" */ '../page/personal/index.vue')
+          import( /* webpackChunkName: "project/portal/page/personal/" */ '../page/personal/Index.vue')
       },
 
       //这样就配置了其它页面都是404了
