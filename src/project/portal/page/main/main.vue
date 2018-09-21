@@ -127,7 +127,7 @@ export default {
     return {
       themeObj: {},
       fixedTabBar: false,
-      switchTabBar: false,
+      switchTabBar: true,
       isCollapse: false,
       menu: Menu
     };
