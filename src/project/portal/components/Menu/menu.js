@@ -75,6 +75,28 @@ ContentManage.steps = {
   path: '/steps_demo',
 };
 
+/** 
+ContentManage.tinymce = {
+  name: '文本编辑器',
+  path: '/tinymce',
+};
+*/
+
+ContentManage.inlineEditTable = {
+  name: 'table内编辑',
+  path: '/inlineEditTable',
+};
+
+ContentManage.guide = {
+  name: '引导页面',
+  path: '/guide',
+};
+
+ContentManage.mixin = {
+  name: '返回顶部',
+  path: '/backToTop',
+};
+
 ContentManage.p404 = {
   name: '404',
   path: '/p404',

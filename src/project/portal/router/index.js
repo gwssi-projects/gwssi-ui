@@ -107,6 +107,62 @@ const routes = [
         component: () =>
           import( /* webpackChunkName: "project/portal/page/post/grid" */ '../page/post/grid.vue')
       },
+
+      //文本编辑器
+      {
+        path: '/tinymce',
+        name: 'Tinymce',
+        meta: {
+          title: '文本编辑器',
+          permisson: ['user'],
+          requireAuth: true
+        },
+        component: () =>
+          import( /* webpackChunkName: "project/portal/page/example" */ '../page/example/create.vue')
+      },
+
+
+      //table内编辑
+      {
+        path: '/inlineEditTable',
+        name: 'InlineEditTable',
+        meta: {
+          title: 'table内编辑',
+          permisson: ['user'],
+          requireAuth: true
+        },
+        component: () =>
+          import( /* webpackChunkName: "project/portal/page/table/inlineEditTable" */ '../page/table/inlineEditTable.vue')
+      },
+
+
+      //综合table
+      {
+        path: '/guide',
+        name: 'Guide',
+        meta: {
+          title: '引导页',
+          permisson: ['user'],
+          requireAuth: true
+        },
+        component: () =>
+          import( /* webpackChunkName: "project/portal/page/guide" */ '../page/guide/index.vue')
+      },
+
+
+      //小组件
+      {
+        path: '/backToTop',
+        name: 'BackToTop',
+        meta: {
+          title: '返回顶部',
+          permisson: ['user'],
+          requireAuth: true
+        },
+        component: () =>
+          import( /* webpackChunkName: "project/portal/page/components-demo/backToTop" */ '../page/components-demo/backToTop.vue')
+      },
+
       {
         path: '/steps_demo',
         name: 'Steps_demo',

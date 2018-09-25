@@ -6,12 +6,12 @@
         <span class="min">{{ $t('gwssi.portal.main.minSiteMame') }}</span>
       </div>
       <span class="header-btn" @click="hiddenSidebar">
-        <i class="el-icon-menu"></i>
+        <i class="el-icon-menu btn-hiddenSidebar"></i>
       </span>
       <div class="right">
 
         <span class="header-btn">
-          <gw-color-picker style="padding-top: 11px" size="mini" @colorChange="colorChange" @activeChange="activeChange" :obj='themeObj'></gw-color-picker>
+          <gw-color-picker class="btn-color-picker" style="padding-top: 11px" size="mini" @colorChange="colorChange" @activeChange="activeChange" :obj='themeObj'></gw-color-picker>
         </span>
 
         <span class="header-btn" @click="screenfullToggle">
