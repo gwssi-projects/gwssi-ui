@@ -21,7 +21,10 @@ module.exports = {
     "project/base/baseUIIndex": './src/project/base/main.js',
 
     //portal
-    "project/portal/main": './src/project/portal/main.js'
+    "project/portal/main": './src/project/portal/main.js',
+
+    //isearch
+    "project/isearch/main": './src/project/isearch/main.js'
 
   },
 
@@ -139,6 +142,14 @@ module.exports = {
       filename: resolve(__dirname, '../dist/project/portal/index.html'),
       template: resolve(__dirname, '../src/project/portal/index.html'),
       chunks: ['manifest', 'vendor', 'project/portal/main']
+    }),
+
+    //isearch
+    new HtmlWebpackPlugin({
+      title: '大数据检索管理控制台-isearch',
+      filename: resolve(__dirname, '../dist/project/isearch/index.html'),
+      template: resolve(__dirname, '../src/project/isearch/index.html'),
+      chunks: ['manifest', 'vendor', 'project/isearch/main']
     }),
 
     // 直接复制静态文件
