@@ -479,13 +479,18 @@ export default {
     text-align: center;
     line-height: 50px;
     cursor: pointer;
-    padding: 0 14px; 
+    padding: 0 14px;
     color: #fff;
   }
 }
 
 .menu {
   border-right: none;
+}
+
+//菜单颜色
+.menu .el-menu-item.is-active {
+  color: rgb(96, 125, 139);
 }
 
 .el-menu--vertical {

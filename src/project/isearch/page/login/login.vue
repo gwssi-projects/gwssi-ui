@@ -229,7 +229,7 @@ export default {
 }
 
 #app-main {
-  background: url(./images/ne_loginbg.png) left center #16596d no-repeat;
+  background: url(./images/ne_loginbg2.png) left center #16596d no-repeat;
   margin-top: 20px;
   height: 410px;
 }
