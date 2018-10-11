@@ -177,7 +177,7 @@ export default {
 
       var color = this.$store.getters.themeColor;
       if (color != null && color != "") {
-        //更新颜色
+        //主要为了更新cookie时间周期
         this.$store.dispatch("setThemeColor", color);
       }
     });
@@ -213,7 +213,7 @@ export default {
   computed: {
     storeColor() {
       //第一次也会执行 （不是更改后才执行）
-      this.colors.primary = this.$store.getters.defaultColor;
+      this.colors.primary = this.$store.getters.themeColor;
 
       //如果默认颜色不相同的话 执行更新主题操作
       if ((this.colors.primary + "").toLowerCase() != this.primaryColor) {
@@ -222,7 +222,7 @@ export default {
         this.$emit("colorChange", this.colors.primary);
       }
 
-      return this.$store.getters.defaultColor;
+      return this.$store.getters.themeColor;
     }
   },
 

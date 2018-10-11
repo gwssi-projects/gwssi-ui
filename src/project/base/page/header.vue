@@ -85,7 +85,7 @@ export default {
 
   computed: {
     storeColor() {
-      return this.$store.getters.defaultColor;
+      return this.$store.getters.themeColor;
     },
     //其它组件中路由跳转 触发菜单切换 所以需要定义在computed中
     activeName() {

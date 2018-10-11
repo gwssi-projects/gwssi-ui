@@ -140,11 +140,11 @@ export default {
 
   computed: {
     themeColor() {
-      return this.$store.getters.defaultColor;
+      return this.$store.getters.themeColor;
     },
     sideColor() {
-      var defaultColor = this.$store.getters.defaultColor;
-      var newColor = this.$store.getters.defaultColor;
+      var defaultColor = this.$store.getters.themeColor;
+      var newColor = this.$store.getters.themeColor;
       try {
         newColor = gwTools.getItemColors(newColor, 20);
       } catch (e) {}

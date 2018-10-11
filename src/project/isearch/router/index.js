@@ -28,6 +28,9 @@ const login = () =>
 const main = () =>
   import( /* webpackChunkName: "project/isearch/page/main" */ '../page/main/main.vue')
 
+var domain = "http://localhost:8080/";
+var uiDomain = "https://isearch.link/";
+
 const routes = [
 
   //login不需要权限验证
@@ -74,6 +77,179 @@ const routes = [
         },
         component: () =>
           import( /* webpackChunkName: "project/isearch/page/personal" */ '../page/personal/Index.vue')
+      },
+
+      //权限管理
+      {
+        path: '/auth1',
+        name: 'auth1',
+        props: {
+          url: domain + "txn99a90308.do?wmode=opaque"
+        },
+        meta: {
+          title: '机构管理',
+          permisson: ['user'],
+          requireAuth: true
+        },
+        component: () =>
+          import( /* webpackChunkName: "project/isearch/page/iframe" */ '../page/iframe/index.vue')
+      },
+
+
+      {
+        path: '/auth2',
+        name: 'auth2',
+        props: {
+          url: domain + "commons/permission/orguser/query-xt_qxgl_yhxx.jsp?wmode=opaque"
+        },
+        meta: {
+          title: '用户管理',
+          permisson: ['user'],
+          requireAuth: true
+        },
+        component: () =>
+          import( /* webpackChunkName: "project/isearch/page/iframe" */ '../page/iframe/index.vue')
+      },
+
+      {
+        path: '/auth3',
+        name: 'auth3',
+        props: {
+          url: domain + "commons/permission/priv/query-xt_qxgl_jsxx.jsp?wmode=opaque"
+        },
+        meta: {
+          title: '角色管理',
+          permisson: ['user'],
+          requireAuth: true
+        },
+        component: () =>
+          import( /* webpackChunkName: "project/isearch/page/iframe" */ '../page/iframe/index.vue')
+      },
+
+      {
+        path: '/auth4',
+        name: 'auth4',
+        props: {
+          url: domain + "txn980301.do?wmode=opaque"
+        },
+        meta: {
+          title: '功能维护',
+          permisson: ['user'],
+          requireAuth: true
+        },
+        component: () =>
+          import( /* webpackChunkName: "project/isearch/page/iframe" */ '../page/iframe/index.vue')
+      },
+
+
+      //配置管理
+      {
+        path: '/content1',
+        name: 'content1',
+        props: {
+          url: domain + "txn0303.do"
+        },
+        meta: {
+          title: '菜单管理',
+          permisson: ['user'],
+          requireAuth: true
+        },
+        component: () =>
+          import( /* webpackChunkName: "project/isearch/page/iframe" */ '../page/iframe/index.vue')
+      },
+
+      {
+        path: '/content2',
+        name: 'content2',
+        props: {
+          url: domain + "txn64B01.do?wmode=opaque"
+        },
+        meta: {
+          title: '数据源管理',
+          permisson: ['user'],
+          requireAuth: true
+        },
+        component: () =>
+          import( /* webpackChunkName: "project/isearch/page/iframe" */ '../page/iframe/index.vue')
+      },
+
+
+      {
+        path: '/content3',
+        name: 'content3',
+        props: {
+          url: domain + "txn64B02.do?wmode=opaque"
+        },
+        meta: {
+          title: '通用查询管理',
+          permisson: ['user'],
+          requireAuth: true
+        },
+        component: () =>
+          import( /* webpackChunkName: "project/isearch/page/iframe" */ '../page/iframe/index.vue')
+      },
+
+      //ES管理
+
+
+      {
+        path: '/106-elastic1',
+        name: '106-elastic1',
+        props: {
+          url: uiDomain + "ui/clusterm.html?url=es2-elasticsearch-master.isearch:9300&clusterName=elasticsearch&url_http=es2-elasticsearch-master.isearch:9200&wmode=opaque#/clusterInfo"
+        },
+        meta: {
+          title: '集群信息',
+          permisson: ['user'],
+          requireAuth: true
+        },
+        component: () =>
+          import( /* webpackChunkName: "project/isearch/page/iframe" */ '../page/iframe/index.vue')
+      },
+
+      {
+        path: '/106-elastic2',
+        name: '106-elastic2',
+        props: {
+          url: uiDomain + "ui/node-monitor.html?url=es2-elasticsearch-master.isearch:9300&clusterName=elasticsearch&url_http=es2-elasticsearch-master.isearch:9200&wmode=opaque"
+        },
+        meta: {
+          title: '节点监控',
+          permisson: ['user'],
+          requireAuth: true
+        },
+        component: () =>
+          import( /* webpackChunkName: "project/isearch/page/iframe" */ '../page/iframe/index.vue')
+      },
+
+      {
+        path: '/106-elastic3',
+        name: '106-elastic3',
+        props: {
+          url: uiDomain + "ui/db.html?url=es2-elasticsearch-master.isearch:9300&clusterName=elasticsearch&url_http=es2-elasticsearch-master.isearch:9200&wmode=opaque"
+        },
+        meta: {
+          title: '数据库管理',
+          permisson: ['user'],
+          requireAuth: true
+        },
+        component: () =>
+          import( /* webpackChunkName: "project/isearch/page/iframe" */ '../page/iframe/index.vue')
+      },
+
+      {
+        path: '/106-elastic4',
+        name: '106-elastic4',
+        props: {
+          url: uiDomain + "ui/param-config.html?url=es2-elasticsearch-master.isearch:9300&clusterName=elasticsearch&url_http=es2-elasticsearch-master.isearch:9200&wmode=opaque"
+        },
+        meta: {
+          title: '公共参数',
+          permisson: ['user'],
+          requireAuth: true
+        },
+        component: () =>
+          import( /* webpackChunkName: "project/isearch/page/iframe" */ '../page/iframe/index.vue')
       },
 
       //这样就配置了其它页面都是404了

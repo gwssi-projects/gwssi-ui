@@ -19,8 +19,8 @@ export default {
   computed: {
     storeColor() {
       //更新a标签主题颜色
-      gwTools.writeNewAStyle(this.$store.getters.defaultColor);
-      return this.$store.getters.defaultColor;
+      gwTools.writeNewAStyle(this.$store.getters.themeColor);
+      return this.$store.getters.themeColor;
     }
   },
 

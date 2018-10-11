@@ -59,7 +59,7 @@ export default {
 
   computed: {
     storeColor() {
-      return this.$store.getters.defaultColor;
+      return this.$store.getters.themeColor;
     }
   }
 };

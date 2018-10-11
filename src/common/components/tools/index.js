@@ -424,8 +424,8 @@ export default {
         return that;
       } else if (aNum.length === 3) {
         var numHex = "#";
-        for (var i = 0; i < aNum.length; i += 1) {
-          numHex += (aNum[i] + aNum[i]);
+        for (var n = 0; n < aNum.length; n += 1) {
+          numHex += (aNum[n] + aNum[n]);
         }
         return numHex;
       }
@@ -448,8 +448,8 @@ export default {
       }
       //处理六位的颜色值
       var sColorChange = [];
-      for (var i = 1; i < 7; i += 2) {
-        sColorChange.push(parseInt("0x" + sColor.slice(i, i + 2)));
+      for (var n = 1; n < 7; n += 2) {
+        sColorChange.push(parseInt("0x" + sColor.slice(n, n + 2)));
       }
       return sColorChange;
     } else {

@@ -74,7 +74,7 @@ export default {
 
   computed: {
     storeColor() {
-      return this.$store.getters.defaultColor;
+      return this.$store.getters.themeColor;
     },
     uName() {
       return this.$store.state.user.name;

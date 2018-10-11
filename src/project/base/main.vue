@@ -65,18 +65,18 @@ export default {
   //主题颜色更新监控（storeColor必须在html中被调用才能监控，在当前控件或者父控件中调用都可以生效）
   computed: {
     storeColor() {
-      console.log("更新项目UI颜色" + this.$store.getters.defaultColor);
+      console.log("更新项目UI颜色" + this.$store.getters.themeColor);
       //更新a标签主题颜色
       var cssText =
         "a {color:" +
-        this.$store.getters.defaultColor +
+        this.$store.getters.themeColor +
         ";}  a:focus, a:hover {color:" +
-        this.$store.getters.defaultColor +
+        this.$store.getters.themeColor +
         ";}";
 
       this.writeNewStyle(cssText);
 
-      return this.$store.getters.defaultColor;
+      return this.$store.getters.themeColor;
     }
   },
 

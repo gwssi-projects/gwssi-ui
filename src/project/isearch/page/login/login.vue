@@ -72,7 +72,7 @@ export default {
 
   computed: {
     storeColor() {
-      return this.$store.getters.defaultColor;
+      return this.$store.getters.themeColor;
     },
     uName() {
       return this.$store.state.user.name;
@@ -80,7 +80,10 @@ export default {
   },
 
   beforeCreate: function() {
-    this.$store.dispatch("setThemeColor", "#16596d");
+    // var color = this.$store.getters.themeColor;
+    // if (color == "") {
+    //   this.$store.dispatch("setThemeColor", "#16596d");
+    // }
   },
 
   data() {
