@@ -3,7 +3,7 @@
     <div class="header" :style="{ 'background-color': themeColor} ">
       <div class="logo" :style="{ 'background-color': sideColor} ">
         <span class="big">大数据检索管理控制台</span>
-        <span class="min">iSearch</span>
+        <span class="min"><img src="../home/images/logo.png" /></span>
       </div>
       <span class="header-btn" @click="hiddenSidebar">
         <i class="el-icon-menu btn-hiddenSidebar"></i>
@@ -111,8 +111,16 @@
         <div v-else style="margin-top: 50px;"></div>
         <div id="mainContainer" :style="fixedTabBar && switchTabBar?'margin-top: 88px;':''" class="main-container">
           <!--<transition name="fade">-->
-          <router-view></router-view>
+          <keep-alive>
+            <router-view></router-view>
+          </keep-alive>
           <!--</transition>-->
+          <!-- 可以设置参数来判断哪些需要重新装载 哪些不需要
+          <keep-alive>
+              <router-view v-if="$route.meta.keepAlive"></router-view>
+          </keep-alive>
+          <router-view v-if="!$route.meta.keepAlive"></router-view>
+          -->
         </div>
         <EuiFooter></EuiFooter>
       </div>
@@ -317,6 +325,7 @@ export default {
 
       .min {
         display: block;
+        margin-top: 10px;
       }
 
       width: 64px;

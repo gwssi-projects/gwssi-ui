@@ -251,7 +251,7 @@ const routes = [
         component: () =>
           import( /* webpackChunkName: "project/isearch/page/iframe" */ '../page/iframe/index.vue')
       },
-
+      
       //这样就配置了其它页面都是404了
       {
         path: '/*',

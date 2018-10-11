@@ -107,8 +107,16 @@
         <div v-else style="margin-top: 50px;"></div>
         <div id="mainContainer" :style="fixedTabBar && switchTabBar?'margin-top: 88px;':''" class="main-container">
           <!--<transition name="fade">-->
-          <router-view></router-view>
+          <keep-alive>
+            <router-view></router-view>
+          </keep-alive>
           <!--</transition>-->
+          <!-- 可以设置参数来判断哪些需要重新装载 哪些不需要
+          <keep-alive>
+              <router-view v-if="$route.meta.keepAlive"></router-view>
+          </keep-alive>
+          <router-view v-if="!$route.meta.keepAlive"></router-view>
+          -->
         </div>
         <EuiFooter></EuiFooter>
       </div>
