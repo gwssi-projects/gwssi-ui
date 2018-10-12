@@ -28,7 +28,7 @@ const login = () =>
 const main = () =>
   import( /* webpackChunkName: "project/isearch/page/main" */ '../page/main/main.vue')
 
-var domain = "http://localhost:8080/";
+var domain = "https://isearch.link/";
 var uiDomain = "https://isearch.link/";
 
 const routes = [
@@ -147,7 +147,7 @@ const routes = [
         path: '/content1',
         name: 'content1',
         props: {
-          url: domain + "txn0303.do"
+          url: domain + "txn06B02A.do?wmode=opaque"
         },
         meta: {
           title: '菜单管理',
@@ -251,7 +251,7 @@ const routes = [
         component: () =>
           import( /* webpackChunkName: "project/isearch/page/iframe" */ '../page/iframe/index.vue')
       },
-      
+
       //这样就配置了其它页面都是404了
       {
         path: '/*',

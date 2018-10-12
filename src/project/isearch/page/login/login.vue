@@ -64,6 +64,7 @@
 <script>
 import GwTheme from "@components/theme/";
 import Vue from "vue";
+import request from "@components/request";
 
 Vue.use(GwTheme);
 
@@ -147,6 +148,22 @@ export default {
                   message: i18n.t("gwssi.portal.welcome"),
                   type: "success"
                 });
+
+                //登录protal 记录token为引入iframe
+                request
+                  .get("https://isearch.link/txn999999.ajax", {
+                    username: "sa",
+                    password:
+                      "UUN09T4poqDw0FjjCF0Y0EGin29A64IU3X2djsqO5iwF9PoVnJ4AY65SedsA56F0J3OPL+HOKrntlgF3bLJQRBGN1CJRBna3cGER0yRcR/KDs+mcgaRetJ6mvv3J3TL/e1z6u2+lOmaZQvNyxRyuIGDKD1B7geANQLTy8vtq2BI="
+                  })
+                  .then(
+                    json => {
+                      console.log("登录系统" + json);
+                    },
+                    error => {
+                      console.log("登录系统报错" + error);
+                    }
+                  );
 
                 this.$router.push("/");
               },
