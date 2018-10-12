@@ -53,7 +53,6 @@
       <p class="text-tips">
         <i class="el-icon-warning"></i> 版权所有：长城计算机软件与系统有限公司
       </p>
-
     </el-footer>
 
   </el-container>
@@ -143,30 +142,16 @@ export default {
                 this.$store.dispatch("updateUserInfo", json.data.content);
 
                 //登录protal 记录token为引入iframe
-                request
-                  .get("https://isearch.link/txn999999.ajax", {
-                    username: "sa",
-                    password:
-                      "UUN09T4poqDw0FjjCF0Y0EGin29A64IU3X2djsqO5iwF9PoVnJ4AY65SedsA56F0J3OPL+HOKrntlgF3bLJQRBGN1CJRBna3cGER0yRcR/KDs+mcgaRetJ6mvv3J3TL/e1z6u2+lOmaZQvNyxRyuIGDKD1B7geANQLTy8vtq2BI="
-                  })
-                  .then(
-                    json => {
-                      console.log("登录系统" + json);
+                this.$emit("loginProtal");
 
-                      this.$notify({
-                        title: i18n.t("gwssi.portal.loginSuccess"),
-                        message: i18n.t("gwssi.portal.welcome"),
-                        type: "success"
-                      });
+                this.$notify({
+                  title: i18n.t("gwssi.portal.loginSuccess"),
+                  message: i18n.t("gwssi.portal.welcome"),
+                  type: "success"
+                });
 
-                      this.loginBtnLoading = false;
-
-                      this.$router.push("/");
-                    },
-                    error => {
-                      console.log("登录系统报错" + error);
-                    }
-                  );
+                this.loginBtnLoading = false;
+                this.$router.push("/");
               },
               error => {
                 console.log(i18n.t("gwssi.portal.loginError") + error);
