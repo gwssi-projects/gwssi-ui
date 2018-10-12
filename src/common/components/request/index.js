@@ -35,7 +35,7 @@ service.interceptors.request.use(
     // Do something before request is sent
     if (store.getters.token) {
       // 让每个请求header携带token--
-      config.headers[TokenKey] = store.getters.token
+      //config.headers[TokenKey] = store.getters.token
     }
     return config
   },

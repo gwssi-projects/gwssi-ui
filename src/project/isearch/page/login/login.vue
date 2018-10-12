@@ -140,14 +140,7 @@ export default {
               json => {
                 //更新用户
                 //判断用户密码
-                this.loginBtnLoading = false;
                 this.$store.dispatch("updateUserInfo", json.data.content);
-
-                this.$notify({
-                  title: i18n.t("gwssi.portal.loginSuccess"),
-                  message: i18n.t("gwssi.portal.welcome"),
-                  type: "success"
-                });
 
                 //登录protal 记录token为引入iframe
                 request
@@ -159,13 +152,21 @@ export default {
                   .then(
                     json => {
                       console.log("登录系统" + json);
+
+                      this.$notify({
+                        title: i18n.t("gwssi.portal.loginSuccess"),
+                        message: i18n.t("gwssi.portal.welcome"),
+                        type: "success"
+                      });
+
+                      this.loginBtnLoading = false;
+
+                      this.$router.push("/");
                     },
                     error => {
                       console.log("登录系统报错" + error);
                     }
                   );
-
-                this.$router.push("/");
               },
               error => {
                 console.log(i18n.t("gwssi.portal.loginError") + error);
