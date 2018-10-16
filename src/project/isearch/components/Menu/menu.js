@@ -1,3 +1,5 @@
+import request from '@components/request'
+
 let menu = {};
 
 /**
@@ -12,7 +14,7 @@ menu.home = {
 
 menu.elastic_icon = {
   name: '106-elastic',
-  icon: 'fa fa-th',
+  icon: 'iconfont icon-shebeiguanli',
   children: {}
 };
 let elastic = menu.elastic_icon.children;
@@ -37,7 +39,7 @@ elastic.menu4 = {
 
 menu.auth_icon = {
   name: '权限管理',
-  icon: 'fa fa-eercast',
+  icon: 'iconfont icon-daibanshixiang',
   children: {}
 };
 let auth = menu.auth_icon.children;
@@ -62,7 +64,7 @@ auth.menu4 = {
 
 menu.content_manage = {
   name: '配置管理',
-  icon: 'fa fa-file-text-o',
+  icon: 'iconfont icon-yingyongguanli',
   children: {}
 };
 
@@ -82,6 +84,18 @@ contentManage.menu3 = {
   name: '通用查询管理',
   path: '/content3',
 };
+
+
+//异步获取数据
+//需要增加token
+request.get("https://isearch.link/txn0302.do", null).then(
+  json => {
+    console.log("加载菜单" + json.data);
+  },
+  error => {
+    console.log("加载菜单错误" + error);
+  }
+);
 
 
 export default menu;

@@ -125,7 +125,8 @@ export default {
     }
 
     //服务端生成token验证解密之后需要有过期时间 不要再像烽火台一样token没有过期时间！
-    tools.setCookie(TokenKey, _token, 10, "/");
+    //这里设置为30分钟过期
+    tools.setCookie(TokenKey, _token, 1 / 48, "/");
     jsonObj[content] = userMap[username];
     jsonObj[content].info.lastLoginTime = Random.datetime('yyyy-MM-dd A HH:mm:ss')
 
@@ -142,6 +143,9 @@ export default {
       jsonObj[content] = userMap.none;
       return jsonObj
     }
+
+
+    tools.setCookie(TokenKey, token, 1 / 48, "/");
 
     if (token == admin_token) {
       jsonObj[content] = userMap.admin;
@@ -163,6 +167,7 @@ export default {
     }
     jsonObj[content] = userMap.none;
     jsonObj[content].info.lastLoginTime = Random.datetime('yyyy-MM-dd A HH:mm:ss')
+
     return jsonObj
   },
   logout: () => {

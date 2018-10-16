@@ -1,14 +1,13 @@
 <template>
-  <div class="footer">
+  <div class="footer" style="  position: ab ; ">
     <div class="version">
 
       <a href="https://github.com/gwssi-projects/gwssi-ui/tree/1.x" target="_blank">
-        <b>Version</b> {{ $Config.version }}
+        <b>Version 1.5</b><img src="../home/images/logo.png" style="padding: 0px; margin:0px; position: relative; right: 0px; top: 10px;" />
       </a>
 
-      <i class="iconfont icon-github"></i>
     </div>
-    <strong>Copyright © 2018-2019 .</strong>All rights reserved.
+    <img style="padding: 0px; margin:0px; position: relative; left: 0px; top: 10px;" src="../home/images/gwssi_logo.jpg" />版权所有
   </div>
 </template>
 

@@ -11,6 +11,9 @@ import {
 } from '@store/user'
 
 
+//让ajax携带cookie
+axios.defaults.withCredentials = true;
+
 //在一些切换频率较低的情况下，在切换到另一个页面的时候，上一个页面基本没有未完成的异步请求，即时有，在一些情况下也是可以忽略的。
 //可以通过使用CancelToken来取消axios发起的请求，我们可以自己写一段代码来验证。
 const CancelToken = axios.CancelToken
@@ -25,7 +28,8 @@ const service = axios.create({
   //请求的时候直接写绝对路径,default baseurl就会失效
   //这部分和api.js对应
   baseURL: process.env.DOMAIN,
-  timeout: 5000
+  timeout: 5000,
+  withCredentials: true // 允许携带cookie
 })
 
 // request interceptor
@@ -37,6 +41,9 @@ service.interceptors.request.use(
       // 让每个请求header携带token--
       //config.headers[TokenKey] = store.getters.token
     }
+
+    // config.headers['test'] = 'JSESSIONID=21C73FD6CDAE90AB5B3E4385B93780EE; apisess=F108E3D74C8616C4FC7A75E1DFE3DE73; SSOTOKEN=beacon!498522DC30F658AD276D9E9B92E40424421C3BCFDB8A0108751AFAABC9219A3AE2DC922B1E2F178E711284C8278C1A2A29FA24F4821516C7C238C19E15AEFC39';
+
     return config
   },
   error => {

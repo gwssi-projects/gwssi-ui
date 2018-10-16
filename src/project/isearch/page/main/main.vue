@@ -5,7 +5,7 @@
         <span class="big">大数据检索管理控制台</span>
         <span class="min"><img src="../home/images/logo.png" /></span>
       </div>
-      <span class="header-btn" @click="hiddenSidebar">
+      <span v-show="false" class="header-btn" @click="hiddenSidebar">
         <i class="el-icon-menu btn-hiddenSidebar"></i>
       </span>
       <div class="right">
@@ -14,11 +14,11 @@
           {{welcome}}
         </span>
 
-        <span class="header-btn">
+        <span v-show="false" class="header-btn">
           <gw-color-picker class="btn-color-picker" style="padding-top: 11px" size="mini" @colorChange="colorChange" @activeChange="activeChange" :obj='themeObj'></gw-color-picker>
         </span>
 
-        <span class="header-btn" @click="screenfullToggle">
+        <span v-show="false" class="header-btn" @click="screenfullToggle">
           <i class="el-icon-rank"></i>
         </span>
 
@@ -81,7 +81,7 @@
     <div class="app">
       <div class="aside">
         <div class="menu">
-          <el-menu router background-color="#222d32" text-color="#fff" :default-active="$route.path" class="menu" @open="handleOpen" @close="handleClose" :collapse="isCollapse">
+          <el-menu router background-color="#373F42" text-color="#fff" :default-active="$route.path" class="menu" @open="handleOpen" @close="handleClose" :collapse="isCollapse">
             <template v-for="(menu_v,menu_k) in menu">
               <el-submenu v-if="menu_v.children" :index="menu_k" :key="menu_v.path">
                 <template slot="title">
@@ -148,7 +148,8 @@ export default {
 
   computed: {
     themeColor() {
-      return this.$store.getters.themeColor;
+      var color = this.$store.getters.themeColor;
+      return "#373F42";
     },
     sideColor() {
       var defaultColor = this.$store.getters.themeColor;
@@ -178,7 +179,8 @@ export default {
         style.innerText = cssText;
       }
 
-      return newColor;
+      // return newColor;
+      return "#242E2F";
     },
     uName() {
       return this.$store.state.user.name;
@@ -514,7 +516,7 @@ export default {
 }
 
 .menu .el-menu-item.is-active {
-  color: rgb(96, 125, 139);
+  color: #00acd9;
 }
 
 .el-menu--vertical {
