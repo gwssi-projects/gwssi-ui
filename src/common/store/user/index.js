@@ -19,8 +19,7 @@ const user = {
     //权限 必须是数组！！
     roles: [],
     //扩展信息
-    info: {
-    }
+    info: {}
   },
 
   getters: {
@@ -81,18 +80,30 @@ const user = {
   actions: {
 
     //更新用户信息
-    updateUserInfo({ commit }, userInfo) {
+    updateUserInfo({
+      commit
+    }, userInfo) {
       commit('UPDATE_USEROBJ', userInfo)
     },
 
     // 用户名登录
-    login({ commit }, userInfo) {
+    login({
+      commit
+    }, userInfo) {
       //这里应该return 因为可能有后续操作 比如激活按钮等等
       return request.get(api.gwssi.user.login.url, userInfo);
     },
 
     // 获取用户信息（从服务器获取用户信息）
-    getUserInfo({ commit, state }) {
+    getUserInfo({
+      commit,
+      state
+    }) {
+      //没有token直接返回
+      var token = tools.cookies.get(TokenKey);
+      if (token == null || token == "") {
+        return
+      }
 
       request.get(api.gwssi.user.info.url, null).then(function (json) {
         console.log("获取用户信息");
@@ -108,12 +119,26 @@ const user = {
     },
 
     // 获取用户信息（异步对象）
-    getUserInfoPromise({ commit, state }) {
+    getUserInfoPromise({
+      commit,
+      state
+    }) {
+
+      //没有token直接抛错
+      var token = tools.cookies.get(TokenKey);
+      if (token == null || token == "") {
+        //throw new Error('no token')
+        return Promise.reject('no token')
+      }
+
       return request.get(api.gwssi.user.info.url, null)
     },
 
     // 登出
-    logOut({ commit, state }) {
+    logOut({
+      commit,
+      state
+    }) {
       return request.get(api.gwssi.user.logout.url, null);
     }
   }

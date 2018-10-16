@@ -9,16 +9,27 @@ import VueMeta from 'vue-meta'
 
 import ElementUI from 'element-ui'
 
-import Lang from '@components/select-lang'
-import router from '@appBase/router'
-import '@mock'
+import Lang from '@components/select-lang/index'
+import router from '@appBase/router/index'
 import store from "@store"
 
 import app from './main.vue'
 
+
+//执行install方法
 Vue.use(ElementUI)
 Vue.use(Lang)
 Vue.use(VueMeta)
+
+// import Vue from 'vue'
+// import ElStep from 'element-steps'
+// Vue.use(ElStep)
+
+// or
+
+// import Vue from 'vue'
+// import ElStep from 'element-steps'
+// Vue.component('el-step', ElStep)
 
 new Vue({
   i18n,

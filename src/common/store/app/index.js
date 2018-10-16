@@ -1,7 +1,7 @@
 import tools from "@components/tools";
 
 export const themeColorKey = 'theme-color'
-const defaultColor = '#409eff';
+const defaultColor = '#367fa9';
 
 export const contentLanguageKey = 'content-language'
 const defaultLanguage = 'zh-cn'
@@ -15,8 +15,10 @@ const day = 100;
 
 const app = {
   state: {
-    //主题颜色
-    themeColor: defaultColor,
+    //默认主题颜色
+    color: defaultColor,
+    //自定义主题颜色
+    customColor : defaultColor,
     //语言
     language: defaultLanguage
   },
@@ -24,11 +26,15 @@ const app = {
   getters: {
 
     //默认颜色
-    defaultColor: state => state.themeColor,
-    //主题颜色
+    defaultColor: state => state.color,
+    //自定义主题颜色 在cookie中的
     themeColor: state => {
       var color = tools.getCookie(themeColorKey);
-      return color;
+      if (color == null || color == "") {
+        color = state.color;
+      }
+      state.customColor = color;
+      return state.customColor;
     },
     //默认语言
     defaultLanguage: state => state.language,
@@ -43,6 +49,7 @@ const app = {
       }
 
       if (lang != null && lang != "") {
+        console.log("获取自定义lang = " + lang);
       } else {
         lang = state.language;
       }
@@ -59,8 +66,8 @@ const app = {
     //箭头函数 相当于  SET_THEMECOLOR (state, val) {
     SET_THEMECOLOR: (state, val) => {
       //更新cookie 如果是多级域名，是需要设置domain的
-      state.themeColor = val;
       tools.setCookie(themeColorKey, val, day, "/");
+      state.customColor = val;
       console.log("设置" + themeColorKey + " = " + val);
     },
 
@@ -73,10 +80,14 @@ const app = {
 
   },
   actions: {
-    setThemeColor({ commit }, color) {
+    setThemeColor({
+      commit
+    }, color) {
       commit('SET_THEMECOLOR', color)
     },
-    setLanguage({ commit }, language) {
+    setLanguage({
+      commit
+    }, language) {
       commit('SET_LANGUAGE', language)
     }
   }

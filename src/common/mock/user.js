@@ -1,10 +1,17 @@
-
 import tools from "@components/tools";
-import { TokenKey } from '@store/user'
+import {
+  TokenKey
+} from '@store/user'
 
-import { errNo } from '@components/request'
-import { errDes } from '@components/request'
-import { content } from '@components/request'
+import {
+  errNo
+} from '@components/request'
+import {
+  errDes
+} from '@components/request'
+import {
+  content
+} from '@components/request'
 
 import Mock from 'mockjs'
 
@@ -12,9 +19,8 @@ var Random = Mock.Random
 
 const admin_token = 'admin_token'
 const user_token = 'user_token'
+const sa_token = 'sa_token'
 
-const admin_pw = 'admin'
-const user_pw = 'user'
 
 var json = {};
 json[errNo] = '0'
@@ -44,14 +50,26 @@ const userMap = {
       avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
     }
   },
+
+  sa: {
+    user: 'sa',
+    status: '0',
+    id: '2',
+    name: '管理员',
+    roles: ['admin', 'user'],
+    info: {
+      introduction: '我是管理员',
+      avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
+    }
+  },
+
   none: {
     user: 'none',
     status: '0',
     id: '-1',
     name: '未登录用户',
     roles: [],
-    info: {
-    }
+    info: {}
   }
 }
 
@@ -68,21 +86,27 @@ export default {
     var username = obj.username;
     var password = obj.password;
 
-    if (username == null || username == "" || (username != "admin" && username != "user")) {
+    if (username == null || username == "" || (username != "admin" && username != "user" && username != "sa")) {
       jsonObj[errNo] = "01";
-      jsonObj[errDes] = "用户不存在";
+      jsonObj[errDes] = i18n.t("gwssi.portal.nouser");
       return jsonObj;
     }
 
     if (username == "admin" && password != "admin") {
       jsonObj[errNo] = "02";
-      jsonObj[errDes] = "密码错误";
+      jsonObj[errDes] = i18n.t("gwssi.portal.passwordError");
       return jsonObj;
     }
 
     if (username == "user" && password != "user") {
       jsonObj[errNo] = "02";
-      jsonObj[errDes] = "密码错误";
+      jsonObj[errDes] = i18n.t("gwssi.portal.passwordError");
+      return jsonObj;
+    }
+
+    if (username == "sa" && password != "111111") {
+      jsonObj[errNo] = "02";
+      jsonObj[errDes] = i18n.t("gwssi.portal.passwordError");
       return jsonObj;
     }
 
@@ -92,10 +116,17 @@ export default {
       _token = admin_token
     }
 
+    if (username == "sa") {
+      _token = sa_token
+    }
+
     if (username == "user") {
       _token = user_token
     }
-    tools.setCookie(TokenKey, _token, 10, "/");
+
+    //服务端生成token验证解密之后需要有过期时间 不要再像烽火台一样token没有过期时间！
+    //这里设置为30分钟过期
+    tools.setCookie(TokenKey, _token, 1 / 48, "/");
     jsonObj[content] = userMap[username];
     jsonObj[content].info.lastLoginTime = Random.datetime('yyyy-MM-dd A HH:mm:ss')
 
@@ -113,8 +144,18 @@ export default {
       return jsonObj
     }
 
+
+    tools.setCookie(TokenKey, token, 1 / 48, "/");
+
     if (token == admin_token) {
       jsonObj[content] = userMap.admin;
+      jsonObj[content].info.lastLoginTime = Random.datetime('yyyy-MM-dd A HH:mm:ss')
+      return jsonObj
+    }
+
+
+    if (token == sa_token) {
+      jsonObj[content] = userMap.sa;
       jsonObj[content].info.lastLoginTime = Random.datetime('yyyy-MM-dd A HH:mm:ss')
       return jsonObj
     }
@@ -126,6 +167,7 @@ export default {
     }
     jsonObj[content] = userMap.none;
     jsonObj[content].info.lastLoginTime = Random.datetime('yyyy-MM-dd A HH:mm:ss')
+
     return jsonObj
   },
   logout: () => {

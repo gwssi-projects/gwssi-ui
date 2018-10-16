@@ -1,8 +1,7 @@
 {
-
-    "title": "配置使vscode支持 webpack的alias",
     "compilerOptions": {
-        "allowSyntheticDefaultImports": true,
+        "target": "es2017", 
+        "allowSyntheticDefaultImports": false,
         "baseUrl": "./",
         "paths": {
             "@/*": [
@@ -20,6 +19,9 @@
             "@store/*": [
                 "src/common/store/*"
             ],
+            "@types/*": [
+                "src/common/types/*"
+            ],
             "@appBase/*": [
                 "src/project/base/*"
             ],
@@ -36,3 +38,5 @@
         "src"
     ]
 }
+
+

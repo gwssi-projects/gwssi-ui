@@ -1,0 +1,23 @@
+<template>
+  <el-card :body-style="{ padding: '10px', height : 'calc(100vh - 175px)'}">
+    <iframe name="8f40f10bc0a80166284fae042680a96b" id="8f40f10bc0a80166284fae042680a96b" :src="url" frameborder="0"></iframe>
+  </el-card>
+</template>
+
+<script>
+export default {
+  data() {
+    return {};
+  },
+  props: ["url"],
+  methods: {},
+  mounted: function() {}
+};
+</script>
+<style lang="less">
+iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+</style>

@@ -16,26 +16,32 @@
                       <el-menu-item :router='false' index="logged"><a href =""> {{ $t('gwssi.tips.loggedBtn') }} </a></el-menu-item>
         -->
         <el-menu :default-active="activeName" :router="menuRouter" class="gw-el-menu" mode="horizontal" @select="selectItems">
-          <el-menu-item index="login">{{ $t('gwssi.tips.loginBtn') }}</el-menu-item>
+          <el-menu-item index="/login">{{ $t('gwssi.tips.loginBtn') }}</el-menu-item>
 
           <el-submenu index="routerTmp">
             <template slot="title">{{ $t('gwssi.tips.routerTitle') }}</template>
-            <el-menu-item index="logged"> {{ $t('gwssi.tips.loggedBtn') }} </el-menu-item>
-            <el-menu-item index="adminLogged">{{ $t('gwssi.tips.adminRouterBtn') }}</el-menu-item>
-            <el-menu-item index="router2">{{ $t('gwssi.tips.routerBtn') }}</el-menu-item>
+            <el-menu-item index="/logged"> {{ $t('gwssi.tips.loggedBtn') }} </el-menu-item>
+            <el-menu-item index="/adminLogged">{{ $t('gwssi.tips.adminRouterBtn') }}</el-menu-item>
+            <el-menu-item index="/router2">{{ $t('gwssi.tips.routerBtn') }}</el-menu-item>
           </el-submenu>
 
-          <el-menu-item index="button">{{ $t('gwssi.tips.buttonBtn') }}</el-menu-item>
-          <el-menu-item index="form">{{ $t('gwssi.tips.formBtn') }}</el-menu-item>
-          <el-menu-item index="grid">{{ $t('gwssi.tips.gridBtn') }}</el-menu-item>
+          <el-menu-item index="/button">{{ $t('gwssi.tips.buttonBtn') }}</el-menu-item>
+          <el-menu-item index="/form">{{ $t('gwssi.tips.formBtn') }}</el-menu-item>
+          <el-menu-item index="/grid">{{ $t('gwssi.tips.gridBtn') }}</el-menu-item>
 
           <el-submenu index="page">
             <template slot="title">{{ $t('gwssi.tips.page') }}</template>
-            <el-menu-item index="page404">{{ $t('gwssi.tips.btn404') }}</el-menu-item>
-            <el-menu-item index="page500">{{ $t('gwssi.tips.btn500') }}</el-menu-item>
+            <el-menu-item index="/page404">{{ $t('gwssi.tips.btn404') }}</el-menu-item>
+            <el-menu-item index="/page500">{{ $t('gwssi.tips.btn500') }}</el-menu-item>
           </el-submenu>
 
-          <el-menu-item index="portal">{{ $t('gwssi.tips.portalBtn') }}</el-menu-item>
+          <el-menu-item :router='false' index="">
+            <a href="../portal/#/login" target="_blank"> {{ $t('gwssi.tips.portalBtn') }} </a>
+          </el-menu-item>
+
+          <el-menu-item :router='false' index="">
+            <a href="../isearch/#/login" target="_blank"> isearch </a>
+          </el-menu-item>
         </el-menu>
       </el-col>
 
@@ -79,14 +85,26 @@ export default {
 
   computed: {
     storeColor() {
-      return this.$store.getters.defaultColor;
+      return this.$store.getters.themeColor;
     },
     //其它组件中路由跳转 触发菜单切换 所以需要定义在computed中
     activeName() {
       //根据路由获取激活菜单选中对象
-      return this.$route.name == "" || this.$route.name == "index"
-        ? "login"
-        : this.$route.name;
+      // $route为当前router跳转对象里面可以获取name、path、query、params等
+      // $router为VueRouter实例，想要导航到不同URL，则使用$router.push方法
+      console.log(this.$route.path);
+
+      if (this.$route.path.indexOf("/router2") == 0) {
+        return "/router2";
+      }
+
+      if (this.$route.path.indexOf("/form") == 0) {
+        return "/form";
+      }
+
+      return this.$route.path == "" || this.$route.path == "/"
+        ? "/login"
+        : this.$route.path;
     }
   },
 
@@ -109,10 +127,11 @@ export default {
 };
 </script>
 
-<style  lang="less" scoped>
+<style lang="less" scoped>
 @baseBC: rgb(248, 248, 248);
 @baseTextColor: rgb(51, 51, 51);
 @margintop : 10px;
+
 /***
 此处定义的CSS只在此组件中生效，比如下面的.container，只会在当前组件的.container生效，
 最终的结果是生成的css为 
@@ -133,24 +152,13 @@ export default {
   background-color: transparent !important;
 }
 
-.gw-el-menu {
-}
-
 #select-lang {
   margin-top: @margintop;
   float: right;
   width: auto;
 }
-.el-color-picker {
-}
 
 .colorPickerItem {
   margin-top: @margintop;
 }
-
-.el-badge__content {
-}
 </style>
-
-
-

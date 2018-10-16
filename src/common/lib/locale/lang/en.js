@@ -21,6 +21,8 @@ exports.default = {
       lang: "Choose language",
       zh: "Chinese",
       en: "English",
+      user: "User",
+      password: "Password",
       login: "Login",
       loginBtn: "login",
       registerBtn: "register",
@@ -38,11 +40,41 @@ exports.default = {
       syncRouterBtn: "sync router",
       btn404: "404",
       btn500: "500",
-      ajaxErr: "Error loading data"
-
+      ajaxErr: "Error loading data",
+      hello: "hello",
+      confirm: "confirm",
+      cancel: "cancel",
+      tip: "tip",
+      sex: {
+        male: 'male',
+        female: 'female',
+        unknown: 'unknown'
+      }
     },
     portal: {
+      title: 'gw protal',
+      login: 'protal-login',
+      welcome: 'welcome gwssi protal',
+      loginBtn: 'login',
+      resetBtn: 'reset',
+      logoutBtn: 'logoutBtn',
+      inputUser: 'inputUser',
+      inputPassword: 'inputPassword',
+      loginError: 'loginError',
+      nouser: 'User does not exist',
+      passwordError: 'Password error',
+      loginSuccess: 'loginSuccess',
+      loginDemoTxt: "loginDemoTxt",
+      main: {
 
+        siteName: 'Great Wall protal',
+        minSiteMame: 'Protal'
+
+      },
+      guide: {
+        description: 'The guide page is useful for some people who entered the project for the first time. You can briefly introduce the features of the project. Demo is based on ',
+        button: 'Show Guide'
+      }
 
     }
   }

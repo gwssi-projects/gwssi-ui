@@ -1,0 +1,24 @@
+ .error-code {
+     font-size: 4rem;
+     font-weight: 100;
+     text-align: center;
+     margin: 0;
+     color: #f77373;
+ }
+
+ .error-description {
+     text-align: center;
+     margin-bottom: 30px;
+ }
+
+ .error-ctrl {
+     text-align: center;
+     margin-bottom: 30px;
+ }
+
+ .copyright {
+     text-align: center;
+     color: #bfbfbf;
+     font-size: 10px;
+     text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+ }

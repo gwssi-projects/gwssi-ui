@@ -23,12 +23,22 @@ import theme from "@components/theme";
 import hashMap from "@components/hashMap";
 
 //mock
-import mock from '@mock'
+import mock from '@mock/index'
 
 //store对象
-import store from '@store'
+import store from '@store/index'
+
+//api
+import api from '@/common/api'
+
+//通过接口定义的组件
+//import GwComponents from "@types/index";
 
 //注册全局对象
 window.gwI18n = i18n;
 window.i18n = i18n.vueLocale;
 window.gwTools = tools;
+
+//Vue中的全局变量通过Vue.prototype实现，vue对象中使用this获取
+// Vue.prototype.$gwTools = tools
+// Vue.prototype.$gwI18n = i18n

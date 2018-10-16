@@ -1,9 +1,14 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import store from '@store'
+
 import {
   Notification
 } from 'element-ui'
+import {
+  Loading
+} from 'element-ui'
+
+import store from '@store/index'
 import tools from "@components/tools";
 import {
   TokenKey
@@ -11,103 +16,143 @@ import {
 
 //路由对应的页面
 import login from '@appBase/page/login'
+import p404 from '@appBase/page/404'
+import p500 from '@appBase/page/500'
+import form from '@appBase/page/form/index'
+import step1 from '@appBase/page/form/step1.vue'
+import step2 from '@appBase/page/form/step2.vue'
+import step3 from '@appBase/page/form/step3.vue'
+import step4 from '@appBase/page/form/step4.vue'
+import grid from '@appBase/page/grid'
+
+//异步加载的权限路由
+//使用异步加载，对应的组件 ../page/logged 会单独生成一个JS文件 在路由点击的时候才会加载这个JS
+//把某个路由下的所有组件都打包在同个异步块 (chunk) 中。只需要使用 命名 webpackChunkName，对应webpack conf中的    chunkFilename: '[name].js?[chunkhash]',
+// 下述会在project\base\page生成路由对应组件的完整JS
+const logged = () =>
+  import( /* webpackChunkName: "project/base/page/logged" */ '../page/logged')
+const adminLogged = () =>
+  import( /* webpackChunkName: "project/base/page/adminLogged" */ '../page/adminLogged')
+const subRouter = () =>
+  import( /* webpackChunkName: "project/base/page/subRouter" */ '../page/subRouter')
+const comAuth = () =>
+  import( /* webpackChunkName: "project/base/page/comAuth" */ '../page/comAuth')
+
 
 Vue.use(VueRouter);
 
 //无权限跳转地址
 const indexPage = '/login';
 
-const register = {
-  template: '<div>register</div>'
+const UserID = {
+  template: '<p style=" text-align: center; ">这是一个页面组件，UserName = {{ $store.state.user.name }} , UserID = {{ $route.params.id }} 。</p>'
 }
-const portal = {
-  template: '<div>portal</div>'
-}
-const form = {
-  template: '<div>form</div>'
-}
-const button = {
-  template: '<div>button</div>'
-}
-const grid = {
-  template: '<div>grid</div>'
-}
-const adminLogged = {
-  template: '<div>adminLogged</div>'
-}
-const page404 = {
-  template: '<div>404</div>'
-}
-const page500 = {
-  template: '<div>page500</div>'
+
+const UserProfile = {
+  template: '<p style=" text-align: center; ">这是一个页面组件，UserProfile 。</p>'
 }
 
 const routes = [
   //login不需要权限验证
   {
     path: '/',
-    name: "index",
     component: login
   },
   {
     path: '/login',
-    name: "login",
     component: login
   },
   {
     path: '/logged',
-    name: "logged",
-    // component: logged,
-    // 权限模块需要使用异步加载 否则beforeEach只执行一次？
-    component: (resolve) => require(['../page/logged'], resolve),
+    component: logged,
     // meta 字段就是路由元信息字段，这里可以配置自定义字段
     meta: {
       title: '登陆后页面',
       permisson: ['admin', 'user'],
       requireAuth: true
     }
-
-  },
-  {
-    path: '/register',
-    name: "register",
-    component: register
-  },
-  {
-    path: '/portal',
-    name: "portal",
-    component: portal
-  },
-  {
-    path: '/form',
-    name: "form",
-    component: form
-  },
-  {
-    path: '/button',
-    name: "button",
-    component: button
-  },
-  {
-    path: '/grid',
-    name: "grid",
-    component: grid
   },
   {
     path: '/adminLogged',
-    name: "adminLogged",
-    component: adminLogged
+    component: adminLogged,
+    meta: {
+      title: 'admin登陆后页面',
+      permisson: ['admin'],
+      requireAuth: true
+    }
+  },
+  {
+    path: '/router2',
+    component: subRouter,
+    meta: {
+      title: '嵌套路由',
+      permisson: ['admin', 'user'],
+      requireAuth: true
+    },
+    children: [{
+        // 当 /router2/:id 匹配成功渲染
+        path: ':id',
+        component: UserID
+      },
+      {
+        // 当 /router2/:id/profile 匹配成功，
+        path: ':id/profile',
+        component: UserProfile
+      }
+    ]
+  },
+  {
+    path: '/button',
+    component: comAuth,
+    meta: {
+      title: '组件权限',
+      permisson: ['admin', 'user'],
+      requireAuth: true
+    }
   },
   {
     path: '/page404',
-    name: "page404",
-    component: page404
+    component: p404
   },
   {
     path: '/page500',
-    name: "page500",
-    component: page500
+    component: p500
+  },
+  {
+    path: '/form',
+    component: form,
+    children: [{
+        path: '',
+        component: step1
+      },
+      {
+        path: 'step1',
+        component: step1
+      },
+      {
+        path: 'step2',
+        component: step2
+      },
+      {
+        path: 'step3',
+        component: step3
+      },
+      {
+        path: 'step4',
+        component: step4
+      }
+    ]
+  },
+  {
+    path: '/grid',
+    component: grid
+  },
+  //这样就配置了其它页面都是404了
+  {
+    path: '*',
+    component: p404
   }
+
 ]
 
 const router = new VueRouter({
@@ -115,6 +160,12 @@ const router = new VueRouter({
 })
 
 function hasPermission(roles, permissionRoles) {
+
+  //没有设置路由权限
+  if (permissionRoles == null) {
+    return true
+  }
+
   if (roles.length == 0) {
     return false;
   }
@@ -161,14 +212,10 @@ function noAuth(logStr, titleStr, messageStr) {
 //你可以向 next 传递任意位置对象，且允许设置诸如 replace: true、name: 'home' 之类的选项以及任何用在 router-link 的 to prop 或 router.push 中的选项。
 
 
-
 router.beforeEach((to, from, next) => {
 
   //需要判断权限
   if (to.matched.some(record => record.meta.requireAuth)) {
-
-
-
 
     //先判断是否有token
     if (tools.cookies.get(TokenKey) == null || tools.cookies.get(TokenKey) == '') {
@@ -177,46 +224,59 @@ router.beforeEach((to, from, next) => {
       return
     }
 
+    if (to.meta.permisson == null) {
+      next()
+      return
+    }
 
     // 初步判断当前用户是否已拉取完user_info信息
     if (store.state.user.roles.length === 0) {
 
+      console.log("路由获取用户信息");
 
-      const loading = this.$loading({
-        lock: true,
-        text: 'Loading',
-        spinner: 'el-icon-loading',
-        background: 'rgba(0, 0, 0, 0.7)'
+      let loadingInstance = Loading.service({
+        //target: "#app-main",
+        body: true,
+        //      spinner: 'el-icon-loading',
+        background: 'rgba(f, f, f, 0.7)',
+        text: '正在加载页面',
+        lock: false
       });
 
-
-      this.$store.dispatch("getUserInfoPromise", null)
+      store.dispatch("getUserInfoPromise", null)
         .then(function (json) {
 
+          loadingInstance.close();
+
           if (json.data.content != null) {
-            this.$store.dispatch("updateUserInfo", json.data.content);
+            store.dispatch("updateUserInfo", json.data.content);
           }
 
           if (hasPermission(store.state.user.roles, to.meta.permisson)) {
             next()
           } else {
-            noAuth('当前用户无权限访问此页面。', "无权限", '当前用户无权限访问此页面。');
+            noAuth('当前用户权限无法访问此页面。', "权限不足", '当前用户权限无法访问此页面。');
             next(indexPage)
             return
           }
 
         }, function (error) {
-          noAuth('获取用户信息错误：' + error, "无权限", '获取用户信息错误。');
+
+          loadingInstance.close();
+
+          noAuth('获取用户信息错误：' + error, "无权限", '当前用户未登录或已经超时。');
           next(indexPage)
           return
         });
 
     } else {
 
+      console.log("已经加载用户信息");
+
       if (hasPermission(store.state.user.roles, to.meta.permisson)) {
         next()
       } else {
-        noAuth('当前用户无权限访问此页面。', "无权限", '当前用户无权限访问此页面。');
+        noAuth('当前用户权限无法访问此页面。', "权限不足", '当前用户权限无法访问此页面。');
         next(indexPage)
         return
       }
@@ -228,7 +288,6 @@ router.beforeEach((to, from, next) => {
   }
 
 })
-
 
 // router.beforeResolve((to, from, next) => {
 //   /* must call `next` */

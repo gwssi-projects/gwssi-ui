@@ -1,0 +1,37 @@
+@bodyBC: #e9ecf1;
+@bodyTextColor: #333;
+
+
+body {
+    margin: 0px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: @bodyTextColor;
+    background-color: @bodyBC;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:focus,
+a:hover {
+    filter: alpha(opacity=80);
+    /* IE */
+    -moz-opacity: 0.8;
+    /* Moz + FF */
+    opacity: 0.8;
+    /* 支持CSS3的浏览器（FF 1.5也支持）*/
+    text-decoration: none;
+}
+
+.el-main {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    -ms-flex-preferred-size: auto;
+    flex-basis: auto;
+    overflow: auto;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 20px
+}
