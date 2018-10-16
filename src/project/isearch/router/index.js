@@ -28,8 +28,8 @@ const login = () =>
 const main = () =>
   import( /* webpackChunkName: "project/isearch/page/main" */ '../page/main/main.vue')
 
-var domain = "https://isearch.link/";
-var uiDomain = "https://isearch.link/";
+var domain = "https://portal.isearch.link/";
+var uiDomain = "https://portal.isearch.link/";
 
 const routes = [
 
