@@ -2,7 +2,7 @@
   <div class="main">
     <div class="header" :style="{ 'background-color': themeColor} ">
       <div class="logo" :style="{ 'background-color': sideColor} ">
-        <span class="big">大数据检索管理控制台</span>
+        <span class="big"><b><img style="padding: 0px; margin:0px; position: relative; left: 0px; top: 10px;" src="../home/images/logo.png" />&nbsp;&nbsp;&nbsp;ISearch</b></span>
         <span class="min"><img src="../home/images/logo.png" /></span>
       </div>
       <span v-show="false" class="header-btn" @click="hiddenSidebar">

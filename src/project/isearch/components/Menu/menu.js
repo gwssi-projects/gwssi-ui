@@ -88,7 +88,7 @@ contentManage.menu3 = {
 
 //异步获取数据
 //需要增加token
-request.get("https://isearch.link/txn0302.do", null).then(
+request.get("https://portal.isearch.link/txn0302.do", null).then(
   json => {
     console.log("加载菜单" + json.data);
   },

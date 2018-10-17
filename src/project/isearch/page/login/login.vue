@@ -7,8 +7,9 @@
       <div class="container" :style="{ 'border-top-color': storeColor }">
         <el-row>
 
-          <el-col :span="10" :offset="2">
-            <img src="./images/logo_tittle.png">
+          <el-col :span="6" :offset="2">
+            <img style=" float: left" src="./images/logo.png">
+            <h1 style=" float: left; color: #222222;">ISearch 管理控制台</h1>
           </el-col>
 
           <el-col v-show="false" :span="2">
@@ -72,8 +73,8 @@ export default {
 
   computed: {
     storeColor() {
-      var color =  this.$store.getters.themeColor;
-      return '#145A6F'
+      var color = this.$store.getters.themeColor;
+      return "#145A6F";
     },
     uName() {
       return this.$store.state.user.name;
