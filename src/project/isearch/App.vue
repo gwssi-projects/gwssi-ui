@@ -20,7 +20,7 @@ export default {
   data() {
     return {
       login999999:
-        "https://isearch.link/txn999999.ajax?username=sa&password=UUN09T4poqDw0FjjCF0Y0EGin29A64IU3X2djsqO5iwF9PoVnJ4AY65SedsA56F0J3OPL%2BHOKrntlgF3bLJQRBGN1CJRBna3cGER0yRcR%2FKDs%2BmcgaRetJ6mvv3J3TL%2Fe1z6u2%2BlOmaZQvNyxRyuIGDKD1B7geANQLTy8vtq2BI%3D"
+        "https://portal.isearch.link/txn999999.ajax?username=sa&password=UUN09T4poqDw0FjjCF0Y0EGin29A64IU3X2djsqO5iwF9PoVnJ4AY65SedsA56F0J3OPL%2BHOKrntlgF3bLJQRBGN1CJRBna3cGER0yRcR%2FKDs%2BmcgaRetJ6mvv3J3TL%2Fe1z6u2%2BlOmaZQvNyxRyuIGDKD1B7geANQLTy8vtq2BI%3D"
     };
   },
   computed: {
@@ -40,7 +40,7 @@ export default {
       //登录protal 记录token为引入iframe
       this.login999999 = "";
       this.login999999 =
-        "https://isearch.link/txn999999.ajax?username=sa&password=UUN09T4poqDw0FjjCF0Y0EGin29A64IU3X2djsqO5iwF9PoVnJ4AY65SedsA56F0J3OPL%2BHOKrntlgF3bLJQRBGN1CJRBna3cGER0yRcR%2FKDs%2BmcgaRetJ6mvv3J3TL%2Fe1z6u2%2BlOmaZQvNyxRyuIGDKD1B7geANQLTy8vtq2BI%3D";
+        "https://portal.isearch.link/txn999999.ajax?username=sa&password=UUN09T4poqDw0FjjCF0Y0EGin29A64IU3X2djsqO5iwF9PoVnJ4AY65SedsA56F0J3OPL%2BHOKrntlgF3bLJQRBGN1CJRBna3cGER0yRcR%2FKDs%2BmcgaRetJ6mvv3J3TL%2Fe1z6u2%2BlOmaZQvNyxRyuIGDKD1B7geANQLTy8vtq2BI%3D";
     }
   },
 
