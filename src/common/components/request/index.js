@@ -28,9 +28,9 @@ const service = axios.create({
   //请求的时候直接写绝对路径,default baseurl就会失效
   //这部分和api.js对应
   baseURL: process.env.DOMAIN,
-  timeout: 5000,
-  withCredentials: true // 允许携带cookie
+  timeout: 5000
 })
+
 
 // request interceptor
 //添加请求拦截器

@@ -54,16 +54,21 @@ const routes = [
       requireAuth: true
     },
 
-    children: [{
+    children: [
+
+      {
         path: '/',
-        name: 'Dashboard',
+        name: 'home',
+        props: {
+          url: uiDomain + "ui/home.html?clusterName=IPSearch&url=10.10.1.141:9500&url_http=10.10.1.141:8600"
+        },
         meta: {
           title: '首页',
           permisson: ['user'],
           requireAuth: true
         },
         component: () =>
-          import( /* webpackChunkName: "project/isearch/page/home" */ '../page/home/Index.vue')
+          import( /* webpackChunkName: "project/isearch/page/iframe" */ '../page/iframe/index.vue')
       },
 
       //个人中心
@@ -190,8 +195,6 @@ const routes = [
       },
 
       //ES管理
-
-
       {
         path: '/106-elastic1',
         name: '106-elastic1',
