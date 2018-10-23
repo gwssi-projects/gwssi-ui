@@ -1,4 +1,4 @@
-import axios from 'axios'
+// import axios from 'axios'
 import {
   Message
 } from 'element-ui'
@@ -10,6 +10,8 @@ import {
   TokenKey
 } from '@store/user'
 
+var _axios = require('@components/axios/dist/axios');
+var axios = _axios.axios;
 
 //让ajax携带cookie
 axios.defaults.withCredentials = true;
@@ -41,8 +43,6 @@ service.interceptors.request.use(
       // 让每个请求header携带token--
       //config.headers[TokenKey] = store.getters.token
     }
-
-    //config.headers['test'] = 'JSESSIONID=21C73FD6CDAE90AB5B3E4385B93780EE; apisess=F108E3D74C8616C4FC7A75E1DFE3DE73; SSOTOKEN=beacon!498522DC30F658AD276D9E9B92E40424421C3BCFDB8A0108751AFAABC9219A3AE2DC922B1E2F178E711284C8278C1A2A29FA24F4821516C7C238C19E15AEFC39';
 
     return config
   },

@@ -132,7 +132,7 @@
 import Screenfull from "screenfull";
 import EuiFooter from "../layout/Footer.vue";
 import NavBar from "../layout/NavBar.vue";
-import Menu from "../../components/Menu";
+import Menu from "../../components/Menu/menu";
 
 export default {
   data() {
@@ -141,12 +141,15 @@ export default {
       themeObj: {},
       fixedTabBar: false,
       switchTabBar: true,
-      isCollapse: false,
-      menu: Menu
+      isCollapse: false
     };
   },
 
   computed: {
+    menu() {
+      //必须使用computed来监听菜单更改
+      return Menu;
+    },
     themeColor() {
       var color = this.$store.getters.themeColor;
       return "#373F42";

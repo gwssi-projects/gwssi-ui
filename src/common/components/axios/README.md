@@ -1,0 +1,1 @@
+﻿## 这里修改mock不能带入cookie的debug 如果使用了 mock 测试环境中拦截的url为跨域的url会重新创建一个xhr提交请求，这时候设置withCredentials就失效了 需要重新设置

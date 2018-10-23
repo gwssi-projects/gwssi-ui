@@ -4,14 +4,12 @@ import Vue from 'vue'
 import VueMeta from 'vue-meta'
 import VueRouter from 'vue-router'
 import Vuex from 'vuex'
-
+ 
 import ElementUI from 'element-ui'
-import axios from 'axios'
-
 
 //基础组件
 //工具类
-import tools from "@components/tools";
+import tools from "@components/tools/index";
 //语言包
 import i18n from "@components/i18n";
 import selectLang from "@components/select-lang";
