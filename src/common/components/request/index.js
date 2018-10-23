@@ -10,7 +10,7 @@ import {
   TokenKey
 } from '@store/user'
 
-var _axios = require('@components/axios/dist/axios');
+var _axios = require('@components/axios/lib/axios');
 var axios = _axios.axios;
 
 //让ajax携带cookie
