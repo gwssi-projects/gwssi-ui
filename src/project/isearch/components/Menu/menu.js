@@ -1,4 +1,5 @@
 import request from '@components/request'
+import store from "@store/index";
 
 let menu = {};
 
@@ -73,7 +74,7 @@ service.then(
 
             elastic["menu" + n] = {
               name: m.menuName,
-              path: '/elastic/' + encodeURIComponent(m.url),
+              path: '/elastic/' + encodeURIComponent(m.url) + "/" + encodeURIComponent(m.menuName),
               url: m.url
 
             }
@@ -136,8 +137,7 @@ service.then(
       path: '/content3',
     };
 
-
-
+    store.dispatch("setMenuState", store.getters.menuState + 1);
 
   },
   error => {

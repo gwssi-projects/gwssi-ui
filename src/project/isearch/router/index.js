@@ -14,7 +14,6 @@ import {
   TokenKey
 } from '@store/user'
 
-
 import p404 from '@appPortal/page/common/404'
 
 
@@ -68,7 +67,7 @@ const routes = [
           requireAuth: true
         },
         component: () =>
-          import( /* webpackChunkName: "project/isearch/page/iframe" */ '../page/iframe/index.vue')
+          import( /* webpackChunkName: "project/portal/page/iframe" */ '@appPortal/page/iframe/index.vue')
       },
 
       //个人中心
@@ -81,7 +80,7 @@ const routes = [
           requireAuth: true
         },
         component: () =>
-          import( /* webpackChunkName: "project/isearch/page/personal" */ '../page/personal/Index.vue')
+          import( /* webpackChunkName: "project/portal/page/personal" */ '../page/personal/Index.vue')
       },
 
       //权限管理
@@ -97,7 +96,7 @@ const routes = [
           requireAuth: true
         },
         component: () =>
-          import( /* webpackChunkName: "project/isearch/page/iframe" */ '../page/iframe/index.vue')
+          import( /* webpackChunkName: "project/portal/page/iframe" */ '@appPortal/page/iframe/index.vue')
       },
 
 
@@ -113,7 +112,7 @@ const routes = [
           requireAuth: true
         },
         component: () =>
-          import( /* webpackChunkName: "project/isearch/page/iframe" */ '../page/iframe/index.vue')
+          import( /* webpackChunkName: "project/portal/page/iframe" */ '@appPortal/page/iframe/index.vue')
       },
 
       {
@@ -128,7 +127,7 @@ const routes = [
           requireAuth: true
         },
         component: () =>
-          import( /* webpackChunkName: "project/isearch/page/iframe" */ '../page/iframe/index.vue')
+          import( /* webpackChunkName: "project/portal/page/iframe" */ '@appPortal/page/iframe/index.vue')
       },
 
       {
@@ -143,7 +142,7 @@ const routes = [
           requireAuth: true
         },
         component: () =>
-          import( /* webpackChunkName: "project/isearch/page/iframe" */ '../page/iframe/index.vue')
+          import( /* webpackChunkName: "project/portal/page/iframe" */ '@appPortal/page/iframe/index.vue')
       },
 
 
@@ -160,7 +159,7 @@ const routes = [
           requireAuth: true
         },
         component: () =>
-          import( /* webpackChunkName: "project/isearch/page/iframe" */ '../page/iframe/index.vue')
+          import( /* webpackChunkName: "project/portal/page/iframe" */ '@appPortal/page/iframe/index.vue')
       },
 
       {
@@ -175,7 +174,7 @@ const routes = [
           requireAuth: true
         },
         component: () =>
-          import( /* webpackChunkName: "project/isearch/page/iframe" */ '../page/iframe/index.vue')
+          import( /* webpackChunkName: "project/portal/page/iframe" */ '@appPortal/page/iframe/index.vue')
       },
 
 
@@ -191,21 +190,22 @@ const routes = [
           requireAuth: true
         },
         component: () =>
-          import( /* webpackChunkName: "project/isearch/page/iframe" */ '../page/iframe/index.vue')
+          import( /* webpackChunkName: "project/portal/page/iframe" */ '@appPortal/page/iframe/index.vue')
       },
 
 
       //通过参数绑定路由对象参数
       {
-        path: '/elastic/:url',
+        path: '/elastic/:url/:menuTitle',
         name: 'elastic-ui',
         meta: {
-          title: '集群信息',
+          //使用beforeEach事件来更改title的值
+          title: ':menuTitle',
           permisson: ['user'],
           requireAuth: true
         },
         component: () =>
-          import( /* webpackChunkName: "project/isearch/page/iframe2" */ '../page/iframe/index2.vue')
+          import( /* webpackChunkName: "project/portal/page/iframe2" */ '@appPortal/page/iframe/index2.vue')
       },
 
 
@@ -223,7 +223,7 @@ const routes = [
       //     requireAuth: true
       //   },
       //   component: () =>
-      //     import( /* webpackChunkName: "project/isearch/page/iframe" */ '../page/iframe/index.vue')
+      //     import( /* webpackChunkName: "project/portal/page/iframe" */ '@appPortal/page/iframe/index.vue')
       // },
 
       // {
@@ -238,7 +238,7 @@ const routes = [
       //     requireAuth: true
       //   },
       //   component: () =>
-      //     import( /* webpackChunkName: "project/isearch/page/iframe" */ '../page/iframe/index.vue')
+      //     import( /* webpackChunkName: "project/portal/page/iframe" */ '@appPortal/page/iframe/index.vue')
       // },
 
       // {
@@ -253,7 +253,7 @@ const routes = [
       //     requireAuth: true
       //   },
       //   component: () =>
-      //     import( /* webpackChunkName: "project/isearch/page/iframe" */ '../page/iframe/index.vue')
+      //     import( /* webpackChunkName: "project/portal/page/iframe" */ '@appPortal/page/iframe/index.vue')
       // },
 
       // {
@@ -268,7 +268,7 @@ const routes = [
       //     requireAuth: true
       //   },
       //   component: () =>
-      //     import( /* webpackChunkName: "project/isearch/page/iframe" */ '../page/iframe/index.vue')
+      //     import( /* webpackChunkName: "project/portal/page/iframe" */ '@appPortal/page/iframe/index.vue')
       // },
 
       //这样就配置了其它页面都是404了
@@ -332,8 +332,13 @@ function noAuth(logStr, titleStr, messageStr) {
 }
 
 
-
 router.beforeEach((to, from, next) => {
+
+  //更改菜单名称
+  var menuTitle = to.params.menuTitle;
+  if (menuTitle != null && menuTitle != "") {
+    to.meta.title = menuTitle;
+  }
 
   //需要判断权限
   if (to.matched.some(record => record.meta.requireAuth)) {

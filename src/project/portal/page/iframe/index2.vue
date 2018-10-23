@@ -6,11 +6,15 @@
 
 <script>
 export default {
+  computed: {
+    url() {
+      return decodeURIComponent(this.$route.params.url);
+    }
+  },
   data() {
     return {
-      uiDomain: "https://isearch.link",
+      uiDomain: "https://isearch.link"
       // url: this.$route.params.url
-      url: decodeURIComponent(this.$route.params.url)
     };
   },
   methods: {},

@@ -148,6 +148,10 @@ export default {
   computed: {
     menu() {
       //必须使用computed来监听菜单更改
+
+      //只监听Menu对象没有想过 必须使用srotre？？
+      console.log("menuState" + this.$store.getters.menuState);
+
       return Menu;
     },
     themeColor() {
@@ -292,10 +296,11 @@ export default {
       this.NavBarWidth();
     },
     handleOpen(key, keyPath) {
-      //console.log(key, keyPath);
+      // console.log("handleOpen" + key + keyPath);
     },
     handleClose(key, keyPath) {
       //关闭菜单
+      // console.log("handleClose" + key + keyPath);
     }
   },
   mounted: function() {
