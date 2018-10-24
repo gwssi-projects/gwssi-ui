@@ -32,6 +32,6 @@ if (process.env.GW_INDEX == null || process.env.GW_INDEX == "" || process.env.GW
   window.location.href = "./project/base/";
 } else if (process.env.GW_INDEX == "portal") {
   window.location.href = "./project/portal/";
-} else if (process.env.GW_INDEX == "isearch") {
+} else if (process.env.GW_INDEX == "isearch" && document.domain == "isearch.link") {
   window.location.href = "./project/isearch/";
 }

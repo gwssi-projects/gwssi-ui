@@ -1,15 +1,22 @@
 <template>
-  <el-card :body-style="{ padding: '10px', height : 'calc(100vh - 175px)'}">
+  <el-card :body-style="{ padding: '10px', height : offSetHeight}">
     <iframe name="8f40f10bc0a80166284fae042680a96b" id="8f40f10bc0a80166284fae042680a96b" :src="url" frameborder="0"></iframe>
   </el-card>
 </template>
 
 <script>
 export default {
+  props: {
+    offSetHeight: {
+      default: "calc(100vh - 175px)"
+    },
+    url: {
+      default: ""
+    }
+  },
   data() {
     return {};
   },
-  props: ["url"],
   methods: {},
   mounted: function() {}
 };

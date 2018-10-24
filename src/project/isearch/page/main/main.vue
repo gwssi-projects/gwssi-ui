@@ -112,7 +112,7 @@
         <div id="mainContainer" :style="fixedTabBar && switchTabBar?'margin-top: 88px;':''" class="main-container">
           <!--<transition name="fade">-->
           <keep-alive>
-            <router-view></router-view>
+            <router-view offSetHeight='calc(100vh - 125px)' uiDomain="https://isearch.link"></router-view>
           </keep-alive>
           <!--</transition>-->
           <!-- 可以设置参数来判断哪些需要重新装载 哪些不需要
@@ -122,7 +122,7 @@
           <router-view v-if="!$route.meta.keepAlive"></router-view>
           -->
         </div>
-        <EuiFooter></EuiFooter>
+        <EuiFooter v-show="false"></EuiFooter>
       </div>
     </div>
   </div>
@@ -436,7 +436,6 @@ export default {
   .main-container {
     //margin-top: 50px;
     padding: 6px;
-    min-height: calc(~"100vh - 101px");
   }
 }
 
