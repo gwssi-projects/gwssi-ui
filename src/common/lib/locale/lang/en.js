@@ -15,7 +15,10 @@ exports.default = {
       info: "by vue + elementUI 2.3.4",
       base: "base UI+components",
       iptrm: "iptrm2 LIB",
-      protal: "VUE protal"
+      protal: "VUE protal",
+      warning: "warning",
+      github: "github https://github.com/gwssi-projects/gwssi-ui/tree/1.x version 1.x"
+
     },
     tips: {
       lang: "Choose language",

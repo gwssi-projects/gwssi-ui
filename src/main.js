@@ -5,6 +5,9 @@ import 'element-ui/lib/theme-chalk/index.css'
 import Css from './main.less';
 import Main from './main.vue'
 import Lang from './common/components/select-lang'
+import '../static/font_810232/iconfont.css'
+import '../static/font_810232/iconfont.js'
+
 
 Vue.use(ElementUI)
 //Vue.js 的插件应当有一个公开方法 install, Vue.use会执行对应的install方法。

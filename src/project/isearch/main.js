@@ -2,6 +2,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 import 'element-ui/lib/theme-chalk/reset.css'
 //字体图标 http://www.iconfont.cn/
 import '../../../static/font_810232/iconfont.css'
+import '../../../static/font_810232/iconfont.js'
 import Css from './main.less';
 import Icon from '@appPortal/fonts/css/font-awesome.min.css';
 
