@@ -271,6 +271,37 @@ const routes = [
           import( /* webpackChunkName: "project/portal/page/personal" */ '../page/personal/Index.vue')
       },
 
+      //iframe
+      {
+        path: '/iframe1',
+        name: 'iframe1',
+        props: {
+          url: "http://www.baidu.com"
+        },
+        meta: {
+          title: '直接嵌入',
+          permisson: ['user'],
+          requireAuth: true
+        },
+        component: () =>
+          import( /* webpackChunkName: "project/portal/page/iframe" */ '@appPortal/page/iframe/index.vue')
+      },
+
+      //通过参数绑定路由对象参数
+      {
+        path: '/iframe2/:url/:routerTitle',
+        name: 'iframe2',
+        meta: {
+          //使用beforeEach事件来更改title的值
+          title: ':routerTitle',
+          permisson: ['user'],
+          requireAuth: true
+        },
+        component: () =>
+          import( /* webpackChunkName: "project/portal/page/iframe2" */ '@appPortal/page/iframe/index2.vue')
+      },
+
+
       //这样就配置了其它页面都是404了
       {
         path: '/*',
@@ -334,6 +365,12 @@ function noAuth(logStr, titleStr, messageStr) {
 
 
 router.beforeEach((to, from, next) => {
+
+  //通过url参数来更改路由标签页的标题
+  var routerTitle = to.params.routerTitle;
+  if (routerTitle != null && routerTitle != "") {
+    to.meta.title = routerTitle;
+  }
 
   //需要判断权限
   if (to.matched.some(record => record.meta.requireAuth)) {

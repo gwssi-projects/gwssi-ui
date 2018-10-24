@@ -20,10 +20,10 @@
           <a href="project/base/#login" target="_blank">{{ $t('gwssi.introduction.base') }}</a>
         </p>
         <p>
-          <a href="#">{{ $t('gwssi.introduction.iptrm') }}</a>
+          <a href="project/portal/#/login" target="_blank">{{ $t('gwssi.introduction.protal') }}</a>
         </p>
         <p>
-          <a href="#">{{ $t('gwssi.introduction.protal') }}</a>
+          <a href="project/isearch/#/login" target="_blank">isearch</a>
         </p>
         <p>......</p>
       </div>
@@ -34,8 +34,8 @@
 
 <script>
 export default {
-  mounted : function () {
-    console.log(i18n.t('gwssi.title.gwssi'));
+  mounted: function() {
+    console.log(i18n.t("gwssi.title.gwssi"));
   },
   methods: {},
   data() {
@@ -45,7 +45,7 @@ export default {
   },
   metaInfo: {
     //标题国际化
-    title: i18n.t('gwssi.title.gwssi')
+    title: i18n.t("gwssi.title.gwssi")
     //标题模版
     //titleTemplate: "%s - by vue-meta",
     //html标签中 增加 <html data-vue-meta="lang" lang="zh">

@@ -27,8 +27,8 @@ console.log("当前domain：" + process.env.DOMAIN);
 console.log("当前path：" + process.env.REQUEST_PATH);
 console.log("当前首页：" + process.env.GW_INDEX);
 
-//跳转首页
-if (process.env.GW_INDEX == null || process.env.GW_INDEX == "" || process.env.GW_INDEX == "base") {
+//跳转首页 配置话就遍历需要加上双引号 比如 "base"
+if (process.env.GW_INDEX == "base") {
   window.location.href = "./project/base/";
 } else if (process.env.GW_INDEX == "portal") {
   window.location.href = "./project/portal/";

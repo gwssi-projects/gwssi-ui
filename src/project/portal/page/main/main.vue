@@ -10,8 +10,8 @@
       </span>
       <div class="right">
 
-        <span class="header-btn">
-          <gw-color-picker class="btn-color-picker" style="padding-top: 11px" size="mini" @colorChange="colorChange" @activeChange="activeChange" :obj='themeObj'></gw-color-picker>
+        <span class="header-btn btn-color-picker">
+          <gw-color-picker style="padding-top: 11px" size="mini" @colorChange="colorChange" @activeChange="activeChange" :obj='themeObj'></gw-color-picker>
         </span>
 
         <span class="header-btn" @click="screenfullToggle">
@@ -23,14 +23,26 @@
             <i class="el-icon-setting"></i>
           </span>
           <el-dropdown-menu slot="dropdown">
-            <div style="padding: 10px;text-align: center;width: 420px">
+            <div style="padding: 10px; width: 500px">
               <div class="setting-category">
-                <el-switch @change="saveSwitchTabBarVal" v-model="switchTabBar" active-text="开启TabBar" inactive-text="关闭TabBar">
-                </el-switch>
-                <el-switch @change="saveFixedTabBar" v-if="switchTabBar" v-model="fixedTabBar" style="margin-top: 10px" active-text="固定在顶部" inactive-text="随页面滚动">
-                </el-switch>
-                <el-alert v-if="switchTabBar" style="margin-top: 10px" title="导航标签超过容器时,可在导航上滚动鼠标来移动标签" type="info" show-icon>
-                </el-alert>
+
+                <el-row>
+                  <el-col :span="10" :offset="1">
+                    <el-switch @change="saveSwitchTabBarVal" v-model="switchTabBar" active-text="开启TabBar" inactive-text="关闭TabBar">
+                    </el-switch>
+                  </el-col>
+
+                  <el-col :span="2" style=" text-align: center; ">
+                    <b>|</b>
+                  </el-col>
+
+                  <el-col :span="10">
+                    <el-switch @change="saveFixedTabBar" :disabled="!switchTabBar" v-model="fixedTabBar" active-text="固定在顶部" inactive-text="随页面滚动">
+                    </el-switch>
+                  </el-col>
+                </el-row>
+
+                <el-alert style="margin-top: 10px" title="导航标签超过容器时,可在导航上滚动鼠标来移动标签" type="info" show-icon></el-alert>
               </div>
 
               <!--<div class="setting-category">-->
@@ -508,5 +520,9 @@ export default {
 .setting-category {
   padding: 10px 0;
   border-bottom: 1px solid #eee;
+}
+.btn-hiddenSidebar, .btn-color-picker {
+  z-index: 100004 !important;
+  position: relative !important;
 }
 </style>
