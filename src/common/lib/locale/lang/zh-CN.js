@@ -12,10 +12,10 @@ exports.default = {
     },
     introduction: {
       introduction: "简介",
-      info: "基于 vue + elementUI 2.3.4（开发环境NodeJS版本 >= 6）构建，本实例项目包含以下部分，供开发人员参考并构建自己的项目：",
-      base: "基础应用及组件库",
+      info: "基于 vue + elementUI 2.3.4（开发环境NodeJS版本 >= 6）构建，本实例供开发人员参考并构建自己的项目。",
+      base: "基础应用及权限管理",
       iptrm: "西安军民融合大数据中心二期自建库项目",
-      protal: "基于VUE的新版PORTAL架构"
+      protal: "基于VUE和ELEMENT的PORTAL框架"
     },
     tips: {
       lang: "请选择语言",
