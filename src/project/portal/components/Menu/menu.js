@@ -122,7 +122,7 @@ iframe.iframe1 = {
 };
 iframe.iframe2 = {
   name: 'url传参及改变标题',
-  path: '/iframe2/http%3a%2F%2Fisearch.link%2Fui%2Fclusterm.html%3Furl%3Des2-elasticsearch-master.isearch%3A9300%26clusterName%3Delasticsearch%26url_http%3Des2-elasticsearch-master.isearch%3A9200/elasticsearch 集群信息',
+  path: '/iframe2/https%3a%2F%2Fisearch.link%2Fui%2Fclusterm.html%3Furl%3Des2-elasticsearch-master.isearch%3A9300%26clusterName%3Delasticsearch%26url_http%3Des2-elasticsearch-master.isearch%3A9200/elasticsearch 集群信息',
 };
 
 

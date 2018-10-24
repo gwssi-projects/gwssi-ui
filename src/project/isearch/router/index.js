@@ -334,6 +334,16 @@ function noAuth(logStr, titleStr, messageStr) {
 
 router.beforeEach((to, from, next) => {
 
+  //更新一下模拟登录的token
+  //判读是否是生产环境 
+  if (process.env.NODE_ENV === 'development') {
+    var token = tools.cookies.get(TokenKey);
+
+    if (token != null && token != "") {
+      tools.setCookie(TokenKey, token, 1 / 48, "/");
+    }
+  }
+
   //更改菜单名称
   var menuTitle = to.params.menuTitle;
   if (menuTitle != null && menuTitle != "") {

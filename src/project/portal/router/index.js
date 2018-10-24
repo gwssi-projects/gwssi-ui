@@ -276,7 +276,7 @@ const routes = [
         path: '/iframe1',
         name: 'iframe1',
         props: {
-          url: "http://www.baidu.com"
+          url: "https://www.baidu.com"
         },
         meta: {
           title: '直接嵌入',
@@ -365,6 +365,16 @@ function noAuth(logStr, titleStr, messageStr) {
 
 
 router.beforeEach((to, from, next) => {
+
+  //更新一下模拟登录的token 防止被登出
+  //判读是否是生产环境 
+  if (process.env.NODE_ENV === 'development') {
+    var token = tools.cookies.get(TokenKey);
+
+    if (token != null && token != "") {
+      tools.setCookie(TokenKey, token, 1 / 48, "/");
+    }
+  }
 
   //通过url参数来更改路由标签页的标题
   var routerTitle = to.params.routerTitle;
