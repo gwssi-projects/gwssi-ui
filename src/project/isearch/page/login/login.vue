@@ -2,14 +2,14 @@
 
   <el-container>
 
-    <el-header style="padding: 0px">
+    <el-header style="padding: 0px; height: 80px;">
 
       <div class="container" :style="{ 'border-top-color': storeColor }">
         <el-row>
 
           <el-col :span="6" :offset="2">
-            <img style=" float: left" src="./images/logo.png">
-            <h1 style=" float: left; color: #222222;">ISearch 管理控制台</h1>
+            <img style=" float: left" src="/static/img/title.png">
+            <!-- <h1 style=" float: left; color: #222222;">ISearch 管理控制台</h1> -->
           </el-col>
 
           <el-col v-show="false" :span="2">
@@ -30,9 +30,9 @@
 
       <div class="login-box">
         <div class="logo" :style="{ 'color': storeColor }">
-          <i class="iconfont icon-edit_code"></i>
+          <img src="/static/img/isearch.png" width="80" height="80" title="智能化大数据检索系统" />
         </div>
-        <p class="text-tips-login">欢迎访问大数据检索管理系统-isearch，请系统登录。</p>
+        <p class="text-tips-login">欢迎访问智能化大数据检索系统，请系统登录。</p>
         <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" class="login-form">
           <el-form-item prop="username" :error="usernameErrorMsg">
             <el-input v-model="ruleForm.username" suffix-icon="iconfont icon-icon_wode_mian" :placeholder="$t('gwssi.tips.user')"></el-input>

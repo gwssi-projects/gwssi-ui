@@ -15,7 +15,7 @@ export default {
   name: "isearch",
   metaInfo: {
     //标题国际化
-    title: i18n.t("gwssi.portal.title")
+    title: '智能化大数据检索系统'
   },
   data() {
     return {
