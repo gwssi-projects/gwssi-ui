@@ -15,16 +15,7 @@ import {
 } from '@store/user'
 
 import p404 from '@appPortal/page/common/404'
-
-
 var parseString = require("xml2js").parseString;
-
-
-import api from "@/common/api";
-
-//不能只在login页面设置 可能不直接访问login视图的
-api.gwssi.user.login.url = "https://portal.isearch.link/txn999999.ajax";
-api.gwssi.user.info.url = "https://portal.isearch.link/txn666666.ajax";
 
 
 Vue.use(VueRouter);
