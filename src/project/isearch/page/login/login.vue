@@ -206,7 +206,7 @@ export default {
 
                 //更新用户对象
                 var user = json.context.user;
-                user.user = context.username;
+                user.user = json.context.username;
                 user.status = "0";
                 //没有ID？
                 user.id = "0";
@@ -217,7 +217,7 @@ export default {
                 this.$store.dispatch("updateUserInfo", user);
 
                 //这里更新的是token时间 正常同一个域名下应该由后端统一更新cookie保持一致
-                tools.setCookie(TokenKey, "admin_token", 1 / 48, "/");
+                gwTools.setCookie(TokenKey, "admin_token", 1 / 48, "/");
 
                 //登录protal 记录token为引入iframe
                 this.$emit("loginProtal");

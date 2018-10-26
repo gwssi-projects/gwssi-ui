@@ -17,6 +17,16 @@ import {
 import p404 from '@appPortal/page/common/404'
 
 
+var parseString = require("xml2js").parseString;
+
+
+import api from "@/common/api";
+
+//不能只在login页面设置 可能不直接访问login视图的
+api.gwssi.user.login.url = "https://portal.isearch.link/txn999999.ajax";
+api.gwssi.user.info.url = "https://portal.isearch.link/txn666666.ajax";
+
+
 Vue.use(VueRouter);
 
 var loginPage = '/login';
@@ -331,6 +341,10 @@ function noAuth(logStr, titleStr, messageStr) {
 
 }
 
+function setUserStore() {
+
+
+}
 
 router.beforeEach((to, from, next) => {
 
@@ -345,7 +359,36 @@ router.beforeEach((to, from, next) => {
     }
 
     //访问一下烽火台的获取用户页面 保持会话
-    store.dispatch("getUserInfoPromise", null).then(function (json) {});
+    //并且如果获取不到用户 则设置store为空
+    store.dispatch("getUserInfoPromise", null).then(function (xml) {
+
+
+      var json;
+      
+      parseString(xml.data, function (err, result) {
+        json = result;
+      });
+
+      var errNO = json.context["error-code"];
+      var errDesc = json.context["error-desc"];
+      var user = json.context.user;
+
+      //错误
+      if (errNO != "000000" || user.operName == null || user.operName == "") {
+
+        user.user = "";
+        user.status = "0";
+        user.id = "0";
+        user.name = "";
+        user.roles = [];
+        user.info = {};
+
+        store.dispatch("updateUserInfo", user);
+
+      }
+
+
+    });
 
 
   }
@@ -384,6 +427,8 @@ router.beforeEach((to, from, next) => {
       //   lock: false
       // });
 
+
+
       store.dispatch("getUserInfoPromise", null)
         .then(function (xml) {
 
@@ -405,7 +450,7 @@ router.beforeEach((to, from, next) => {
           }
 
           //更新用户对象
-          var user = json.user;
+          var user = json.context.user;
           user.user = user.operName;
           user.status = "0";
           //没有ID？
