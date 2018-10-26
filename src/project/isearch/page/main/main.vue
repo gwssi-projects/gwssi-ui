@@ -212,6 +212,8 @@ export default {
         type: "warning"
       })
         .then(() => {
+
+          //这里应该调用一下烽火台的退出地址 现在暂时是模拟退出的 只是删除token
           this.$store.dispatch("logOut", {}).then(
             json => {
               this.$store.dispatch("updateUserInfo", {

@@ -65,6 +65,20 @@
 import GwTheme from "@components/theme/";
 import Vue from "vue";
 import request from "@components/request";
+import { encryptedPassword } from "./rsa";
+import api from "@/common/api";
+import { TokenKey } from "@store/user";
+
+var parseString = require("xml2js").parseString;
+var defaults = require("xml2js").defaults;
+//这里不设置解析出来的全是数组
+defaults[0.2].explicitArray = false;
+// console.log('explicitArray' + defaults[0.1].explicitArray + defaults[0.2].explicitArray);
+
+//完全使用protal登录
+//这部分不直接修改api js中的地址是为了其它模块能正常模拟使用，如果是只有一个登录的系统可以直接修改api.js 和 store的 user.js来记录用户信息
+api.gwssi.user.login.url = "https://portal.isearch.link/txn999999.ajax";
+api.gwssi.user.info.url = "https://portal.isearch.link/txn666666.ajax";
 
 Vue.use(GwTheme);
 
@@ -132,16 +146,78 @@ export default {
           this.usernameErrorMsg = "";
           this.passwordErrorMsg = "";
 
+          var pw = encryptedPassword(this.ruleForm.password);
+          console.log("加密后密码" + pw);
+
           this.$store
             .dispatch("login", {
               username: this.ruleForm.username,
-              password: this.ruleForm.password
+              // password: this.ruleForm.password
+              password: pw
             })
             .then(
-              json => {
+              xml => {
                 //更新用户
-                //判断用户密码
-                this.$store.dispatch("updateUserInfo", json.data.content);
+                this.loginBtnLoading = false;
+
+                //烽火台的用户对象
+                // <?xml version="1.0" encoding="UTF-8"?>
+                // <context>
+                // <error-code>TXN102</error-code>
+                // <error-desc>错误代码[TXN102] ==&gt; 读取用户信息时错误，用户不存在</error-desc>
+                // <flowno>12AQ0T7DGR0100C8</flowno>
+                // </context>
+
+                // <context><error-code>000000</error-code><flowno>12AQ0T94900100CA</flowno><username>sa</username><multiuser/>
+                // <password>UUN09T4pou2+=</password><validatecode/>
+                // <user><username/><operName>sa</operName><fullName>管理员</fullName><roleList>10BN0DACUT0103FC</roleList></user></context>
+
+                // {"context":{"error-code":"TXN102","error-desc":"错误代码[TXN102] ==> 读取用户信息时错误，用户不存在","flowno":"12AQ0UHSAU0100DF"}}
+                // {"context":{"error-code":"000000","flowno":"12AQ0UJEV80100E1","username":"sa","multiuser":"","password":"+/KDs+/e1z6u2+=","validatecode":"",
+                //"user":{"username":"","operName":"sa","fullName":"管理员","roleList":"10BN0DACUT0103FC"}}}
+
+                var json;
+
+                parseString(xml.data, function(err, result) {
+                  console.log(JSON.stringify(result));
+                  json = result;
+                });
+
+                var errNO = json.context["error-code"];
+                var errDesc = json.context["error-desc"];
+
+                if (errNO == "TXN102") {
+                  this.usernameErrorMsg = i18n.t("gwssi.portal.nouser");
+                }
+
+                if (errNO == "TXN103") {
+                  this.passwordErrorMsg = i18n.t("gwssi.portal.passwordError");
+                }
+
+                //其它错误
+                if (errNO != "000000") {
+                  this.$notify({
+                    title: "登录发生错误",
+                    type: "error",
+                    message: errNO + " - " + errDesc
+                  });
+                  return;
+                }
+
+                //更新用户对象
+                var user = json.context.user;
+                user.user = context.username;
+                user.status = "0";
+                //没有ID？
+                user.id = "0";
+                user.name = user.fullName;
+                user.roles = ["user", "admin"];
+                user.info = {};
+
+                this.$store.dispatch("updateUserInfo", user);
+
+                //这里更新的是token时间 正常同一个域名下应该由后端统一更新cookie保持一致
+                tools.setCookie(TokenKey, "admin_token", 1 / 48, "/");
 
                 //登录protal 记录token为引入iframe
                 this.$emit("loginProtal");
@@ -152,22 +228,12 @@ export default {
                   type: "success"
                 });
 
-                this.loginBtnLoading = false;
                 this.$router.push("/");
               },
               error => {
                 console.log(i18n.t("gwssi.portal.loginError") + error);
                 //服务器错误
                 this.loginBtnLoading = false;
-
-                var errNO = error.data.errNo;
-                if (errNO == "01") {
-                  this.usernameErrorMsg = i18n.t("gwssi.portal.nouser");
-                }
-
-                if (errNO == "02") {
-                  this.passwordErrorMsg = i18n.t("gwssi.portal.passwordError");
-                }
               }
             );
         } else {

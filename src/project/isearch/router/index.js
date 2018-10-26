@@ -336,12 +336,18 @@ router.beforeEach((to, from, next) => {
 
   //更新一下模拟登录的token
   //判读是否是生产环境 
+  //这两部分应该合并
   if (process.env.NODE_ENV === 'development') {
     var token = tools.cookies.get(TokenKey);
 
     if (token != null && token != "") {
       tools.setCookie(TokenKey, token, 1 / 48, "/");
     }
+
+    //访问一下烽火台的获取用户页面 保持会话
+    store.dispatch("getUserInfoPromise", null).then(function (json) {});
+
+
   }
 
   //更改菜单名称
@@ -379,13 +385,42 @@ router.beforeEach((to, from, next) => {
       // });
 
       store.dispatch("getUserInfoPromise", null)
-        .then(function (json) {
+        .then(function (xml) {
 
-          // loadingInstance.close();
+          var json;
 
-          if (json.data.content != null) {
-            store.dispatch("updateUserInfo", json.data.content);
+          parseString(xml.data, function (err, result) {
+            console.log(JSON.stringify(result));
+            json = result;
+          });
+
+          var errNO = json.context["error-code"];
+          var errDesc = json.context["error-desc"];
+
+          //其它错误
+          if (errNO != "000000") {
+            noAuth('当前用户权限无法访问此页面。', "权限不足", '获取用户发生错误。' + errDesc);
+            next(loginPage)
+            return;
           }
+
+          //更新用户对象
+          var user = json.user;
+          user.user = user.operName;
+          user.status = "0";
+          //没有ID？
+          user.id = "0";
+          user.name = user.fullName;
+          user.roles = ["user", "admin"];
+          user.info = {};
+
+          if (user.user == null || user.user == "") {
+            noAuth('当前用户权限无法访问此页面。', "权限不足", '用户未登录。');
+            next(loginPage)
+            return;
+          }
+
+          store.dispatch("updateUserInfo", user);
 
           if (hasPermission(store.state.user.roles, to.meta.permisson)) {
             next()
