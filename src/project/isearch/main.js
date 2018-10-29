@@ -31,6 +31,7 @@ defaults[0.2].explicitArray = false;
 // console.log('explicitArray' + defaults[0.1].explicitArray + defaults[0.2].explicitArray);
 //完全使用protal登录
 //这部分不直接修改api js中的地址是为了其它模块能正常模拟使用，如果是只有一个登录的系统可以直接修改api.js 和 store的 user.js来记录用户信息
+//去掉这部分即可使用mock的admin admin 登录（login的解析XML也需要修改）
 api.gwssi.user.login.url = "https://portal.isearch.link/txn999999.ajax";
 api.gwssi.user.info.url = "https://portal.isearch.link/txn666666.ajax";
 

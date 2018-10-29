@@ -13,6 +13,26 @@ menu.home = {
   icon: 'fa fa-tachometer',
 };
 
+// 1、集群管理
+//        1、专利库
+//                1、集群信息
+//                 2、数据库管理
+//                 3、节点管理
+//                 4、接入管理
+//                 5、参数管理
+//            2、商标库
+//                  1、集群信息
+//                 2、数据库管理
+//                 3、节点管理
+//                 4、接入管理
+//                  5、参数管理
+
+
+menu.colony = {
+  name: '集群管理',
+  icon: 'iconfont icon-daibanshixiang',
+  children: {}
+}
 
 //异步获取数据
 //需要增加token
@@ -38,13 +58,14 @@ service.then(
           var menuName = esMenu[j].menuName;
           var elastic_icon = "elastic_icon" + j;
 
-          menu[elastic_icon] = {
+          menu.colony.children[elastic_icon] = {
             name: menuName,
             icon: 'iconfont icon-shebeiguanli',
+            path: '',
             children: {}
           };
 
-          let elastic = menu[elastic_icon].children;
+          let elastic = menu.colony.children[elastic_icon].children;
 
           var subMenus = esMenu[j].subMenus;
 
@@ -87,14 +108,34 @@ service.then(
       }
     }
 
+    // 2、系统管理
+    //    1、权限管理
+    //             1、机构管理
+    //              2、用户管理
+    //              3、角色管理
+    //              4、功能管理
+    //      2、菜单管理
+    //      3、数据源
+    //      4、通用查询
 
 
-    menu.auth_icon = {
-      name: '权限管理',
+    //系统管理
+    menu.system = {
+      name: '系统管理',
       icon: 'iconfont icon-daibanshixiang',
       children: {}
+    }
+
+    let system = menu.system.children;
+
+
+    system.auth_icon = {
+      name: '权限管理',
+      icon: 'iconfont icon-yingyongguanli',
+      path: '',
+      children: {}
     };
-    let auth = menu.auth_icon.children;
+    let auth = system.auth_icon.children;
 
     auth.menu1 = {
       name: '机构管理 ',
@@ -114,25 +155,17 @@ service.then(
     };
 
 
-    menu.content_manage = {
-      name: '配置管理',
-      icon: 'iconfont icon-yingyongguanli',
-      children: {}
-    };
-
-    let contentManage = menu.content_manage.children;
-
-    contentManage.menu1 = {
+    system.menu1 = {
       name: '菜单管理',
       path: '/content1',
     };
 
-    contentManage.menu2 = {
+    system.menu2 = {
       name: '数据源管理',
       path: '/content2',
     };
 
-    contentManage.menu3 = {
+    system.menu3 = {
       name: '通用查询管理',
       path: '/content3',
     };

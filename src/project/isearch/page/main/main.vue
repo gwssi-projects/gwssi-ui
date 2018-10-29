@@ -1,17 +1,34 @@
 <template>
   <div class="main">
     <div class="header" :style="{ 'background-color': themeColor} ">
-      <div class="logo" :style="{ 'background-color': sideColor} ">
-        <span class="big"><b><img style="padding: 0px; margin:0px; position: relative; left: 0px; top: 10px;" src="../home/images/logo.png" />&nbsp;&nbsp;&nbsp;ISearch</b></span>
-        <span class="min"><img src="../home/images/logo.png" /></span>
+      <div class="logo">
+        <span class="min"><b><img style="padding: 0px; margin:0px; position: relative; left: 0px; top: 10px;" src="../home/images/logo.png" />&nbsp;&nbsp;&nbsp;iSearch</b></span>
       </div>
+      <!--
       <span v-show="false" class="header-btn" @click="hiddenSidebar">
         <i class="el-icon-menu btn-hiddenSidebar"></i>
       </span>
+      -->
+      <el-menu router text-color="#fff" mode="horizontal" :default-active="$route.path" id="isearchHorizontalMenu" @open="handleOpen" @close="handleClose">
+        <template v-for="(menu_v,menu_k) in menu">
+          <el-submenu v-if="menu_v.children" :index="menu_k" :key="menu_v.path">
+            <template slot="title">
+              <span slot="title">{{ menu_v.name }}</span>
+            </template>
+            <el-menu-item v-for="(menuChildren_v,menuChildren_k) in menu_v.children" :key="menuChildren_k" :index="menuChildren_v.path">
+              <span slot="title">{{ menuChildren_v.name }}</span>
+            </el-menu-item>
+          </el-submenu>
+          <el-menu-item v-else :index="menu_v.path" :key="menu_v.path">
+            <span slot="title">{{ menu_v.name }}</span>
+          </el-menu-item>
+        </template>
+      </el-menu>
+
       <div class="right">
 
         <span class="welcome">
-          {{welcome}}
+          {{welcome}} 你好 {{uName}} !
         </span>
 
         <span v-show="false" class="header-btn">
@@ -50,7 +67,7 @@
             <i class="el-icon-bell"></i>
           </el-badge>
         </span>
-        <el-dropdown>
+        <el-dropdown v-show="false">
           <span class="header-btn">
             {{uName}}
             <i class="el-icon-arrow-down el-icon--right"></i>
@@ -63,7 +80,7 @@
           </el-dropdown-menu>
         </el-dropdown>
 
-        <el-dropdown>
+        <el-dropdown v-show="false">
           <span class="header-btn">
             选择语言
             <i class="el-icon-arrow-down el-icon--right"></i>
@@ -76,12 +93,22 @@
           </el-dropdown-menu>
         </el-dropdown>
 
+        <span class="icon-btn">
+          <i class="icon iconfont icon-icon_zhanghao"></i>
+        </span>
+        <span class="icon-btn">
+          <i class="icon iconfont icon-icon_bangzhuwendang"></i>
+        </span>
+        <span class="icon-btn">
+          <i class="icon iconfont icon-icon_rukou"></i>
+        </span>
+
       </div>
     </div>
     <div class="app">
       <div class="aside">
         <div class="menu">
-          <el-menu router background-color="#373F42" text-color="#fff" :default-active="$route.path" class="menu" @open="handleOpen" @close="handleClose" :collapse="isCollapse">
+          <el-menu router background-color="#42475B" text-color="#fff" :default-active="$route.path" class="menu" @open="handleOpen" @close="handleClose" :collapse="isCollapse">
             <template v-for="(menu_v,menu_k) in menu">
               <el-submenu v-if="menu_v.children" :index="menu_k" :key="menu_v.path">
                 <template slot="title">
@@ -100,7 +127,8 @@
             </template>
           </el-menu>
         </div>
-        <div class="sidebar-toggle" :style="{ 'background-color': sideColor } " @click="sidebarToggle">
+        <!--左侧列表隐藏显示-->
+        <div v-show="false" class="sidebar-toggle" :style="{ 'background-color': sideColor } " @click="sidebarToggle">
           <div class="icon-left">
             <i class="el-icon-back"></i>
           </div>
@@ -137,11 +165,11 @@ import Menu from "../../components/Menu/menu";
 export default {
   data() {
     return {
-      welcome: "今天是 " + gwTools.dateToString(new Date()) + " 欢迎您！",
+      welcome: "今天是 " + gwTools.dateToString(new Date()) + ",",
       themeObj: {},
       fixedTabBar: false,
       switchTabBar: true,
-      isCollapse: false
+      isCollapse: true
     };
   },
 
@@ -212,7 +240,6 @@ export default {
         type: "warning"
       })
         .then(() => {
-
           //这里应该调用一下烽火台的退出地址 现在暂时是模拟退出的 只是删除token
           this.$store.dispatch("logOut", {}).then(
             json => {
@@ -328,6 +355,9 @@ export default {
 };
 </script>
 <style lang="less">
+@headerIconBorder: 1px solid #4c5154;
+@headerIconShadow: 1px 0px 0px #202529;
+
 .sidebar-hidden {
   .header {
     .logo {
@@ -337,10 +367,9 @@ export default {
 
       .min {
         display: block;
-        margin-top: 10px;
       }
 
-      width: 64px;
+      width: 150px;
     }
   }
 
@@ -405,7 +434,8 @@ export default {
 
     .menu {
       overflow-y: auto;
-      height: calc(~"100vh - 100px");
+      // height: calc(~"100vh - 100px");
+      height: calc(~"100vh");
     }
 
     .sidebar-toggle {
@@ -450,7 +480,11 @@ export default {
 
   .logo {
     .min {
-      display: none;
+      overflow: hidden;
+      height: 50px;
+      display: inline-block;
+      border-right: @headerIconBorder;
+      box-shadow: @headerIconShadow;
     }
 
     width: 230px;
@@ -458,8 +492,6 @@ export default {
     text-align: center;
     line-height: 50px;
     color: #fff;
-    -webkit-transition: width 0.35s;
-    transition: all 0.3s ease-in-out;
   }
 
   .right {
@@ -514,18 +546,33 @@ export default {
     display: inline-block;
     text-align: center;
     line-height: 50px;
+    padding: 0 14px;
+    color: #fff;
+    border-right: @headerIconBorder;
+    box-shadow: @headerIconShadow;
+  }
+
+  .icon-btn {
+    overflow: hidden;
+    height: 50px;
+    display: inline-block;
+    text-align: center;
+    line-height: 50px;
     cursor: pointer;
     padding: 0 14px;
     color: #fff;
+    border-right: @headerIconBorder;
+    box-shadow: @headerIconShadow;
+    margin: 0px;
+  }
+
+  .icon-btn:hover {
+    background-color: #212528;
   }
 }
 
 .menu {
   border-right: none;
-}
-
-.menu .el-menu-item.is-active {
-  color: #00acd9;
 }
 
 .el-menu--vertical {
@@ -535,5 +582,39 @@ export default {
 .setting-category {
   padding: 10px 0;
   border-bottom: 1px solid #eee;
+}
+
+#isearchHorizontalMenu {
+  margin-left: 2px;
+  width: auto;
+  height: 50px;
+  background-color: rgb(55, 63, 66);
+}
+
+#isearchHorizontalMenu .el-menu-item {
+  height: 50px;
+  line-height: 50px;
+}
+#isearchHorizontalMenu .el-menu-item.is-active {
+  border-bottom: 0px;
+}
+#isearchHorizontalMenu li {
+  border-right: @headerIconBorder;
+  box-shadow: @headerIconShadow;
+}
+
+#isearchHorizontalMenu .el-menu-item.is-active {
+  color: #fff;
+}
+#isearchHorizontalMenu .el-submenu {
+  height: 50px;
+  line-height: 50px;
+}
+#isearchHorizontalMenu .el-submenu__title:hover, #isearchHorizontalMenu .el-menu-item:hover  {
+  background-color: #212528;
+}
+#isearchHorizontalMenu .el-submenu .el-submenu__title {
+  height: 50px;
+  line-height: 50px;
 }
 </style>
