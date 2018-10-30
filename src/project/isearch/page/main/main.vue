@@ -9,7 +9,7 @@
         <i class="el-icon-menu btn-hiddenSidebar"></i>
       </span>
       -->
-      <el-menu router text-color="#fff" mode="horizontal" :default-active="$route.path" id="isearchHorizontalMenu" @open="handleOpen" @close="handleClose">
+      <el-menu router background-color="#373F42" text-color="#fff" active-text-color="#fff" mode="horizontal" :default-active="routePath" class="isearchHorizontalMenu" id="isearchHorizontalMenu" @open="handleOpen" @close="handleClose">
         <template v-for="(menu_v,menu_k) in menu">
           <el-submenu v-if="menu_v.children" :index="menu_k" :key="menu_v.path">
             <template slot="title">
@@ -23,14 +23,14 @@
             <span slot="title">{{ menu_v.name }}</span>
           </el-menu-item>
         </template>
+        <el-menu-item v-show="false" index="1">用于隐藏default-active不匹配（没办法自己隐藏）</el-menu-item>
       </el-menu>
 
       <div class="right">
 
-        <span class="welcome">
-          {{welcome}} 你好 {{uName}} !
-        </span>
+        <span class="welcome">{{welcome}} 你好 {{uName}} !</span><span title="个人信息" @click="openPersonal" class="icon-btn"><i class="icon iconfont icon-icon_zhanghao"></i></span><span title="个人信息" @click="openPersonal" class="icon-btn"><i class="icon iconfont icon-icon_bangzhuwendang"></i></span><span title="退出系统" @click="logout" class="icon-btn"><i class="icon iconfont icon-icon_rukou"></i></span>
 
+        <!-- 
         <span v-show="false" class="header-btn">
           <gw-color-picker class="btn-color-picker" style="padding-top: 11px" size="mini" @colorChange="colorChange" @activeChange="activeChange" :obj='themeObj'></gw-color-picker>
         </span>
@@ -53,11 +53,6 @@
                 <el-alert v-if="switchTabBar" style="margin-top: 10px" title="导航标签超过容器时,可在导航上滚动鼠标来移动标签" type="info" show-icon>
                 </el-alert>
               </div>
-
-              <!--<div class="setting-category">-->
-              <!--下个设置块-->
-              <!--</div>-->
-
             </div>
           </el-dropdown-menu>
         </el-dropdown>
@@ -67,6 +62,7 @@
             <i class="el-icon-bell"></i>
           </el-badge>
         </span>
+
         <el-dropdown v-show="false">
           <span class="header-btn">
             {{uName}}
@@ -92,16 +88,7 @@
               <i style="padding-right: 8px" class="fa fa-eercast"></i>英文</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
-
-        <span class="icon-btn">
-          <i class="icon iconfont icon-icon_zhanghao"></i>
-        </span>
-        <span class="icon-btn">
-          <i class="icon iconfont icon-icon_bangzhuwendang"></i>
-        </span>
-        <span class="icon-btn">
-          <i class="icon iconfont icon-icon_rukou"></i>
-        </span>
+        -->
 
       </div>
     </div>
@@ -182,6 +169,11 @@ export default {
 
       return Menu;
     },
+    routePath() {
+      // console.log(this.$route.path);
+      return this.$route.path == "/personal" ? "1" : this.$route.path;
+      // return this.$route.path;
+    },
     themeColor() {
       var color = this.$store.getters.themeColor;
       return "#373F42";
@@ -232,6 +224,17 @@ export default {
       i18n.locale = lang;
       gwI18n.eleLocale(lang);
       this.$store.dispatch("setLanguage", lang);
+    },
+    openPersonal() {
+      // this.$alert(
+      //   '<iframe src="http://localhost:8010/project/isearch/#/personal" style="  width: 100%;  height: 100%;  border: none;" frameborder="0"></iframe>',
+      //   "个人信息",
+      //   {
+      //     dangerouslyUseHTMLString: true,
+      //     customClass: "personalWin"
+      //   }
+      // );
+      this.$router.push("/personal");
     },
     logout() {
       this.$confirm("即将退出系统, 是否继续?", i18n.t("gwssi.tips.tip"), {
@@ -588,33 +591,22 @@ export default {
   margin-left: 2px;
   width: auto;
   height: 50px;
-  background-color: rgb(55, 63, 66);
 }
 
-#isearchHorizontalMenu .el-menu-item {
-  height: 50px;
-  line-height: 50px;
-}
-#isearchHorizontalMenu .el-menu-item.is-active {
-  border-bottom: 0px;
-}
-#isearchHorizontalMenu li {
-  border-right: @headerIconBorder;
-  box-shadow: @headerIconShadow;
-}
-
-#isearchHorizontalMenu .el-menu-item.is-active {
-  color: #fff;
-}
-#isearchHorizontalMenu .el-submenu {
-  height: 50px;
-  line-height: 50px;
-}
-#isearchHorizontalMenu .el-submenu__title:hover, #isearchHorizontalMenu .el-menu-item:hover  {
-  background-color: #212528;
-}
+#isearchHorizontalMenu .el-menu-item,
+#isearchHorizontalMenu .el-submenu,
 #isearchHorizontalMenu .el-submenu .el-submenu__title {
   height: 50px;
   line-height: 50px;
 }
+
+#isearchHorizontalMenu .el-submenu.is-active .el-submenu__title,
+#isearchHorizontalMenu .el-menu-item.is-active {
+  border-bottom: solid 2px #fff;
+}
+
+.isearchHorizontalMenu .el-menu-item:hover {
+  background-color: #212528;
+ }
+
 </style>
