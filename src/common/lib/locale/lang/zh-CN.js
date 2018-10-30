@@ -17,7 +17,8 @@ exports.default = {
       iptrm: "西安军民融合大数据中心二期自建库项目",
       protal: "基于VUE和ELEMENT的PORTAL框架",
       warning: "注意：因为共用cookie，如果访问了isearch，自定义颜色会被切换回浅蓝色。",
-      github: "项目github地址 https://github.com/gwssi-projects/gwssi-ui/tree/1.x 当前版本 1.x"
+      github: "项目github地址 https://github.com/gwssi-projects/gwssi-ui/tree/1.x 当前版本 1.x",
+      isearchMenu: "横向菜单实例"
     },
     tips: {
       lang: "请选择语言",

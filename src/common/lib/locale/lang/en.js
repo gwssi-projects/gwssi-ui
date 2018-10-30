@@ -17,7 +17,8 @@ exports.default = {
       iptrm: "iptrm2 LIB",
       protal: "VUE protal",
       warning: "warning",
-      github: "github https://github.com/gwssi-projects/gwssi-ui/tree/1.x version 1.x"
+      github: "github https://github.com/gwssi-projects/gwssi-ui/tree/1.x version 1.x",
+      isearchMenu: "horizontal menu"
 
     },
     tips: {

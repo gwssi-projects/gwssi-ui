@@ -10,20 +10,44 @@
       </span>
       -->
       <el-menu router background-color="#373F42" text-color="#fff" active-text-color="#fff" mode="horizontal" :default-active="routePath" class="isearchHorizontalMenu" id="isearchHorizontalMenu" @open="handleOpen" @close="handleClose">
+
         <template v-for="(menu_v,menu_k) in menu">
-          <el-submenu v-if="menu_v.children" :index="menu_k" :key="menu_v.path">
+
+          <el-submenu v-if="menu_v.children" :index="'menu' + menu_k" :key="'menu' + menu_k">
+
             <template slot="title">
               <span slot="title">{{ menu_v.name }}</span>
             </template>
-            <el-menu-item v-for="(menuChildren_v,menuChildren_k) in menu_v.children" :key="menuChildren_k" :index="menuChildren_v.path">
-              <span slot="title">{{ menuChildren_v.name }}</span>
-            </el-menu-item>
+
+            <template v-for="(menuChildren_v,menuChildren_k) in menu_v.children">
+
+              <el-submenu v-if="menuChildren_v.children" :index="'children1' + menuChildren_k" :key="'children1' + menuChildren_k">
+
+                <template slot="title">
+                  <span slot="title">{{ menuChildren_v.name }}</span>
+                </template>
+
+                <el-menu-item v-for="(menuChildren2_v) in menuChildren_v.children" :key="menuChildren2_v.path" :index="menuChildren2_v.path">
+                  <span slot="title">{{ menuChildren2_v.name }}</span>
+                </el-menu-item>
+
+              </el-submenu>
+
+              <el-menu-item v-else :index="menuChildren_v.path" :key="menuChildren_v.path">
+                <span slot="title">{{ menuChildren_v.name }}</span>
+              </el-menu-item>
+
+            </template>
+
           </el-submenu>
+
           <el-menu-item v-else :index="menu_v.path" :key="menu_v.path">
             <span slot="title">{{ menu_v.name }}</span>
           </el-menu-item>
+
         </template>
-        <el-menu-item v-show="false" index="1">用于隐藏default-active不匹配（没办法自己隐藏）</el-menu-item>
+
+        <el-menu-item v-show="false" index="1">用于隐藏default-active不匹配（没办法自己隐藏??）</el-menu-item>
       </el-menu>
 
       <div class="right">
@@ -95,30 +119,14 @@
     <div class="app">
       <div class="aside">
         <div class="menu">
-          <el-menu router background-color="#42475B" text-color="#fff" :default-active="$route.path" class="menu" @open="handleOpen" @close="handleClose" :collapse="isCollapse">
-            <template v-for="(menu_v,menu_k) in menu">
-              <el-submenu v-if="menu_v.children" :index="menu_k" :key="menu_v.path">
-                <template slot="title">
-                  <i :class="menu_v.icon"></i>
-                  <span slot="title">{{ menu_v.name }}</span>
-                </template>
-                <el-menu-item v-for="(menuChildren_v,menuChildren_k) in menu_v.children" :key="menuChildren_k" :index="menuChildren_v.path">
-                  <i class="is-children fa fa-circle-o"></i>
-                  <span slot="title">{{ menuChildren_v.name }}</span>
-                </el-menu-item>
-              </el-submenu>
-              <el-menu-item v-else :index="menu_v.path" :key="menu_v.path">
+          <el-menu router background-color="#42475B" text-color="#fff" :default-active="$route.path" class="sidebarMenu" @open="handleOpen" @close="handleClose" :collapse="isCollapse">
+            <template v-for="(menu_v) in sideMenu">
+              <el-menu-item :index="menu_v.path" :key="menu_v.path">
                 <i :class="menu_v.icon"></i>
                 <span slot="title">{{ menu_v.name }}</span>
               </el-menu-item>
             </template>
           </el-menu>
-        </div>
-        <!--左侧列表隐藏显示-->
-        <div v-show="false" class="sidebar-toggle" :style="{ 'background-color': sideColor } " @click="sidebarToggle">
-          <div class="icon-left">
-            <i class="el-icon-back"></i>
-          </div>
         </div>
       </div>
       <div class="app-body">
@@ -148,6 +156,7 @@ import Screenfull from "screenfull";
 import EuiFooter from "../layout/Footer.vue";
 import NavBar from "../layout/NavBar.vue";
 import Menu from "../../components/Menu/menu";
+import { sidebarMenu } from "../../components/Menu/menu";
 
 export default {
   data() {
@@ -161,6 +170,9 @@ export default {
   },
 
   computed: {
+    sideMenu() {
+      return sidebarMenu;
+    },
     menu() {
       //必须使用computed来监听菜单更改
 
@@ -432,7 +444,7 @@ export default {
     position: fixed;
     margin-top: 50px;
     z-index: 10;
-    background-color: #222d32;
+    background-color: #42475b;
     transition: all 0.3s ease-in-out;
 
     .menu {
@@ -594,6 +606,13 @@ export default {
 }
 
 #isearchHorizontalMenu .el-menu-item,
+#isearchHorizontalMenu .el-submenu {
+  border-right: @headerIconBorder;
+  box-shadow: @headerIconShadow;
+  margin-left: 1px;
+}
+
+#isearchHorizontalMenu .el-menu-item,
 #isearchHorizontalMenu .el-submenu,
 #isearchHorizontalMenu .el-submenu .el-submenu__title {
   height: 50px;
@@ -602,11 +621,15 @@ export default {
 
 #isearchHorizontalMenu .el-submenu.is-active .el-submenu__title,
 #isearchHorizontalMenu .el-menu-item.is-active {
-  border-bottom: solid 2px #fff;
+  /**这部分颜色在组件中设置了字体颜色就不生效了**/
+  border-bottom: solid 2px #212528;
 }
 
 .isearchHorizontalMenu .el-menu-item:hover {
   background-color: #212528;
- }
+}
 
+.sidebarMenu {
+  border-right: none;
+}
 </style>

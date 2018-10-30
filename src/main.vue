@@ -17,7 +17,7 @@
 
       <el-tag type="info" color="#fff"><a href="project/base/#login" target="_blank">{{ $t('gwssi.introduction.base') }}</a></el-tag>
       <el-tag type="info" color="#fff"><a href="project/portal/#/login" target="_blank">{{ $t('gwssi.introduction.protal') }}</a></el-tag>
-      <el-tag type="info" color="#fff"><a href="project/isearch/#/login" target="_blank">ISEARCH</a></el-tag>
+      <el-tag type="info" color="#fff"><a href="project/isearch/#/login" target="_blank">ISEARCH({{ $t('gwssi.introduction.isearchMenu') }})</a></el-tag>
 
       <p>......</p>
 

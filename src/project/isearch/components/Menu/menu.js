@@ -31,6 +31,7 @@ menu.home = {
 menu.colony = {
   name: '集群管理',
   icon: 'iconfont icon-daibanshixiang',
+  path: '',
   children: {}
 }
 
@@ -123,6 +124,7 @@ service.then(
     menu.system = {
       name: '系统管理',
       icon: 'iconfont icon-daibanshixiang',
+      path: '',
       children: {}
     }
 
@@ -188,3 +190,49 @@ service.then(
 // console.log('xhr.send()');
 
 export default menu;
+
+export const sidebarMenu = [
+
+  {
+    name: '机构管理',
+    icon: 'fa fa-eercast',
+    path: '/auth1',
+  },
+
+  {
+    name: '用户管理',
+    icon: 'fa fa-circle',
+    path: '/auth2',
+  },
+
+  {
+    name: '角色管理',
+    icon: 'fa fa-address-book',
+    path: '/auth3',
+  },
+
+  {
+    name: '功能维护',
+    icon: 'fa fa-telegram',
+    path: '/auth4',
+  },
+
+  {
+    name: '菜单管理',
+    icon: 'fa fa-thermometer-full',
+    path: '/content1',
+  },
+
+  {
+    name: '数据源管理',
+    icon: 'fa fa-shower',
+    path: '/content2',
+  },
+
+  {
+    name: '通用查询管理',
+    icon: 'fa fa-etsy',
+    path: '/content3',
+  }
+
+]
