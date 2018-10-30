@@ -34,6 +34,7 @@ defaults[0.2].explicitArray = false;
 //去掉这部分即可使用mock的admin admin 登录（login的解析XML也需要修改）
 api.gwssi.user.login.url = "https://portal.isearch.link/txn999999.ajax";
 api.gwssi.user.info.url = "https://portal.isearch.link/txn666666.ajax";
+api.gwssi.user.logout.url = "https://portal.isearch.link/freeze.main?txn-code=logout";
 
 Vue.use(ElementUI)
 Vue.use(Lang)

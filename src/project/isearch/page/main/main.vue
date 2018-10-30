@@ -157,6 +157,7 @@ import EuiFooter from "../layout/Footer.vue";
 import NavBar from "../layout/NavBar.vue";
 import Menu from "../../components/Menu/menu";
 import { sidebarMenu } from "../../components/Menu/menu";
+import {  TokenKey } from '@store/user'
 
 export default {
   data() {
@@ -255,7 +256,7 @@ export default {
         type: "warning"
       })
         .then(() => {
-          //这里应该调用一下烽火台的退出地址 现在暂时是模拟退出的 只是删除token
+          //这里应该调用一下烽火台的退出地址
           this.$store.dispatch("logOut", {}).then(
             json => {
               this.$store.dispatch("updateUserInfo", {
@@ -272,6 +273,8 @@ export default {
                 message: "已退出统一管理平台",
                 type: "success"
               });
+
+              gwTools.cookies.remove(TokenKey);
 
               this.$router.push("/login");
             },

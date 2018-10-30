@@ -1,4 +1,4 @@
-import tools from "@components/tools";
+import tools from "@components/tools/index";
 import {
   TokenKey
 } from '@store/user'
