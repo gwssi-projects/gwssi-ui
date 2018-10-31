@@ -2,7 +2,7 @@
   <div class="main">
     <div class="header" :style="{ 'background-color': themeColor} ">
       <div class="logo">
-        <span class="min"><b><img style="padding: 0px; margin:0px; position: relative; left: 0px; top: 10px;" src="../home/images/logo.png" />&nbsp;&nbsp;&nbsp;iSearch</b></span>
+        <span class="min"><img style="padding: 0px; margin:0px; position: relative; left: 0px; top: 4px;" src="../home/images/logo42.png" /><b style="font-size:30px; position: relative; left: 10px; top: -5px;">&nbsp;&nbsp;iSearch&nbsp;<span style="font-size:26px;">管理台</span></b></span>
       </div>
       <!--
       <span v-show="false" class="header-btn" @click="hiddenSidebar">
@@ -119,13 +119,14 @@
     <div class="app">
       <div class="aside">
         <div class="menu">
-          <el-menu router background-color="#42475B" text-color="#fff" :default-active="$route.path" class="sidebarMenu" @open="handleOpen" @close="handleClose" :collapse="isCollapse">
+          <el-menu router background-color="#42475B" text-color="#fff" :default-active="siderRoutePath" class="sidebarMenu" @open="handleOpen" @close="handleClose" :collapse="isCollapse">
             <template v-for="(menu_v) in sideMenu">
               <el-menu-item :index="menu_v.path" :key="menu_v.path">
                 <i :class="menu_v.icon"></i>
                 <span slot="title">{{ menu_v.name }}</span>
               </el-menu-item>
             </template>
+            <el-menu-item v-show="false" index="1">用于隐藏default-active不匹配（没办法自己隐藏??）</el-menu-item>
           </el-menu>
         </div>
       </div>
@@ -157,7 +158,7 @@ import EuiFooter from "../layout/Footer.vue";
 import NavBar from "../layout/NavBar.vue";
 import Menu from "../../components/Menu/menu";
 import { sidebarMenu } from "../../components/Menu/menu";
-import {  TokenKey } from '@store/user'
+import { TokenKey } from "@store/user";
 
 export default {
   data() {
@@ -186,6 +187,18 @@ export default {
       // console.log(this.$route.path);
       return this.$route.path == "/personal" ? "1" : this.$route.path;
       // return this.$route.path;
+    },
+    siderRoutePath() {
+      //对比sidebarMenu返回1
+      var path = this.$route.path;
+
+      for (var i = 0; i < this.sideMenu.length; i++) {
+        if (this.sideMenu[i].path == path) {
+          return path;
+        }
+      }
+
+      return "1";
     },
     themeColor() {
       var color = this.$store.getters.themeColor;
@@ -387,7 +400,8 @@ export default {
         display: block;
       }
 
-      width: 150px;
+      padding-left: 10px;
+      width: 320px;
     }
   }
 
@@ -505,9 +519,8 @@ export default {
       box-shadow: @headerIconShadow;
     }
 
-    width: 230px;
     height: 50px;
-    text-align: center;
+    text-align: left;
     line-height: 50px;
     color: #fff;
   }
@@ -624,16 +637,16 @@ export default {
 #isearchHorizontalMenu .el-submenu .el-submenu__title {
   height: 50px;
   line-height: 50px;
+  /***切换不出现横线***/
+  border-bottom: 0px;
 }
 
 #isearchHorizontalMenu .el-submenu.is-active .el-submenu__title,
 #isearchHorizontalMenu .el-menu-item.is-active {
-  /**这部分颜色在组件中设置了字体颜色就不生效了**/
-  border-bottom: solid 2px #212528;
-}
-
-.isearchHorizontalMenu .el-menu-item:hover {
-  background-color: #212528;
+  /***激活不出现横线***/
+  border-bottom: 0px;
+  /**这部分颜色在组件中设置了字体颜色 需要使用!important覆盖**/
+  background-color: #212528 !important;
 }
 
 .sidebarMenu {
