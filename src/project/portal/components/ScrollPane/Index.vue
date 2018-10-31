@@ -62,7 +62,7 @@
 
 <style lang="less" scoped>
   .scroll-container {
-    cursor: ew-resize;
+    /** cursor: ew-resize; **/
     white-space: nowrap;
     position: relative;
     overflow: hidden;
