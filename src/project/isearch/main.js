@@ -45,6 +45,9 @@ Vue.use(GwTheme);
 Vue.prototype.$Config = Config
 Vue.prototype.$Func = Fun
 
+// 注册全局对象
+window.isearchRouter = router;
+
 new Vue({
   i18n,
   store,
