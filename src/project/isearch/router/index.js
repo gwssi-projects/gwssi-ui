@@ -4,6 +4,11 @@ import VueRouter from 'vue-router'
 import {
   Notification
 } from 'element-ui'
+
+import {
+  Message
+} from 'element-ui'
+
 import {
   Loading
 } from 'element-ui'
@@ -324,8 +329,13 @@ function noAuth(logStr, titleStr, messageStr) {
 
   console.log(logStr);
 
-  Notification({
-    title: titleStr,
+  // Notification({
+  //   title: titleStr,
+  //   type: 'error',
+  //   message: messageStr
+  // });
+
+  Message({
     type: 'error',
     message: messageStr
   });
@@ -355,7 +365,7 @@ router.beforeEach((to, from, next) => {
 
 
       var json;
-      
+
       parseString(xml.data, function (err, result) {
         json = result;
       });

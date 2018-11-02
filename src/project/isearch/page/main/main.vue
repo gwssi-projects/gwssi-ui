@@ -281,10 +281,15 @@ export default {
                 info: {}
               });
 
-              this.$notify({
+              // this.$notify({
+              //   title: "登出成功",
+              //   message: "已退出统一管理平台",
+              //   type: "success"
+              // });
+
+              this.$message({
                 title: "登出成功",
-                message: "已退出统一管理平台",
-                type: "success"
+                message: "已退出统一管理平台"
               });
 
               gwTools.cookies.remove(TokenKey);

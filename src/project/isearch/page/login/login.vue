@@ -186,11 +186,16 @@ export default {
 
                 //其它错误
                 if (errNO != "000000") {
-                  this.$notify({
-                    title: "登录发生错误",
+                  this.$message({
                     type: "error",
                     message: errNO + " - " + errDesc
                   });
+
+                  // this.$notify({
+                  //   title: "登录发生错误",
+                  //   type: "error",
+                  //   message: errNO + " - " + errDesc
+                  // });
                   return;
                 }
 
@@ -212,11 +217,16 @@ export default {
                 //登录protal 记录token为引入iframe
                 this.$emit("loginProtal");
 
-                this.$notify({
-                  title: i18n.t("gwssi.portal.loginSuccess"),
+                this.$message({
                   message: i18n.t("gwssi.portal.welcome"),
                   type: "success"
                 });
+
+                // this.$notify({
+                //   title: i18n.t("gwssi.portal.loginSuccess"),
+                //   message: i18n.t("gwssi.portal.welcome"),
+                //   type: "success"
+                // });
 
                 this.$router.push("/");
               },
