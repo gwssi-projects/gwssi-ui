@@ -26,11 +26,12 @@
 
     </el-header>
 
-    <el-main id="app-main" :style="{ 'background-color': storeColor }">
+    <el-main id="app-main" :style="{ 'background-color': '#16596c' , 'height' : (clientHeight-200) + 'px' }">
 
-      <div class="login-box">
+      <div class="login-box" :style="{'top' : loginTop + 'px'}">
         <div class="logo" :style="{ 'color': storeColor }">
-          <img src="/static/img/isearch.png" width="80" height="80" title="智能化大数据检索系统" />
+          <i class="iconfont icon-shenfenzheng" title="请登录"></i>
+          <!--<img src="/static/img/isearch.png" width="80" height="80" title="智能化大数据检索系统" />-->
         </div>
         <p class="text-tips-login">欢迎访问智能化大数据检索系统，请系统登录。</p>
         <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" class="login-form">
@@ -75,6 +76,15 @@ Vue.use(GwTheme);
 export default {
   name: "login",
 
+  mounted() {
+    this.fullHeight();
+    window.onresize = () => {
+      return (() => {
+        this.fullHeight();
+      })();
+    };
+  },
+
   computed: {
     storeColor() {
       var color = this.$store.getters.themeColor;
@@ -92,8 +102,13 @@ export default {
     // }
   },
 
+  watch: {
+    clientHeight: function() {}
+  },
   data() {
     return {
+      clientHeight: "",
+      loginTop: "",
       badgeHidden: false,
       themeObj: {},
       ruleForm: {
@@ -127,7 +142,12 @@ export default {
       this.badgeHidden = true;
     },
     activeChange(color) {},
+    fullHeight() {
+      window.fullHeight = document.documentElement.clientHeight;
+      this.clientHeight = window.fullHeight;
 
+      this.loginTop = (this.clientHeight - 310) / 2 -50;
+    },
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
@@ -303,8 +323,21 @@ export default {
 }
 
 #app-main {
-  background: url(./images/ne_loginbg.png) left center#145A6F no-repeat;
+  background: url(./images/ne_loginbg.png) left center#16596c no-repeat;
+  background-size: cover;
   margin-top: 20px;
   height: 410px;
+}
+.icon-shenfenzheng {
+  font-size: 66px;
+  color: #a0ceff;
+  margin-top: 10px;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 </style>
