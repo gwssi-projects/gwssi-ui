@@ -33,6 +33,10 @@ const login = () =>
 const main = () =>
   import( /* webpackChunkName: "project/isearch/page/main" */ '../page/main/main.vue')
 
+//用于测试
+const demo1 = r => require.ensure([], () => r(require('../page/personal/Index.vue')), 'page/demo1')
+
+
 var domain = "https://portal.isearch.link/";
 var uiDomain = "https://isearch.link/";
 
@@ -86,7 +90,7 @@ const routes = [
           requireAuth: true
         },
         component: () =>
-          import( /* webpackChunkName: "project/portal/page/personal" */ '../page/personal/Index.vue')
+          import( /* webpackChunkName: "project/isearch/page/personal" */ '../page/personal/Index.vue')
       },
 
       //权限管理
