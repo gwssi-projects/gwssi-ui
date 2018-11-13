@@ -39,6 +39,10 @@ const comAuth = () =>
   import( /* webpackChunkName: "project/base/page/comAuth" */ '../page/comAuth')
 
 
+//异步路由还可以使用 
+//上述的import方法需要使用 异步路由插件 syntax-dynamic-import？？
+//const test1 = r => require.ensure([], () => r(require('../page/test1')), 'page/test1')
+
 Vue.use(VueRouter);
 
 //无权限跳转地址
