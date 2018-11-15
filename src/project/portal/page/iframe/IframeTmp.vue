@@ -20,7 +20,7 @@ export default {
     // console.log("mounted + url=" + this.url);
   },
   activated: function() {
-    console.log("activated + url=" + this.url);
+    console.log("activated + url=" + this.url); 
     //通知父页面URL更新
     if (this.url != null && this.url != "") {
       this.$emit("iframeChange", this.url);

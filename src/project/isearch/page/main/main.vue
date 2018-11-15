@@ -161,7 +161,7 @@ import NavBar from "../layout/NavBar.vue";
 import Menu from "../../components/Menu/menu";
 import { sidebarMenu } from "../../components/Menu/menu";
 import { TokenKey } from "@store/user";
-import IframeTabs from "@appPortal/page/iframe/iframeTabs.vue";
+import IframeTabs from "@appPortal/page/iframe/IframeTabs.vue";
 
 export default {
   data() {

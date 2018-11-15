@@ -28,7 +28,7 @@ export default {
     console.log("activated + url=" + this.url);
     //通知父页面URL更新
     if (this.url != null && this.url != "") {
-      this.$emit("iframeChange", this.uiDomain + this.url);
+      this.$emit("iframeChange", this.uiDomain + this.url); 
     }
   },
   updated: function() {

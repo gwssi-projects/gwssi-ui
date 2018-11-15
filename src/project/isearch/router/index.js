@@ -39,8 +39,8 @@ const demo1 = r => require.ensure([], () => r(require('../page/personal/Index.vu
 // const iframe = () => import( /* webpackChunkName: "project/portal/page/iframe" */ '@appPortal/page/iframe/index.vue');
 // const iframe2 = () => import( /* webpackChunkName: "project/portal/page/iframe2" */ '@appPortal/page/iframe/index2.vue');
 
-const iframe = () => import( /* webpackChunkName: "project/portal/page/iframeTmp" */ '@appPortal/page/iframe/iframeTmp.vue');
-const iframe2 = () => import( /* webpackChunkName: "project/portal/page/iframeTmp2" */ '@appPortal/page/iframe/iframeTmp2.vue');
+const iframe = () => import( /* webpackChunkName: "project/portal/page/iframeTmp" */ '@appPortal/page/iframe/IframeTmp.vue');
+const iframe2 = () => import( /* webpackChunkName: "project/portal/page/iframeTmp2" */ '@appPortal/page/iframe/IframeTmp2.vue');
 
 
 var domain = "https://portal.isearch.link/";
