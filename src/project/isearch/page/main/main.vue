@@ -250,7 +250,7 @@ export default {
       if (path != null && path != "") {
         console.log("closeSelectedTag" + path);
         //获取路由对应url
-       // this.$refs.iframeTabs.removeTab(url);
+       this.$refs.iframeTabs.removeTab(url);
       }
     },
     iframeChange(url) {
