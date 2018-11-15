@@ -35,6 +35,12 @@ const main = () =>
 
 //用于测试
 const demo1 = r => require.ensure([], () => r(require('../page/personal/Index.vue')), 'page/demo1')
+//切换会刷新
+// const iframe = () => import( /* webpackChunkName: "project/portal/page/iframe" */ '@appPortal/page/iframe/index.vue');
+// const iframe2 = () => import( /* webpackChunkName: "project/portal/page/iframe2" */ '@appPortal/page/iframe/index2.vue');
+
+const iframe = () => import( /* webpackChunkName: "project/portal/page/iframe" */ '@appPortal/page/iframe/iframeTmp.vue');
+const iframe2 = () => import( /* webpackChunkName: "project/portal/page/iframe2" */ '@appPortal/page/iframe/iframeTmp2.vue');
 
 
 var domain = "https://portal.isearch.link/";
@@ -74,10 +80,10 @@ const routes = [
         meta: {
           title: '首页',
           permisson: ['user'],
-          requireAuth: true
+          requireAuth: true,
+          iframe:true
         },
-        component: () =>
-          import( /* webpackChunkName: "project/portal/page/iframe" */ '@appPortal/page/iframe/index.vue')
+        component: iframe
       },
 
       //个人中心
@@ -103,12 +109,11 @@ const routes = [
         meta: {
           title: '机构管理',
           permisson: ['user'],
-          requireAuth: true
+          requireAuth: true,
+          iframe:true
         },
-        component: () =>
-          import( /* webpackChunkName: "project/portal/page/iframe" */ '@appPortal/page/iframe/index.vue')
+        component: iframe
       },
-
 
       {
         path: '/auth2',
@@ -119,10 +124,10 @@ const routes = [
         meta: {
           title: '用户管理',
           permisson: ['user'],
-          requireAuth: true
+          requireAuth: true,
+          iframe:true
         },
-        component: () =>
-          import( /* webpackChunkName: "project/portal/page/iframe" */ '@appPortal/page/iframe/index.vue')
+        component: iframe
       },
 
       {
@@ -134,10 +139,10 @@ const routes = [
         meta: {
           title: '角色管理',
           permisson: ['user'],
-          requireAuth: true
+          requireAuth: true,
+          iframe:true
         },
-        component: () =>
-          import( /* webpackChunkName: "project/portal/page/iframe" */ '@appPortal/page/iframe/index.vue')
+        component: iframe
       },
 
       {
@@ -149,10 +154,10 @@ const routes = [
         meta: {
           title: '功能维护',
           permisson: ['user'],
-          requireAuth: true
+          requireAuth: true,
+          iframe:true
         },
-        component: () =>
-          import( /* webpackChunkName: "project/portal/page/iframe" */ '@appPortal/page/iframe/index.vue')
+        component: iframe
       },
 
 
@@ -166,10 +171,10 @@ const routes = [
         meta: {
           title: '菜单管理',
           permisson: ['user'],
-          requireAuth: true
+          requireAuth: true,
+          iframe:true
         },
-        component: () =>
-          import( /* webpackChunkName: "project/portal/page/iframe" */ '@appPortal/page/iframe/index.vue')
+        component: iframe
       },
 
       {
@@ -181,10 +186,10 @@ const routes = [
         meta: {
           title: '数据源管理',
           permisson: ['user'],
-          requireAuth: true
+          requireAuth: true,
+          iframe:true
         },
-        component: () =>
-          import( /* webpackChunkName: "project/portal/page/iframe" */ '@appPortal/page/iframe/index.vue')
+        component: iframe
       },
 
 
@@ -199,8 +204,7 @@ const routes = [
           permisson: ['user'],
           requireAuth: true
         },
-        component: () =>
-          import( /* webpackChunkName: "project/portal/page/iframe" */ '@appPortal/page/iframe/index.vue')
+        component: iframe
       },
 
 
@@ -212,10 +216,10 @@ const routes = [
           //使用beforeEach事件来更改title的值
           title: ':menuTitle',
           permisson: ['user'],
-          requireAuth: true
+          requireAuth: true,
+          iframe:true
         },
-        component: () =>
-          import( /* webpackChunkName: "project/portal/page/iframe2" */ '@appPortal/page/iframe/index2.vue')
+        component: iframe2
       },
 
 

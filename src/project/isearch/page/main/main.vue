@@ -131,13 +131,15 @@
         </div>
       </div>
       <div class="app-body">
-        <NavBar id="nav-bar" :sideColor="sideColor" v-if="switchTabBar" :style="fixedTabBar && switchTabBar?'position: fixed;top: 0;':''"></NavBar>
+        <NavBar @closeSelectedTag="closeSelectedTag" id="nav-bar" :sideColor="sideColor" v-if="switchTabBar" :style="fixedTabBar && switchTabBar?'position: fixed;top: 0;':''"></NavBar>
         <div v-else style="margin-top: 50px;"></div>
         <div id="mainContainer" :style="fixedTabBar && switchTabBar?'margin-top: 88px;':''" class="main-container">
           <!--<transition name="fade">-->
           <keep-alive>
-            <router-view offSetHeight='calc(100vh - 125px)' uiDomain="https://isearch.link"></router-view>
+            <router-view @iframeChange="iframeChange" offSetHeight='calc(100vh - 125px)' uiDomain="https://isearch.link"></router-view>
           </keep-alive>
+          <!--兼容系统外部页面 用于解决切换会刷新问题 通过element的TAB标签来实现切换功能-->
+          <iframe-tabs ref="iframeTabs" offSetHeight='calc(100vh - 125px)' v-show="$route.meta.iframe"></iframe-tabs>
           <!--</transition>-->
           <!-- 可以设置参数来判断哪些需要重新装载 哪些不需要
           <keep-alive>
@@ -159,6 +161,7 @@ import NavBar from "../layout/NavBar.vue";
 import Menu from "../../components/Menu/menu";
 import { sidebarMenu } from "../../components/Menu/menu";
 import { TokenKey } from "@store/user";
+import IframeTabs from "@appPortal/page/iframe/iframeTabs.vue";
 
 export default {
   data() {
@@ -243,6 +246,17 @@ export default {
   created() {},
 
   methods: {
+    closeSelectedTag(path) {
+      if (path != null && path != "") {
+        console.log("closeSelectedTag" + path);
+      }
+    },
+    iframeChange(url) {
+      if (url != null && url != "") {
+        console.log("iframeChange" + url);
+        this.$refs.iframeTabs.addTab(url);
+      }
+    },
     colorChange(color) {},
     activeChange(color) {},
     //更改语言
@@ -386,6 +400,7 @@ export default {
   },
   components: {
     EuiFooter,
+    IframeTabs,
     NavBar
   }
 };

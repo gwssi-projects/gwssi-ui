@@ -62,6 +62,7 @@ export default {
       let nav = this.nav;
       let thisPath = nav[i].path;
       nav.splice(i, 1);
+      this.$emit("closeSelectedTag", thisPath);
       if (thisPath == this.$route.path) {
         this.$router.push(nav[nav.length - 1].path);
       }
