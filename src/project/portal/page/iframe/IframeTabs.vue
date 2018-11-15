@@ -31,6 +31,16 @@ export default {
     };
   },
   methods: {
+    removeTab(_url) {
+      var name = md5(_url);
+
+      for (var i = 0; i < this.iframeSelectTab.length; i++) {
+        if (this.iframeSelectTab[i].path == name) {
+          this.iframeSelectTab.splice(i, 1);
+          return;
+        }
+      }
+    },
     addTab(_url) {
       var name = md5(_url);
 
@@ -39,6 +49,7 @@ export default {
       for (var i = 0; i < this.iframeSelectTab.length; i++) {
         if (this.iframeSelectTab[i].path == name) {
           add = true;
+          break;
         }
       }
 
