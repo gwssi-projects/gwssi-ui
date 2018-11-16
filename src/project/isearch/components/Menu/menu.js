@@ -1,5 +1,5 @@
 import request from '@components/request'
-import store from "@store/index";
+import store from "../../store";
 
 let menu = {};
 

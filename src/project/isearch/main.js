@@ -12,7 +12,7 @@ import ElementUI from 'element-ui'
 
 import Lang from '@components/select-lang'
 import GwTheme from "@components/theme/";
-import store from "@store"
+import store from './store';
 import router from './router'
 import tools from "@components/tools";
 

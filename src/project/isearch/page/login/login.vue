@@ -88,6 +88,7 @@ export default {
   computed: {
     storeColor() {
       var color = this.$store.getters.themeColor;
+      console.log(color);
       return "#145A6F";
     },
     uName() {

@@ -357,7 +357,7 @@ function biToString(
     var result = hexatrigesimalToChar[qr[1].digits[0]];
     while (biCompare(qr[0], bigZero) == 1) {
         qr = biDivideModulo(qr[0], b);
-        digit = qr[1].digits[0];
+        // var digit = qr[1].digits[0];
         result += hexatrigesimalToChar[qr[1].digits[0]];
     }
     return (x.isNeg ? "-" : "") + reverseStr(result);
@@ -397,7 +397,7 @@ var hexToChar = new Array(
 function digitToHex(n) {
     var mask = 0xf;
     var result = "";
-    for (i = 0; i < 4; ++i) {
+    for (var i = 0; i < 4; ++i) {
         result += hexToChar[n & mask];
         n >>>= 4;
     }
@@ -406,7 +406,7 @@ function digitToHex(n) {
 
 function biToHex(x) {
     var result = "";
-    var n = biHighIndex(x);
+    // var n = biHighIndex(x);
     for (var i = biHighIndex(x); i > -1; --i) {
         result += digitToHex(x.digits[i]);
     }
@@ -534,11 +534,11 @@ function biSubtract(x, y) {
         // Fix up the negative sign, if any.
         if (c == -1) {
             c = 0;
-            for (var i = 0; i < x.digits.length; ++i) {
-                n = 0 - result.digits[i] + c;
-                result.digits[i] = n & 0xffff;
+            for (var ii = 0; ii < x.digits.length; ++ii) {
+                n = 0 - result.digits[ii] + c;
+                result.digits[ii] = n & 0xffff;
                 // Stupid non-conforming modulus operation.
-                if (result.digits[i] < 0) result.digits[i] += biRadix;
+                if (result.digits[ii] < 0) result.digits[ii] += biRadix;
                 c = 0 - Number(n < 0);
             }
             // Result is opposite sign of arguments.
@@ -574,7 +574,7 @@ function biMultiply(x, y) {
     var c;
     var n = biHighIndex(x);
     var t = biHighIndex(y);
-    var u, uv, k;
+    var uv, k;
 
     for (var i = 0; i <= t; ++i) {
         c = 0;

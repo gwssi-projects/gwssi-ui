@@ -162,6 +162,7 @@ import Menu from "../../components/Menu/menu";
 import { sidebarMenu } from "../../components/Menu/menu";
 import { TokenKey } from "@store/user";
 import IframeTabs from "@appPortal/page/iframe/IframeTabs.vue";
+import md5 from "js-md5";
 
 export default {
   data() {
@@ -205,6 +206,7 @@ export default {
     },
     themeColor() {
       var color = this.$store.getters.themeColor;
+      console.log(color);
       return "#373F42";
     },
     sideColor() {
@@ -248,14 +250,20 @@ export default {
   methods: {
     closeSelectedTag(path) {
       if (path != null && path != "") {
-        console.log("closeSelectedTag" + path);
-        //获取路由对应url
-       this.$refs.iframeTabs.removeTab(url);
+        var map = this.$store.state.isearch.routerToUrl;
+        var url = map.get(md5(path));
+        if (url != null && url != "") {
+          console.log("删除地址" + url);
+          //获取路由对应url
+          this.$refs.iframeTabs.removeTab(url);
+        }
       }
     },
     iframeChange(url) {
       if (url != null && url != "") {
-        console.log("iframeChange" + url);
+        //增加path 和 url 的对应关系
+        var map = this.$store.state.isearch.routerToUrl;
+        map.put(md5(this.$route.path), url);
         this.$refs.iframeTabs.addTab(url);
       }
     },

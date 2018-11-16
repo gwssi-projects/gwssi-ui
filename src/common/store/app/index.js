@@ -20,9 +20,7 @@ const app = {
     //自定义主题颜色
     customColor: defaultColor,
     //语言
-    language: defaultLanguage,
-    //状态对象
-    menuState: 1
+    language: defaultLanguage
   },
 
   getters: {
@@ -58,10 +56,7 @@ const app = {
 
       return lang;
 
-    },
-
-    //menuState
-    menuState: state => state.menuState,
+    }
 
   },
 
@@ -81,10 +76,6 @@ const app = {
       state.language = val;
       tools.setCookie(contentLanguageKey, val, day, "/");
       console.log("设置" + contentLanguageKey + " = " + val);
-    },
-
-    SET_MENU_STATE: (state, val) => {
-      state.menuState = val;
     }
 
   },
@@ -98,11 +89,6 @@ const app = {
       commit
     }, language) {
       commit('SET_LANGUAGE', language)
-    },
-    setMenuState({
-      commit
-    }, state) {
-      commit('SET_MENU_STATE', state)
     }
   }
 }

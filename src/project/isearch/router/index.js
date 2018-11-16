@@ -202,7 +202,8 @@ const routes = [
         meta: {
           title: '通用查询管理',
           permisson: ['user'],
-          requireAuth: true
+          requireAuth: true,
+          iframe:true
         },
         component: iframe
       },
@@ -379,7 +380,7 @@ router.beforeEach((to, from, next) => {
       });
 
       var errNO = json.context["error-code"];
-      var errDesc = json.context["error-desc"];
+      // var errDesc = json.context["error-desc"];
       var user = json.context.user;
 
       //错误

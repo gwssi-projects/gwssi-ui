@@ -279,7 +279,7 @@ const routes = [
           url: "https://www.baidu.com"
         },
         meta: {
-          title: '直接嵌入',
+          title: '直接嵌入（切换iframe不刷新需要配合el-tabs请参考isearch的例子）',
           permisson: ['user'],
           requireAuth: true
         },
