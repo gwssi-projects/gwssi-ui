@@ -48,6 +48,12 @@ Vue.prototype.$Func = Fun
 // 注册全局对象
 window.isearchRouter = router;
 
+if (process.env.GW_INDEX == "isearch" && document.domain == "isearch.link") {
+  //window.location.href = "./project/isearch/";
+  window.location.href = "https://isearch.link/ui/isearch.html";
+}
+
+
 new Vue({
   i18n,
   store,
