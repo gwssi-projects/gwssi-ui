@@ -36,5 +36,6 @@ if (process.env.GW_INDEX == "base") {
 } else if (process.env.GW_INDEX == "portal") {
   window.location.href = "./project/portal/";
 } else if (process.env.GW_INDEX == "isearch" && document.domain == "isearch.link") {
-  window.location.href = "./project/isearch/";
+  //window.location.href = "./project/isearch/";
+  window.location.href = "https://isearch.link/ui/isearch.html";
 }
