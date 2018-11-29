@@ -7,10 +7,11 @@
 //此控件只修改elementui相关主题颜色，整体应用主题颜色通过调用父组件colorChange自行处理。
 import objectAssign from "object-assign";
 import generateColors from "./color";
-import store from "@store";
+import store from "@/portal/store";
 
 //部署的二级路径，用于正确加载CSS中的woff和ttf文件
-let appContextPath = process.env.REQUEST_PATH;
+// let appContextPath = process.env.REQUEST_PATH;
+let appContextPath = ".";
 
 export default {
   store,
@@ -57,7 +58,12 @@ export default {
       //触发颜色更新事件 返回给父页面 更改从storeColor调用
       //this.$emit("colorChange", this.colors.primary);
       //更新store
-      this.$store.dispatch("setThemeColor", this.colors.primary);
+      if (this.colors.primary == null) {
+        var defaultColor = this.$store.getters.defaultColor;
+        this.$store.dispatch("setThemeColor", defaultColor);
+      } else {
+        this.$store.dispatch("setThemeColor", this.colors.primary);
+      }
     },
     activeChange: function() {
       //触发颜色更新事件 返回给父页面
@@ -205,7 +211,7 @@ export default {
 
   beforeCreate: function() {},
 
-  props: ["obj","size"],
+  props: ["obj", "size"],
 
   //computed的内容必须放到页面上才能生效？
   //computed里面的内容，貌似只有在html里面调用到，才会实时更新,props中使用也不行？
@@ -591,7 +597,7 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="scss" scoped>
 /**
-@import './lang.less'; **/
+@import './lang.scss'; **/
 </style>
