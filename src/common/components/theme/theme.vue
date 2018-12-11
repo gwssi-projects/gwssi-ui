@@ -7,7 +7,7 @@
 //此控件只修改elementui相关主题颜色，整体应用主题颜色通过调用父组件colorChange自行处理。
 import objectAssign from "object-assign";
 import generateColors from "./color";
-import store from "@/portal/store";
+import store from "@/common/store";
 
 //部署的二级路径，用于正确加载CSS中的woff和ttf文件
 // let appContextPath = process.env.REQUEST_PATH;
@@ -597,7 +597,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="less">
 /**
 @import './lang.scss'; **/
 </style>
